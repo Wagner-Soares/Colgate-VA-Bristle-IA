@@ -1,0 +1,513 @@
+﻿<Window x:Class="Bristle.Views.AutomaticBristleClassificationPredictionLayer"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bristle.Views" xmlns:local1="clr-namespace:LoadingSpinner" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="486" Width="648"
+        AllowsTransparency="True" WindowStyle="None">
+    <Window.Background>
+        <SolidColorBrush Opacity="0" Color="White"/>
+    </Window.Background>
+    <Grid x:Name="viewSDKImage" Visibility="Visible" Background="Transparent" Width="auto" MouseMove="FrameHolder_MouseMove"  MouseLeftButtonUp="PerformBristleOperationAccordingToolbox_MouseLeftButtonUp" MouseRightButtonUp="ViewSDKImage_MouseRightButtonUp">
+        <Image Name="photo" Visibility="Collapsed"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0,0,0,0" Canvas.Left="0" Canvas.Top="0" Stretch="Fill" StretchDirection="Both" Height="auto" Width="auto"/>
+        <Canvas Name="canvas" Visibility="Visible" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="auto"/>
+        <Canvas Name="canvasMask" Visibility="Visible" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  Background="Transparent" MouseDown="CanvasMask_MouseDown" MouseMove="CanvasMask_MouseMove" MouseUp="CanvasMask_MouseUp" />
+        <!--
+                Para teste Width="0"
+                Original deve ser Width="0"
+                -->
+        <Grid x:Name="LoadingWait" Visibility="Collapsed">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                <local1:LoadingControl Diameter="60" Color1="#FF00838A" Color2="Transparent"/>
+                <Label Content="Analyzing Image ..." VerticalAlignment="Center" Foreground="White" FontSize="25" Margin="10,0,0,0"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- Alert-->
+        <Grid x:Name="warning" Visibility="Collapsed" Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40*"/>
+                <RowDefinition Height="8*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="40*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.Background>
+                    <SolidColorBrush Color="#FF1A1A1A" Opacity="0.3"/>
+                </Grid.Background>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.Background>
+                        <SolidColorBrush Color="#FF1A1A1A" Opacity="0.3"/>
+                    </Grid.Background>
+                </Grid>
+                <Grid x:Name="warningText1" Grid.Column="1" Visibility="Visible" Background="#FFDD4B39" >
+                    <Viewbox>
+                        <TextBox Text="There are settings without selection!" FontSize="8" IsReadOnly="True" BorderBrush="{x:Null}" CaretBrush="{x:Null}" Width="178" SelectionBrush="{x:Null}" Background="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
+                    </Viewbox>
+                    <materialDesign:PackIcon Foreground="#FFBC4031" Kind="Information"  Width="61" Height="Auto" Margin="0,0,10,0" RenderTransformOrigin="0.853,4.714" VerticalAlignment="Stretch" HorizontalAlignment="Right" />
+                </Grid>
+                <Grid x:Name="warningText2" Grid.Column="1" Visibility="Visible" Background="#FFDD4B39" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Viewbox>
+                            <TextBox Text="Do you want to send this image to curatorship?" FontSize="8"  IsReadOnly="True" BorderBrush="{x:Null}" CaretBrush="{x:Null}" Width="178" SelectionBrush="{x:Null}" Background="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
+                        </Viewbox>
+                        <materialDesign:PackIcon Foreground="#FFBC4031" Kind="QuestionMarkCircle"  Width="61" Height="Auto" Margin="0,0,10,0" RenderTransformOrigin="0.853,4.714" VerticalAlignment="Stretch" HorizontalAlignment="Right" />
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="8*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <Viewbox>
+                                <TextBox Text="Reason:"/>
+                            </Viewbox>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Viewbox Margin="-70,0,0,0">
+                                <TextBox x:Name="reason" Text="" FontSize="8"  BorderBrush="#FFFAF0EE" CaretBrush="#FFFAF0EE" Width="287" SelectionBrush="{x:Null}" Background="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
+                            </Viewbox>
+                            <materialDesign:PackIcon Foreground="#FFBC4031" Kind="Pencil"  Width="61" Height="Auto" Margin="0,0,10,0" RenderTransformOrigin="0.853,4.714" VerticalAlignment="Stretch" HorizontalAlignment="Right" />
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <Grid x:Name="warningText3" Grid.Column="1" Visibility="Collapsed" Background="#FFF39C12" >
+                    <Viewbox>
+                        <TextBox Text="There Are Undefined Bristles" FontSize="8"  IsReadOnly="True" BorderBrush="{x:Null}" CaretBrush="{x:Null}" Width="178" SelectionBrush="{x:Null}" Background="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
+                    </Viewbox>
+                    <materialDesign:PackIcon Foreground="#FFCF850F" Kind="Information"  Width="61" Height="Auto" Margin="0,0,10,0" RenderTransformOrigin="0.853,4.714" VerticalAlignment="Stretch" HorizontalAlignment="Right" />
+                </Grid>
+                <Grid Grid.Column="2">
+                    <Grid.Background>
+                        <SolidColorBrush Color="#FF1A1A1A" Opacity="0.3"/>
+                    </Grid.Background>
+                </Grid>
+
+            </Grid>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.8*"/>
+                    <ColumnDefinition Width="1.5*"/>
+                    <ColumnDefinition Width="1.5*"/>
+                    <ColumnDefinition Width="1.5*"/>
+                    <ColumnDefinition Width="1.8*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.Background>
+                        <SolidColorBrush Color="#FF1A1A1A" Opacity="0.3"/>
+                    </Grid.Background>
+                </Grid>
+                <Grid x:Name="modalL" Grid.Column="1" Background="#FFBC4031">
+                </Grid>
+                <Grid x:Name="warningButton1" Visibility="Collapsed" Grid.Column="2"  Background="#FFBC4031">
+                    <Button x:Name="buttonWarning1"  Content="Ok" Background="#FFC64333" BorderBrush="#FFD9534F" OpacityMask="Black" Margin="0,4,0,5" Height="Auto" Click="ButtonWarningNOK_Click" Padding="0"/>
+                </Grid>
+                <Grid x:Name="warningButton2" Visibility="Collapsed" Grid.Column="2"  Background="#FFBC4031">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="0.1*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Button x:Name="buttonWarningOK"  Content="Yes" Background="#FFC64333" BorderBrush="#FFD9534F" OpacityMask="Black" Margin="0,4,4,5" Height="Auto" Padding="0" HorizontalAlignment="Right" Width="80" Click="ButtonWarningOK_Click"/>
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <Button x:Name="buttonWarningNOK"  Content="No" Background="#FFC64333" BorderBrush="#FFD9534F" OpacityMask="Black" Margin="4,4,0,5" Height="Auto" Padding="0" HorizontalAlignment="Left" Width="80" Click="ButtonWarningNOK_Click"/>
+                    </Grid>
+                </Grid>
+                <Grid x:Name="warningButton3" Visibility="Collapsed" Grid.Column="2"  Background="#FFCF850F">
+                    <Button x:Name="buttonWarning3"  Content="Ok" Background="#FFCF850F" BorderBrush="#FFCF850F" OpacityMask="Black" Margin="0,4,0,5" Height="Auto" Click="ButtonWarningNOK_Click" Padding="0"/>
+                </Grid>
+                <Grid x:Name="modalR" Grid.Column="3" Background="#FFBC4031">
+                </Grid>
+                <Grid Grid.Column="4">
+                    <Grid.Background>
+                        <SolidColorBrush Color="#FF1A1A1A" Opacity="0.3"/>
+                    </Grid.Background>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="317*"/>
+                    <ColumnDefinition Width="147*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.Background>
+                    <SolidColorBrush Color="#FF1A1A1A" Opacity="0.3"/>
+                </Grid.Background>
+            </Grid>
+        </Grid>
+
+        <!-- Camera Configure-->
+        <Grid x:Name="cameraConfigure_" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="40*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.Background>
+                    <SolidColorBrush Color="#FF1A1A1A" Opacity="0.3"/>
+                </Grid.Background>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.Background>
+                        <SolidColorBrush Color="#FF1A1A1A" Opacity="0.3"/>
+                    </Grid.Background>
+                </Grid>
+                <Grid x:Name="modalL1" Grid.Column="1" Background="#FFBC4031">
+                </Grid>
+                <Grid x:Name="cameraConfigureButton" Visibility="Visible" Grid.Column="2"  Background="#FFBC4031">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Button x:Name="buttonNew"  Content="New" Background="#FFC64333" BorderBrush="#FFD9534F" OpacityMask="Black" Margin="24,5,25,4" Height="Auto" Padding="0" Click="ButtonNew_Click"/>
+                    </Grid>
+                    <Grid Grid.Column="2"/>
+                </Grid>
+                <Grid x:Name="modalR1" Grid.Column="3" Background="#FFBC4031">
+                </Grid>
+                <Grid Grid.Column="4">
+                    <Grid.Background>
+                        <SolidColorBrush Color="#FF1A1A1A" Opacity="0.3"/>
+                    </Grid.Background>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.Background>
+                        <SolidColorBrush Color="#FF1A1A1A" Opacity="0.3"/>
+                    </Grid.Background>
+                </Grid>
+                <Grid x:Name="modalL_" Grid.Column="1" Background="#FFBC4031">
+                </Grid>
+                <Grid x:Name="cameraConfigureButton1" Visibility="Visible" Grid.Column="2"  Background="#FFBC4031">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Button x:Name="buttonOverride"  Content="Override" Background="#FFC64333" BorderBrush="#FFD9534F" OpacityMask="Black" Margin="25,5,24,4" Height="Auto" Padding="0" Click="ButtonOverride_Click"/>
+                    </Grid>
+                    <Grid Grid.Column="2"/>
+                </Grid>
+                <Grid x:Name="modalR_" Grid.Column="3" Background="#FFBC4031">
+                </Grid>
+                <Grid Grid.Column="4">
+                    <Grid.Background>
+                        <SolidColorBrush Color="#FF1A1A1A" Opacity="0.3"/>
+                    </Grid.Background>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.Background>
+                        <SolidColorBrush Color="#FF1A1A1A" Opacity="0.3"/>
+                    </Grid.Background>
+                </Grid>
+                <Grid x:Name="modalL__" Grid.Column="1" Background="#FFBC4031">
+                </Grid>
+                <Grid x:Name="cameraConfigureButton_" Visibility="Visible" Grid.Column="2"  Background="#FFBC4031">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0"/>
+                    <Grid Grid.Column="1">
+                        <Button x:Name="buttonRemove"  Content="Remove" Background="#FFC64333" BorderBrush="#FFD9534F" OpacityMask="Black" Margin="25,5,24,4" Height="Auto" Padding="0" Click="ButtonRemove_Click"/>
+                    </Grid>
+                </Grid>
+                <Grid x:Name="modalR_d" Grid.Column="3" Background="#FFBC4031" HorizontalAlignment="Left" Width="13">
+                </Grid>
+                <Grid Grid.Column="4">
+                    <Grid.Background>
+                        <SolidColorBrush Color="#FF1A1A1A" Opacity="0.3"/>
+                    </Grid.Background>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.Background>
+                        <SolidColorBrush Color="#FF1A1A1A" Opacity="0.3"/>
+                    </Grid.Background>
+                </Grid>
+                <Grid x:Name="modalL___" Grid.Column="1" Background="#FFBC4031">
+                </Grid>
+                <Grid x:Name="cameraConfigureButton_d" Visibility="Visible" Grid.Column="2"  Background="#FFBC4031">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0"/>
+                    <Grid Grid.Column="1">
+                        <Button x:Name="buttonCancel"  Content="Cancel" Background="#FFC64333" BorderBrush="#FFD9534F" OpacityMask="Black" Margin="26,4,24,6" Height="Auto" Padding="0" Click="ButtonCancel_Click" RenderTransformOrigin="0.212,0.286"/>
+                    </Grid>
+                </Grid>
+                <Grid x:Name="modalR_dd" Grid.Column="3" Background="#FFBC4031">
+                </Grid>
+                <Grid Grid.Column="4">
+                    <Grid.Background>
+                        <SolidColorBrush Color="#FF1A1A1A" Opacity="0.3"/>
+                    </Grid.Background>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="5">
+                <Grid.Background>
+                    <SolidColorBrush Color="#FF1A1A1A" Opacity="0.3"/>
+                </Grid.Background>
+            </Grid>
+        </Grid>
+
+        <!-- Camera Configure (new)-->
+        <Grid x:Name="newCameraConfigure" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="40*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.Background>
+                    <SolidColorBrush Color="#FF1A1A1A" Opacity="0.3"/>
+                </Grid.Background>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.Background>
+                        <SolidColorBrush Color="#FF1A1A1A" Opacity="0.3"/>
+                    </Grid.Background>
+                </Grid>
+                <Grid x:Name="modalL1_" Grid.Column="1" Background="#FFBC4031">
+                </Grid>
+                <Grid x:Name="cameraConfigureButton_2_" Visibility="Visible" Grid.Column="2"  Background="#FFBC4031">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Button Content="Enter new configuration name:" FontSize="9" Background="#FFC64333" BorderBrush="{x:Null}" OpacityMask="Black" Margin="0,5,0,4" Height="Auto" Padding="0" />
+                    </Grid>
+                    <Grid Margin="0,0,-4,0"/>
+                </Grid>
+                <Grid x:Name="modalR1_" Grid.Column="3" Background="#FFBC4031">
+                </Grid>
+                <Grid Grid.Column="4">
+                    <Grid.Background>
+                        <SolidColorBrush Color="#FF1A1A1A" Opacity="0.3"/>
+                    </Grid.Background>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.Background>
+                        <SolidColorBrush Color="#FF1A1A1A" Opacity="0.3"/>
+                    </Grid.Background>
+                </Grid>
+                <Grid x:Name="modalL_2" Grid.Column="1" Background="#FFBC4031">
+                </Grid>
+                <Grid x:Name="cameraConfigureButton12" Visibility="Visible" Grid.Column="2"  Background="#FFBC4031">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Viewbox Margin="0,0,0,0">
+                            <TextBox x:Name="cameraConfigureName" Text="" FontSize="8"  BorderBrush="#FFFAF0EE" CaretBrush="#FFFAF0EE" Width="81" SelectionBrush="{x:Null}" Background="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
+                        </Viewbox>
+                    </Grid>
+                </Grid>
+                <Grid x:Name="modalR_2" Grid.Column="3" Background="#FFBC4031">
+                </Grid>
+                <Grid Grid.Column="4">
+                    <Grid.Background>
+                        <SolidColorBrush Color="#FF1A1A1A" Opacity="0.3"/>
+                    </Grid.Background>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.Background>
+                        <SolidColorBrush Color="#FF1A1A1A" Opacity="0.3"/>
+                    </Grid.Background>
+                </Grid>
+                <Grid x:Name="modalL__2" Grid.Column="1" Background="#FFBC4031">
+                </Grid>
+                <Grid x:Name="cameraConfigureButton_2" Visibility="Visible" Grid.Column="2"  Background="#FFBC4031">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0"/>
+                    <Grid Grid.Column="1">
+                        <Button x:Name="save"  Content="Save" Background="#FFC64333" BorderBrush="#FFD9534F" OpacityMask="Black" Margin="25,5,24,4" Height="Auto" Padding="0" Click="Save_Click"/>
+                    </Grid>
+                </Grid>
+                <Grid x:Name="modalR_d2" Grid.Column="3" Background="#FFBC4031">
+                </Grid>
+                <Grid Grid.Column="4">
+                    <Grid.Background>
+                        <SolidColorBrush Color="#FF1A1A1A" Opacity="0.3"/>
+                    </Grid.Background>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.Background>
+                        <SolidColorBrush Color="#FF1A1A1A" Opacity="0.3"/>
+                    </Grid.Background>
+                </Grid>
+                <Grid x:Name="modalL2" Grid.Column="1" Background="#FFBC4031">
+                </Grid>
+                <Grid x:Name="cameraConfigureButton2" Visibility="Visible" Grid.Column="2"  Background="#FFBC4031">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Button x:Name="cancel"  Content="Cancel" Background="#FFC64333" BorderBrush="#FFD9534F" OpacityMask="Black" Margin="26,4,24,5" Height="Auto" Padding="0" Click="Cancel_Click"/>
+                    </Grid>
+                </Grid>
+                <Grid x:Name="modalR2" Grid.Column="3" Background="#FFBC4031">
+                </Grid>
+                <Grid Grid.Column="4">
+                    <Grid.Background>
+                        <SolidColorBrush Color="#FF1A1A1A" Opacity="0.3"/>
+                    </Grid.Background>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="5">
+                <Grid.Background>
+                    <SolidColorBrush Color="#FF1A1A1A" Opacity="0.3"/>
+                </Grid.Background>
+            </Grid>
+        </Grid>
+
+        <!-- Multiple Selection Decision-->
+        <Grid x:Name="MultipleSelectionDecision" Visibility="Collapsed" Height="150" Width="100" HorizontalAlignment="Right" Margin="0,0,10,10" Background="Black" VerticalAlignment="Bottom">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.Background>
+                    <SolidColorBrush Color="Green" Opacity="0.5"/>
+                </Grid.Background>
+                <Button x:Name ="btnOkMultiple" Content="Classify as Ok" Background="Transparent" BorderBrush="{x:Null}" Height="Auto" Padding="0" Click="BtnOkMultiple_Click" />
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <Grid.Background>
+                    <SolidColorBrush Color="Red" Opacity="0.5"/>
+                </Grid.Background>
+                <Button x:Name ="btnError1Multiple" Content="Classify as Error1" FontSize="12" Background="Transparent" BorderBrush="{x:Null}" Height="Auto" Padding="0" Click="BtnError1Multiple_Click"/>
+            </Grid>
+
+            <Grid Grid.Row="4">
+                <Grid.Background>
+                    <SolidColorBrush Color="Red" Opacity="0.5"/>
+                </Grid.Background>
+                <Button x:Name ="btnError2Multiple" Content="Classify as Error2" FontSize="12" Background="Transparent" BorderBrush="{x:Null}" Height="Auto" Padding="0" Click="BtnError2Multiple_Click"/>
+            </Grid>
+
+            <Grid Grid.Row="6">
+                <Grid.Background>
+                    <SolidColorBrush Color="Red" Opacity="0.5"/>
+                </Grid.Background>
+                <Button x:Name ="btnError3Multiple" Content="Classify as Error3" FontSize="12" Background="Transparent" BorderBrush="{x:Null}" Height="Auto" Padding="0" Click="BtnError3Multiple_Click"/>
+            </Grid>
+
+            <Grid Grid.Row="8">
+                <Grid.Background>
+                    <SolidColorBrush Color="DarkRed" Opacity="0.5"/>
+                </Grid.Background>
+                <Button x:Name ="btnDeleteAllMultiple" Content="Delete All" FontSize="12" Background="Transparent" BorderBrush="{x:Null}" Height="Auto" Padding="0" Click="BtnDeleteAllMultiple_Click"/>
+            </Grid>
+
+            <Grid Grid.Row="10">
+                <Grid.Background>
+                    <SolidColorBrush Color="DarkRed" Opacity="0.5"/>
+                </Grid.Background>
+                <Button x:Name ="btnCancelMultiple" Content="Cancel" Background="Transparent" BorderBrush="{x:Null}" Height="Auto" Padding="0" Click="BtnCancelMultiple_Click"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

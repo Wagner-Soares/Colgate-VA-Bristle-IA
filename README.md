@@ -1,1 +1,0 @@
-# Colgate-VA-Bristle-IA
