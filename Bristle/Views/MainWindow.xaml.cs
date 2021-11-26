@@ -83,7 +83,7 @@ namespace Bristle.Views
             }
             catch (Exception ex)
             {
-                Log.Log.LogMessage(ex.Message);
+                Log.CustomLog.LogMessage(ex.Message);
             }
             
             StartLoadingWait(true);
@@ -228,25 +228,25 @@ namespace Bristle.Views
             {
                 _generalSettings = ScreenNavigationUseCases.GetGeneralLocalSettings();
 
-                Log.Log.LogMessage("Initializating camera");
+                Log.CustomLog.LogMessage("Initializating camera");
 
                 string pathAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
                 businessSystem.LocalRepository = pathAppData + @"\Colgate Vision\Interface";
                 if (!Directory.Exists(businessSystem.LocalRepository))
                 {
-                    Log.Log.LogMessage("Trying to create Interface dir");
+                    Log.CustomLog.LogMessage("Trying to create Interface dir");
                     Directory.CreateDirectory(businessSystem.LocalRepository);
                 }
 
                 if (!DataHandlerUseCases.SettingExists(ConfigurationConstants.GeneralConfigurationName))
                 {
-                    Log.Log.LogMessage("Creating generalSettings json");
+                    Log.CustomLog.LogMessage("Creating generalSettings json");
                     _generalSettings = FirstTimeConfigurationUseCases.GetGeneralConfigurationDefaults();
                     DataHandlerUseCases.SaveJsonIntoSettings(_generalSettings, ConfigurationConstants.GeneralConfigurationName);
                 }
                 else
                 {
-                    Log.Log.LogMessage("Reading generalSettings json");
+                    Log.CustomLog.LogMessage("Reading generalSettings json");
                     _generalSettings = ScreenNavigationUseCases.GetGeneralLocalSettings();
                 }            
 
@@ -266,12 +266,12 @@ namespace Bristle.Views
                 }
                 catch (Exception ex)
                 {
-                    Log.Log.LogMessage("Error during initialization: " + ex.Message);
+                    Log.CustomLog.LogMessage("Error during initialization: " + ex.Message);
                 }
 
                 if (!DataHandlerUseCases.SettingExists(@"commandS300"))
                 {
-                    Log.Log.LogMessage("Creating command300 json");
+                    Log.CustomLog.LogMessage("Creating command300 json");
                     businessSystem.CommandS300Model.NewModelId = 1;
                     businessSystem.CommandS300Model.OldModelId = 0;
                     DataHandlerUseCases.SaveJsonIntoSettings(businessSystem.CommandS300Model, @"commandS300");
@@ -329,18 +329,18 @@ namespace Bristle.Views
                 }
                 catch (Exception ex)
                 {
-                    Log.Log.LogMessage("Error during camera initialization: " + ex.Message);
+                    Log.CustomLog.LogMessage("Error during camera initialization: " + ex.Message);
                 }
             }
             catch (Exception ex)
             {
-                Log.Log.LogMessage("Error during camera initialization: " + ex.Message);
+                Log.CustomLog.LogMessage("Error during camera initialization: " + ex.Message);
             }
 
 
             if (!DataHandlerUseCases.SettingExists(ConfigurationConstants.CameraConfigurationName))
             {
-                Log.Log.LogMessage("Creating cameraSettings json");
+                Log.CustomLog.LogMessage("Creating cameraSettings json");
                 businessSystem.CameraSettingsModel = FirstTimeConfigurationUseCases.GetCameraConfigurationDefaults();
                 DataHandlerUseCases.SaveOrAppendToSettings(businessSystem.CameraSettingsModel, ConfigurationConstants.CameraConfigurationName);
             }
@@ -352,7 +352,7 @@ namespace Bristle.Views
             }
             catch(Exception ex)
             {
-                Log.Log.LogMessage("Error during Stop Socket AI Command: " + ex.Message);
+                Log.CustomLog.LogMessage("Error during Stop Socket AI Command: " + ex.Message);
             }
 
             try
@@ -361,7 +361,7 @@ namespace Bristle.Views
             }
             catch (Exception ex)
             {
-                Log.Log.LogMessage("Error during Del Socket AI Command: " + ex.Message);
+                Log.CustomLog.LogMessage("Error during Del Socket AI Command: " + ex.Message);
             }
 
             try
@@ -371,7 +371,7 @@ namespace Bristle.Views
             }
             catch(Exception ex)
             {
-                Log.Log.LogMessage("Error during Start Socket AI Command: " + ex.Message);
+                Log.CustomLog.LogMessage("Error during Start Socket AI Command: " + ex.Message);
             }
             
             StartLoadingWait(false);
@@ -387,7 +387,7 @@ namespace Bristle.Views
         /// </summary>
         private void StartServeTCP()
         {
-            Log.Log.LogMessage(businessSystem
+            Log.CustomLog.LogMessage(businessSystem
                 .StartComunication(_generalSettings.PortInterface));//("0.0.0.0", 5050) //"10.167.1.212"           
         }
 

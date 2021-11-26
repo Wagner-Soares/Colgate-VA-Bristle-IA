@@ -335,7 +335,7 @@ namespace Bristle.Views
             }
             catch(Exception e)
             {
-                Log.Log.LogMessage("An error occured while configuring camera: " + e.Message);
+                Log.CustomLog.LogMessage("An error occured while configuring camera: " + e.Message);
             }
 
             Thread updateMnualFocusValue_ = new Thread(() => UpdateMnualFocusValue())
@@ -354,7 +354,7 @@ namespace Bristle.Views
             }
             catch(Exception e)
             {
-                Log.Log.LogMessage("An error occured while sending S100 command: " + e.Message);
+                Log.CustomLog.LogMessage("An error occured while sending S100 command: " + e.Message);
             }
 
 
@@ -382,7 +382,7 @@ namespace Bristle.Views
                 }
                 catch(Exception e)
                 {
-                    Log.Log.LogMessage("An error occured while stopping autoFocus: " + e.Message);
+                    Log.CustomLog.LogMessage("An error occured while stopping autoFocus: " + e.Message);
                 }
             }
 
@@ -407,7 +407,7 @@ namespace Bristle.Views
             }
             catch(Exception e)
             {
-                Log.Log.LogMessage("An error occured while updating focus: " + e.Message);
+                Log.CustomLog.LogMessage("An error occured while updating focus: " + e.Message);
             }
         }
 
@@ -435,7 +435,7 @@ namespace Bristle.Views
             {
                 businessSystem.CameraSettingsModel.Focus = CameraObject.DinoLiteSDK.GetAMR(CameraObject.VideoDeviceIndex);
                 ManualFocusChanged = true;
-                Log.Log.LogMessage("An error occured while manually updating focus: " + e.Message);
+                Log.CustomLog.LogMessage("An error occured while manually updating focus: " + e.Message);
             }
         }
 
@@ -968,7 +968,7 @@ namespace Bristle.Views
             }
             catch(Exception e)
             {
-                Log.Log.LogMessage("An error occured while sending S100 command in AIPhoto method: " + e.Message);
+                Log.CustomLog.LogMessage("An error occured while sending S100 command in AIPhoto method: " + e.Message);
             }
 
 
@@ -1052,7 +1052,7 @@ namespace Bristle.Views
                     }
                     catch (Exception e)
                     {
-                        Log.Log.LogMessage("An error occured while sending S100 command: " + e.Message);
+                        Log.CustomLog.LogMessage("An error occured while sending S100 command: " + e.Message);
                     }
                 }
                 else
@@ -1795,7 +1795,7 @@ namespace Bristle.Views
                 }
                 catch(Exception e)
                 {
-                    Log.Log.LogMessage("An error occured while Writting Bouding Boxes: " + e.Message);
+                    Log.CustomLog.LogMessage("An error occured while Writting Bouding Boxes: " + e.Message);
                 }
             }
 
@@ -1880,7 +1880,7 @@ namespace Bristle.Views
             }
             catch(Exception e)
             {
-                Log.Log.LogMessage("An error occured in WithdrawalOfBoundingBoxMarking method: " + e.Message);
+                Log.CustomLog.LogMessage("An error occured in WithdrawalOfBoundingBoxMarking method: " + e.Message);
             }
         }
 
@@ -2306,7 +2306,7 @@ namespace Bristle.Views
                 }
                 catch(Exception e)
                 {
-                    Log.Log.LogMessage("An error occured in ChangeClassInPlace method: " + e.Message);
+                    Log.CustomLog.LogMessage("An error occured in ChangeClassInPlace method: " + e.Message);
                 }
             }
         }
@@ -2947,7 +2947,7 @@ namespace Bristle.Views
                     }
                     catch(Exception ex)
                     {
-                        Log.Log.LogMessage("An error occured in LedBrightness_SelectionChanged_1 method: " + ex.Message);
+                        Log.CustomLog.LogMessage("An error occured in LedBrightness_SelectionChanged_1 method: " + ex.Message);
                     }
                 }
             }
@@ -3396,7 +3396,7 @@ namespace Bristle.Views
                 }
                 catch(Exception ex)
                 {
-                    Log.Log.LogMessage("An error occured in ManualFocusS_Click method: " + ex.Message);
+                    Log.CustomLog.LogMessage("An error occured in ManualFocusS_Click method: " + ex.Message);
                 }
             }
         }
@@ -3421,7 +3421,7 @@ namespace Bristle.Views
                 }
                 catch(Exception ex)
                 {
-                    Log.Log.LogMessage("An error occured in ManualFocusA_Click method: " + ex.Message);
+                    Log.CustomLog.LogMessage("An error occured in ManualFocusA_Click method: " + ex.Message);
                 }
             }
         }
@@ -3751,7 +3751,7 @@ namespace Bristle.Views
                 }
                 catch(Exception ex)
                 {
-                    Log.Log.LogMessage("An error occured in SQLAndVisionConnectionStatus method while verifing conn status: " + ex.Message);
+                    Log.CustomLog.LogMessage("An error occured in SQLAndVisionConnectionStatus method while verifing conn status: " + ex.Message);
                 }
             }
         }

@@ -46,7 +46,7 @@ namespace Bristle.Views
             catch(Exception ex)
             {
                 //User does not have enough permission
-                Log.Log.LogMessage("Error while trying to get or kill Bristles processes: " + ex.Message);
+                Log.CustomLog.LogMessage("Error while trying to get or kill Bristles processes: " + ex.Message);
             }
 
             InitializeComponent();            
@@ -61,7 +61,7 @@ namespace Bristle.Views
             }
             catch
             {
-                Log.Log.LogMessage("Error while trying to connect with SQL Database, please verify your network connection");
+                Log.CustomLog.LogMessage("Error while trying to connect with SQL Database, please verify your network connection");
             }
 
             try
@@ -70,7 +70,7 @@ namespace Bristle.Views
             }
             catch
             {
-                Log.Log.LogMessage("Error while trying to get domain info, please verify your network connection");
+                Log.CustomLog.LogMessage("Error while trying to get domain info, please verify your network connection");
             }
 
             this.Closed += new EventHandler(UserControl_Closed);
@@ -124,7 +124,7 @@ namespace Bristle.Views
             }
             else
             {
-                Log.Log.LogMessage("Successfully logged using domain user: " + user.Text.Substring(user.Text.IndexOf(@"\")+1) + " Domain: " + (user.Text
+                Log.CustomLog.LogMessage("Successfully logged using domain user: " + user.Text.Substring(user.Text.IndexOf(@"\")+1) + " Domain: " + (user.Text
                                                                                                                                             .Contains(@"\") ? user.Text
                                                                                                                                                             .Substring(0,user.Text
                                                                                                                                                                          .IndexOf(@"\")) : "mf" ));
@@ -161,7 +161,7 @@ namespace Bristle.Views
                 }
                 catch(Exception ex)
                 {
-                    Log.Log.LogMessage("Error while trying to get user groups from domain " + domainName + ". The program got the error: " + ex.Message);
+                    Log.CustomLog.LogMessage("Error while trying to get user groups from domain " + domainName + ". The program got the error: " + ex.Message);
                     result.Add("DefaultGroup");
                 }
             }
@@ -218,7 +218,7 @@ namespace Bristle.Views
             }
             catch
             {
-                Log.Log.LogMessage("Error while validating user in domain:");
+                Log.CustomLog.LogMessage("Error while validating user in domain:");
                 return false;
             }
         }
@@ -292,7 +292,7 @@ namespace Bristle.Views
             }
             catch (Exception e)
             {
-                Log.Log.LogMessage("Error while deleting socket AI: " + e.Message);
+                Log.CustomLog.LogMessage("Error while deleting socket AI: " + e.Message);
             }
 
             warning.Visibility = Visibility.Visible;
@@ -305,7 +305,7 @@ namespace Bristle.Views
             }
             catch(Exception e)
             {
-                Log.Log.LogMessage("Error while stopping camera services: " + e.Message);
+                Log.CustomLog.LogMessage("Error while stopping camera services: " + e.Message);
             }
 
             Process prC = Process.GetCurrentProcess();
