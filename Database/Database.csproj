@@ -1,0 +1,259 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F47E8FD0-51B4-4683-BAA1-0F021C469B8D}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Database</RootNamespace>
+    <AssemblyName>Database</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <FileAlignment>8192</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AI_Sample_log.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AnalyzeSet.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Area.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Audit_Trail.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BristleAnalysisResultSet.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BristleSet.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BristleTempSetSet.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BrushAnalysisResultSet.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CheckList.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ColgateSkelta4.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ColgateSkelta4.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ColgateSkelta4.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ColgateSkelta4.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ColgateSkelta4.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="C_Debug.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Datasets.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatasetSet.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Equipment.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EquipmentType.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GeneralSettings.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ImageSet.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ImageTempSetSet.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ImportData.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ngsfr_fn_S_Split_List_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QM_Spec.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="QM_Status.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RegistrationWaitingSet.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sample_ASet.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sample_log.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Shift.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SKU.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagram.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Test.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TuffAnalysisResultSet.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TuftSet.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TuftTempSetSet.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserSystem.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ValidationDataset.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ValidationDatasets.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VbristleSet.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VimageSet.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Vsample_ASet.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VtuftSet.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VW_SampleValues.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EntityDeploy Include="ColgateSkelta4.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ColgateSkelta4.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="ColgateSkelta4.edmx.diagram">
+      <DependentUpon>ColgateSkelta4.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ColgateSkelta4.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ColgateSkelta4.edmx</DependentUpon>
+      <LastGenOutput>ColgateSkelta4.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="ColgateSkelta4.edmx.sql" />
+    <Content Include="ColgateSkelta4.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ColgateSkelta4.edmx</DependentUpon>
+      <LastGenOutput>ColgateSkelta4.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este projeto faz referência a pacotes do NuGet que não estão presentes neste computador. Use a Restauração de Pacotes do NuGet para baixá-los.  Para obter mais informações, consulte http://go.microsoft.com/fwlink/?LinkID=322105. O arquivo ausente é {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+</Project>

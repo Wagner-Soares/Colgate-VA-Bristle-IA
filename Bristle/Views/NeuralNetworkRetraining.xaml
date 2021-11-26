@@ -1,0 +1,951 @@
+﻿<Window x:Class="Bristle.Views.NeuralNetworkRetraining"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign ="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:DV="clr-namespace:System.Windows.Controls.DataVisualization;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+        xmlns:DVC="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"             
+        xmlns:local="clr-namespace:LoadingSpinner"
+        mc:Ignorable="d"
+        Title="NeuralNetworkRetraining" Height="610.5" Width="934.5" WindowStyle="None" Foreground="White" WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <Storyboard x:Key="MenuOpen">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="60"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0:1" Value="250"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="MenuClose">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="250"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0:1" Value="60"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonOpenMenu">
+            <BeginStoryboard Storyboard="{StaticResource MenuOpen}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonCloseMenu">
+            <BeginStoryboard Storyboard="{StaticResource MenuClose}"/>
+        </EventTrigger>
+    </Window.Triggers>
+
+    <Grid KeyUp="keyboardControl">
+        <Grid Background="#FFF2F2F2" Margin="0,0,2,0">
+            <Grid Height="50" Margin="274,0,-2,0" VerticalAlignment="Top" Background="#FFCC0000" MouseLeftButtonDown="MouseLeftButtonDown">
+                <materialDesign:PackIcon Foreground="White" Kind="User"  Width="Auto" Height="Auto" Margin="276,2,324,-2" RenderTransformOrigin="0.853,4.714" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                <TextBlock x:Name="user_" Text="User" FontSize="20" Foreground="White" Margin="334,19,278,5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,2">
+                    <TextBlock Text=" " VerticalAlignment="Center" FontSize="18"/>
+                    <materialDesign:PopupBox Margin="10" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
+                        <StackPanel Width="150">
+                            <Button Content="About" />
+                            <Button Content="Settings" />
+                            <Button Content="Help" Click="Button_Click_1"/>
+                            <!--<Button Content="Camera Calibration" x:Name="CameraCalibration" Click="CameraCalibration_Click"/>-->
+                            <Separator/>
+                            <Button x:Name="ButtonPopUpLogout" Content="Logout" Click="ButtonPopUpLogout_Click"/>
+                        </StackPanel>
+                    </materialDesign:PopupBox>
+                </StackPanel>
+                <Grid>
+                    <Button x:Name ="ButtonWindowMinimize_" Content="{materialDesign:PackIcon WindowMinimize, Size=30}" ToolTip="Window Minimize" Background="{x:Null}" BorderBrush="{x:Null}" Click="ButtonWindowMinimize_Click" Height="Auto" Padding="0" Margin="0,0,96,0" HorizontalAlignment="Right" Width="47"  />
+                </Grid>
+                <Grid>
+                    <Button x:Name ="ButtonWindowMaximize_" Content="{materialDesign:PackIcon WindowMaximize, Size=30}" ToolTip="Window Maximize" Background="{x:Null}" BorderBrush="{x:Null}" Click="ButtonWindowMaximize_Click" Height="Auto" Padding="0" Margin="0,0,46,0" HorizontalAlignment="Right" Width="49"  />
+                </Grid>
+            </Grid>
+            <Grid Background="#FFE7E7E7" Margin="65,55,0,0" Height="53" VerticalAlignment="Top" HorizontalAlignment="Left" Width="187">
+                <TextBlock Text="Menu" VerticalAlignment="center" HorizontalAlignment="Center" Foreground="#FF050505" FontSize="24"/>
+            </Grid>
+            <!--MENU Retrain-->
+            <Grid x:Name="menuRetrain" Visibility="Visible" Background="#FFC9C9C9"  Margin="65,110,0,5" HorizontalAlignment="Left" Width="187">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="317*"/>
+                    <RowDefinition Height="13*"/>
+                    <RowDefinition Height="37*"/>
+                    <RowDefinition Height="68*"/>
+                    <RowDefinition Height="52*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Background="#FFE7E7E7" Margin="10,10,10,0" Height="300" VerticalAlignment="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="1">
+                        <Button x:Name="datasetAnalysis"  Content="Dataset Analysis" Padding="0,0,-20,0" IsEnabled="true" Foreground="AliceBlue" Background="#FFD9534F" Height="42" VerticalAlignment="Top" Click="datasetAnalysis_Click_1"/>
+                        <materialDesign:PackIcon x:Name="iconDatasetAnalysis" Foreground="White" Kind="GraphOutline"  Width="34" Height="42" Margin="0,-1,0,0" RenderTransformOrigin="0.853,4.714" VerticalAlignment="Bottom" />
+                    </Grid>
+                    <Grid Grid.Row="2">
+                    </Grid>
+                    <Grid Grid.Row="3">
+                        <Button x:Name="addBaseDataset_"  Content="Add Dataset" Padding="0,0,-20,0" IsEnabled="true" Foreground="AliceBlue" Background="#FFD9534F" Height="41" VerticalAlignment="Top" Click="addBaseDataset__Click"/>
+                        <materialDesign:PackIcon x:Name="iconDatabaseAdd" Foreground="White" Kind="DatabaseAdd"  Width="34" Height="42" Margin="0,0,0,-1" RenderTransformOrigin="0.853,4.714" VerticalAlignment="Bottom" />
+                    </Grid>
+                    <Grid Grid.Row="4">
+                    </Grid>
+                    <Grid Grid.Row="5">
+                        <Button x:Name="applyModel"  Content="Apply Model" Padding="0,0,-20,0" IsEnabled="true" Foreground="AliceBlue" Background="#FFD9534F" Height="41" VerticalAlignment="Top" Click="applyModel_Click"/>
+                        <materialDesign:PackIcon x:Name="iconApplyModel" Foreground="White" Kind="SelectionEllipse"  Width="34" Height="42" Margin="0,0,0,-1" RenderTransformOrigin="0.853,4.714" VerticalAlignment="Bottom" />
+                    </Grid>
+                    <Grid Grid.Row="6">
+                    </Grid>
+                    <Grid Grid.Row="7" Background="#FFC9C9C9">
+                    </Grid>
+                    <Grid Grid.Row="8" Background="#FFC9C9C9">
+                    </Grid>
+                    <Grid Grid.Row="9" Background="#FFC9C9C9">
+                    </Grid>
+                    <Grid Grid.Row="10" Background="#FFC9C9C9">
+                    </Grid>
+                    <Grid Grid.Row="11" Background="#FFC9C9C9">
+                    </Grid>
+                    <Grid Grid.Row="12" Background="#FFC9C9C9">
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="3" Grid.RowSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80*"/>
+                        <RowDefinition Height="0*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Margin="0,0,0,62" Height="42" VerticalAlignment="Bottom">
+                        <Button x:Name="retrain"  Content="Retrain" Padding="0,0,0,0" IsEnabled="true" Foreground="AliceBlue" Margin="10,60,10,-60" Background="#FFD9534F" Height="42" VerticalAlignment="Top" Click="retrain_Click_1" SizeChanged="sizeChanged"/>
+                        <materialDesign:PackIcon x:Name="retrain_" Foreground="White" Kind="Graphql"  Width="34" Height="42" Margin="10,0,0,-60" RenderTransformOrigin="0.853,4.714" VerticalAlignment="Bottom" />
+                    </Grid>
+                </Grid>
+            </Grid>
+            <!--MENU Curatorship-->
+            <Grid x:Name="menuCuratorship" Visibility="Collapsed" Background="#FFC9C9C9"  Margin="65,110,0,5" HorizontalAlignment="Left" Width="187">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="317*"/>
+                    <RowDefinition Height="13*"/>
+                    <RowDefinition Height="37*"/>
+                    <RowDefinition Height="68*"/>
+                    <RowDefinition Height="52*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Background="#FFE7E7E7" Margin="10,10,10,0" Height="300" VerticalAlignment="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="1">
+                        <Button x:Name="analyze" Content="Analyze" Background="#FFD9534F" BorderBrush="#FFD9534F" Height="42" HorizontalAlignment="Right" Width="167" VerticalAlignment="Bottom"  Click="analyze_Click" Margin="0,-1,0,0" Grid.ColumnSpan="2"/>
+                        <materialDesign:PackIcon Foreground="White" Kind="Play"  Width="34" Height="42" RenderTransformOrigin="0.853,4.714" VerticalAlignment="Bottom" Margin="0,-1,0,0" />
+                    </Grid>
+                    <Grid Grid.Row="2">
+                    </Grid>
+                    <Grid Grid.Row="3">
+                        <Button x:Name="validate" Content="Validate" Background="Green" BorderBrush="#FF1E673B" Height="27" HorizontalAlignment="Right" Width="156" VerticalAlignment="Bottom"  Click="validate_Click" Margin="0,0,5,0" />
+                        <materialDesign:PackIcon Foreground="White" Kind="Approve"  Width="34" Height="25" RenderTransformOrigin="0.853,4.714" VerticalAlignment="Bottom" Margin="0,0,0,1" />
+                    </Grid>
+                    <Grid Grid.Row="4">
+                    </Grid>
+                    <Grid Grid.Row="5">
+                        <Button x:Name="remove" Content="Remove" Background="#FFF80707" BorderBrush="#FFBE2F2F" Height="27" HorizontalAlignment="Right" Width="157" VerticalAlignment="Bottom" Click="remove_Click" Margin="0,0,5,0"/>
+                        <materialDesign:PackIcon Foreground="White" Kind="Delete"  Width="34" Height="27" RenderTransformOrigin="0.853,4.714" VerticalAlignment="Bottom" />
+                    </Grid>
+                    <Grid Grid.Row="6">
+                    </Grid>
+                    <Grid Grid.Row="7" Background="#FFC9C9C9">
+                    </Grid>
+                    <Grid Grid.Row="8" Background="#FFC9C9C9">
+                    </Grid>
+                    <Grid Grid.Row="9" Background="#FFC9C9C9">
+                    </Grid>
+                    <Grid Grid.Row="10" Background="#FFC9C9C9">
+                    </Grid>
+                    <Grid Grid.Row="11" Background="#FFC9C9C9">
+                    </Grid>
+                    <Grid Grid.Row="12" Background="#FFC9C9C9">
+
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="3" Grid.RowSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80*"/>
+                        <RowDefinition Height="0*"/>
+                    </Grid.RowDefinitions>
+                    <Button x:Name="return" Content="Return" Background="#FFD9534F" BorderBrush="#FFD9534F" Height="42" HorizontalAlignment="Right" Width="187" VerticalAlignment="Bottom"  Click="return_Click"/>
+                    <materialDesign:PackIcon Foreground="White" Kind="KeyboardReturn"  Width="34" Height="42" RenderTransformOrigin="0.853,4.714" VerticalAlignment="Bottom" />
+                </Grid>
+            </Grid>
+            <!--MENU ValidationImage-->
+            <Grid x:Name="menuValidationImage" Visibility="Collapsed" Background="#FFC9C9C9"  Margin="65,110,0,5" HorizontalAlignment="Left" Width="187">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="317*"/>
+                    <RowDefinition Height="13*"/>
+                    <RowDefinition Height="37*"/>
+                    <RowDefinition Height="68*"/>
+                    <RowDefinition Height="52*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Background="#FFC9C9C9" Margin="10,10,10,0" Height="300" VerticalAlignment="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="1">
+                    </Grid>
+                    <Grid Grid.Row="2">
+                    </Grid>
+                    <Grid Grid.Row="3">
+                    </Grid>
+                    <Grid Grid.Row="4">
+                    </Grid>
+                    <Grid Grid.Row="5">
+                    </Grid>
+                    <Grid Grid.Row="6">
+                    </Grid>
+                    <Grid Grid.Row="7" Background="#FFC9C9C9">
+                    </Grid>
+                    <Grid Grid.Row="8" Background="#FFC9C9C9">
+                    </Grid>
+                    <Grid Grid.Row="9" Background="#FFC9C9C9">
+                    </Grid>
+                    <Grid Grid.Row="10" Background="#FFC9C9C9">
+                    </Grid>
+                    <Grid Grid.Row="11" Background="#FFC9C9C9">
+                    </Grid>
+                    <Grid Grid.Row="12" Background="#FFC9C9C9">
+
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="3" Grid.RowSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80*"/>
+                        <RowDefinition Height="0*"/>
+                    </Grid.RowDefinitions>
+                    <Button x:Name="returnMenuValidationImage" Content="Return" Background="#FFD9534F" BorderBrush="#FFD9534F" Height="42" HorizontalAlignment="Right" Width="187" VerticalAlignment="Bottom"  Click="returnMenuValidationImage_Click"/>
+                    <materialDesign:PackIcon Foreground="White" Kind="KeyboardReturn"  Width="34" Height="42" RenderTransformOrigin="0.853,4.714" VerticalAlignment="Bottom" />
+                </Grid>
+            </Grid>
+
+            <!--Add Dataset-->
+            <Grid x:Name="addDataset" Visibility="Collapsed" Background="#FFC9C9C9"  Margin="65,110,0,5" HorizontalAlignment="Left" Width="187">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="317*"/>
+                    <RowDefinition Height="13*"/>
+                    <RowDefinition Height="37*"/>
+                    <RowDefinition Height="68*"/>
+                    <RowDefinition Height="52*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Background="#FFE7E7E7" Margin="10,10,10,0" Height="300" VerticalAlignment="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="11" Background="#FFE7E7E7" Margin="10,0" Height="42" VerticalAlignment="Top"/>
+                    <Grid Grid.Row="1" Background="#FF686868">
+                        <TextBlock Text="New Dataset Name" Background="#FF686868" FontSize="17" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,4,0,5" Width="167"/>
+                    </Grid>
+                    <Grid Grid.Row="3">
+                        <Viewbox Grid.Column="1" OpacityMask="Black" >
+                            <TextBox x:Name="nameDataset" IsReadOnly="false" Text="" CaretBrush="#FF686868" Width="122" Foreground="Black" TextAlignment="Center"  />
+                        </Viewbox>
+                    </Grid>
+                    <Grid Grid.Row="5">
+
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="3" Grid.RowSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80*"/>
+                        <RowDefinition Height="0*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Margin="0,0,0,62" Height="42" VerticalAlignment="Bottom">
+                        <Button x:Name="apply"  Content="Apply" Padding="0,0,0,0" IsEnabled="true" Foreground="AliceBlue" Margin="10,60,10,-60" Background="#FFD9534F" Height="42" VerticalAlignment="Top" Click="apply_Click"/>
+                        <materialDesign:PackIcon x:Name="iconStartAnalysis12" Foreground="White" Kind="Pokeball"  Width="34" Height="42" Margin="10,0,0,-60" RenderTransformOrigin="0.853,4.714" VerticalAlignment="Bottom" />
+                    </Grid>
+                </Grid>
+            </Grid>
+            <!--Change prefix-->
+            <Grid x:Name="changePrefix_" Visibility="Collapsed" Background="#FFC9C9C9"  Margin="65,110,0,5" HorizontalAlignment="Left" Width="187">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="317*"/>
+                    <RowDefinition Height="13*"/>
+                    <RowDefinition Height="37*"/>
+                    <RowDefinition Height="68*"/>
+                    <RowDefinition Height="52*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Background="#FFE7E7E7" Margin="10,10,10,0" Height="300" VerticalAlignment="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="11" Background="#FFE7E7E7" Margin="10,0" Height="42" VerticalAlignment="Top"/>
+                    <Grid Grid.Row="1" Background="#FF686868">
+                        <TextBlock Text="New Prefix" Background="#FF686868" FontSize="17" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,4,0,5" Width="167"/>
+                    </Grid>
+                    <Grid Grid.Row="3">
+                        <Viewbox Grid.Column="1" OpacityMask="#FFD9534F" >
+                            <TextBox x:Name="namePrefix" IsReadOnly="false" Text="" CaretBrush="#FF686868" Width="122" Foreground="Black" TextAlignment="Center"  />
+                        </Viewbox>
+                    </Grid>
+                    <Grid Grid.Row="5">
+
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="3" Grid.RowSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80*"/>
+                        <RowDefinition Height="0*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Margin="0,0,0,62" Height="42" VerticalAlignment="Bottom">
+                        <Button x:Name="applyPrefix"  Content="Apply" Padding="0,0,0,0" IsEnabled="true" Foreground="AliceBlue" Margin="10,60,10,-60" Background="#FFD9534F" Height="42" VerticalAlignment="Top" Click="applyPrefix_Click"/>
+                        <materialDesign:PackIcon x:Name="iconStartAnalysis122" Foreground="White" Kind="Pokeball"  Width="34" Height="42" Margin="10,0,0,-60" RenderTransformOrigin="0.853,4.714" VerticalAlignment="Bottom" />
+                    </Grid>
+                </Grid>
+            </Grid>
+            <!-- <StackPanel Margin="182,80,-840,30">-->
+            <!-- Teste de exibição-->
+            <Grid x:Name="GridMenu" Width="60" HorizontalAlignment="Left" Background="#FFCCCCCC" Margin="0,0,0,10">
+                <Grid Height="50" Width="281" Background="#FFCC0000" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,-221,0" RenderTransformOrigin="0.741,0.493" >
+                    <TextBlock Text="Neural Network Retraining" Margin="10 10" HorizontalAlignment="Left"  VerticalAlignment="Top" FontStyle="Normal"  FontSize="22"/>
+                </Grid>
+
+                <StackPanel Margin="0,50,0,180">
+                    <Grid Height="60" Background="#FFE7E7E7">
+                        <Button x:Name ="ButtonCloseMenu" Width="60" Height="60" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="Collapsed" Click="ButtonCloseMenu_Click">
+                            <materialDesign:PackIcon Foreground="Black"  Kind="ArrowLeft" Width="25" Height="25"/>
+                        </Button>
+                        <Button x:Name="ButtonOpenMenu" Width="60" Height="60" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Right" Click="ButtonOpenMenu_Click" Foreground="#FFE7E7E7">
+                            <materialDesign:PackIcon Foreground="Black" Kind="MenuOpen" Width="25" Height="25" />
+                        </Button>
+                    </Grid>
+
+                    <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" Foreground="Black">
+                        <ListViewItem Height="60" Selected="ButtonHome_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <Button x:Name="ButtonHome" Width="46" Height="45" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Right" Click="ButtonHome_Click" >
+                                    <materialDesign:PackIcon Foreground="Black" Kind="Home"  Width="25" Height="25" Margin="-5" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Button>
+                                <TextBlock Text="Home" VerticalAlignment="Center" Margin="0 10" FontSize="14"/>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem Height="60" Selected="ButtonBristleRegister_Click_1">
+                            <StackPanel Orientation="Horizontal">
+                                <Button x:Name="ButtonBristleRegister" Width="46" Height="45" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Right" Click="ButtonBristleRegister_Click_1">
+                                    <materialDesign:PackIcon  Foreground="Black" Kind="Gear"  Width="25" Height="25" Margin="-5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Button>
+                                <TextBlock Text="General Settings" VerticalAlignment="Center" Margin="0 10" FontSize="14"/>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem Height="60" Selected="ButtonNeuralNetworkRetraining_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <Button x:Name="ButtonNeuralNetworkRetraining" Width="46" Height="45" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Right" Click="ButtonNeuralNetworkRetraining_Click">
+                                    <materialDesign:PackIcon Foreground="Black" Kind="Graphql"  Width="25" Height="25" Margin="-5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Button>
+                                <TextBlock Text="Neural Network Retraining" VerticalAlignment="Center" Margin="0 10" FontSize="14"/>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem Height="60" Selected="ButtonAutomaticBristleClassification_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <Button x:Name="ButtonAutomaticBristleClassification" Width="46" Height="45" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Right" Click="ButtonAutomaticBristleClassification_Click">
+                                    <materialDesign:PackIcon Foreground="Black" Kind="Magic" Width="25" Height="25" Margin="-5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Button>
+                                <TextBlock Text="Automatic Bristle Classification" VerticalAlignment="Center" Margin="0 10" FontSize="14"/>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem Height="60" Selected ="ButtonGeneralReport_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <Button x:Name="ButtonGeneralReport" Width="46" Height="45" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Right" Click="ButtonGeneralReport_Click">
+                                    <materialDesign:PackIcon Foreground="Black" Kind="MonitorDashboard" Width="25" Height="25" Margin="-5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Button>
+                                <TextBlock Text="Report" VerticalAlignment="Center" Margin="0 10" FontSize="14"/>
+                            </StackPanel>
+                        </ListViewItem>
+                    </ListView>
+                </StackPanel>
+                <StackPanel Margin="0,410,0,58" Background="#FFCCCCCC">
+                    <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" Foreground="Black">
+                        <ListViewItem Height="60" Selected = "password_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <Button x:Name="password" Width="46" Height="45" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Right" RenderTransformOrigin="2.217,0.044" Click="password_Click" >
+                                    <materialDesign:PackIcon Foreground="Black" Kind="Lock" Width="25" Height="25" Margin="-5"/>
+                                </Button>
+                                <TextBlock Text="Change Password" VerticalAlignment="Center" Margin="0 10" FontSize="14"/>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem Height="60" Selected = "user_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <Button x:Name="user" Width="46" Height="45" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Right" RenderTransformOrigin="2.217,0.044" Click="user_Click" >
+                                    <materialDesign:PackIcon Foreground="Black" Kind="User" Width="25" Height="25" Margin="-5"/>
+                                </Button>
+                                <TextBlock Text="User" VerticalAlignment="Center" Margin="0 10" FontSize="14"/>
+                            </StackPanel>
+                        </ListViewItem>
+                    </ListView>
+                </StackPanel>
+                <!-- </StackPanel>-->
+            </Grid>
+            <!-- dataset-->
+            <Grid x:Name="dataset" Visibility="Visible" Background="#FFF3F3F8"  Margin="257,55,10,5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.1*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="0.1*"/>
+                    <RowDefinition Height="0.1*"/>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="0.1*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="0.1*"/>
+                    <RowDefinition Height="0.1*"/>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="0.1*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <TextBlock Text="Registered Dataset" HorizontalAlignment="Center"  VerticalAlignment="Center" FontStyle="Normal"  FontSize="20" Height="28" Width="309" Margin="10,4,10,3" Foreground="#FF1B1B1C" TextAlignment="Center"/>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <TextBlock Text="Models" HorizontalAlignment="Center"  VerticalAlignment="Center" FontStyle="Normal"  FontSize="20" Height="28" Width="318" Margin="0,4,10,3" Foreground="#FF1B1B1C" TextAlignment="Center"/>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="3">
+                </Grid>
+                <Grid Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="63*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                </Grid>
+                <Grid Grid.Row="9">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="63*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="63*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="1">
+                        <DataGrid x:Name="dataGridDataset" CanUserAddRows="False" BorderThickness="1">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Header="Select">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox  x:Name="selectDatasets" Background="DarkCyan"  IsChecked="{Binding IsChecked ,  UpdateSourceTrigger=PropertyChanged}" Click="selectDatasets_Click">
+                                            </CheckBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                    <Grid Grid.Column="3">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="10*"/>
+                            <RowDefinition Height="0.1*"/>
+                            <RowDefinition Height="3*"/>
+                            <RowDefinition Height="0.1*"/>
+                            <RowDefinition Height="5*"/>
+                            <RowDefinition Height="0.1*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <DataGrid x:Name="dataGridModel" CanUserAddRows="False" BorderThickness="1">
+                                <DataGrid.Columns>
+                                    <DataGridTemplateColumn  Header="Select">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button x:Name="selectModel" Content="Select" Background="DarkCyan" BorderBrush="DarkCyan" Click="selectModel_Click"></Button>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                        <Grid Grid.Row="2">
+                            <TextBlock Text="Models Selected" HorizontalAlignment="Center"  VerticalAlignment="Center" FontStyle="Normal"  FontSize="20" Height="28" Width="321" Margin="0,5" Foreground="#FF1B1B1C" TextAlignment="Center"/>
+                        </Grid>
+                        <Grid Grid.Row="4">
+                            <DataGrid x:Name="dataGridModelSelect" CanUserAddRows="False" BorderThickness="1" SelectionChanged="dataGridModelSelect_SelectionChanged">
+                            </DataGrid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <TextBlock Text="Images Awaiting Approval" HorizontalAlignment="Center"  VerticalAlignment="Center" FontStyle="Normal"  FontSize="20" Height="28" Width="309" Margin="10,4,10,3" Foreground="#FF1B1B1C" TextAlignment="Center"/>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <TextBlock Text="Validation Images" HorizontalAlignment="Center"  VerticalAlignment="Center" FontStyle="Normal"  FontSize="20" Height="28" Width="308" Margin="10,4,10,3" Foreground="#FF1B1B1C" TextAlignment="Center"/>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="8">
+                </Grid>
+                <Grid Grid.Row="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="63*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="63*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="1">
+                        <DataGrid x:Name="dataGridImageAwaiting" CanUserAddRows="False"  AutomationProperties.LiveSetting="Polite"  BorderThickness="1"  MouseDoubleClick="dataGridImageAwaiting_MouseDoubleClick" Background="#FFFAFAFA" MouseDown="dataGridImageAwaiting_MouseDown">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Header="Validation Images" Visibility="Visible">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox  x:Name="selectValidationImages" IsManipulationEnabled="false" MouseMove="selectValidationImages_MouseMove" Background="DarkCyan"  IsChecked="{Binding IsChecked}" Click="selectValidationImages_Click" MouseDown="CheckBoxMouseDown" Checked="checkbox_checked" IsEnabledChanged="checkboxEnable">
+                                            </CheckBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Action" Visibility="Visible">
+                                    <DataGridTemplateColumn.CellTemplate >
+                                        <DataTemplate>
+                                            <Button x:Name ="preview_" Content="{materialDesign:PackIcon MagnifyScan, Size=20}" ToolTip="Open Image" Background="DarkCyan" BorderBrush="{x:Null}" Click="openImage_Click" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Status" Visibility="Visible">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock x:Name="status" IsEnabled="True" Text="Waiting" Foreground="DarkOrange" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                    <Grid Grid.Column="3">
+                        <DataGrid x:Name="dataGridValidationImage" CanUserAddRows="False"  AutomationProperties.LiveSetting="Polite"  BorderThickness="1" >
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Header="Select">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox  x:Name="selectValidationImages" Background="DarkCyan"  IsChecked="{Binding IsChecked ,  UpdateSourceTrigger=PropertyChanged}" Click="selectValidationImages_Click_1">
+                                            </CheckBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Action">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button x:Name ="valiationImagesPreview" Content="{materialDesign:PackIcon MagnifyScan, Size=20}" ToolTip="Open Image" Background="DarkCyan" BorderBrush="{x:Null}" Click="valiationImagesPreview_Click"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </Grid>
+            </Grid>
+
+            <!--Graph-->
+            <Grid x:Name="graph" Visibility="Collapsed" Background="#FFF3F3F8"  Margin="257,55,10,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.2*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="0.2*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="0.2*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.2*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="0.2*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="0.2*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="0.2*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="0.2*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="1" Background="White">
+                        <TextBlock Text="Precision Chart" HorizontalAlignment="Center" Foreground="#FF050505" FontSize="17" VerticalAlignment="Center"/>
+                    </Grid>
+                    <Grid Grid.Row="3">
+                        <DVC:Chart Canvas.Top="0" Canvas.Left="0" Name="mcChart1"
+                                  Background="White" BorderBrush="White" OpacityMask="#FFF1F2F7" Foreground="#FF1B1B1C">
+                            <DVC:Chart.Series>
+                                <DVC:LineSeries  Title="Pontos" IndependentValueBinding="{Binding Path=Key}" DependentValueBinding="{Binding Path=Value}" Margin="0,0,0,1" Background="#FFF1F2F7" BorderBrush="Black" OpacityMask="#FFF1F2F7" Foreground="Black"/>
+                            </DVC:Chart.Series>
+                        </DVC:Chart>
+                    </Grid>
+                    <Grid Grid.Row="5" Background="White">
+                        <TextBlock Text="Recall Chart" HorizontalAlignment="Center" Foreground="#FF050505" FontSize="17" VerticalAlignment="Center"/>
+                    </Grid>
+                    <Grid Grid.Row="7">
+                        <DVC:Chart Canvas.Top="0" Canvas.Left="0" Name="mcChart2"
+                                  Background="White" BorderBrush="White" OpacityMask="#FFF1F2F7" Foreground="#FF1B1B1C">
+                            <DVC:Chart.Series>
+                                <DVC:LineSeries  Title="Pontos" IndependentValueBinding="{Binding Path=Key}" DependentValueBinding="{Binding Path=Value}" Margin="0,0,0,1" Background="#FFF1F2F7" BorderBrush="Black" OpacityMask="#FFF1F2F7" Foreground="Black"/>
+                            </DVC:Chart.Series>
+                        </DVC:Chart>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Column="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.1*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="0.1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="1" Background="White">
+                    </Grid>
+                </Grid>
+            </Grid>
+            <!--Curatorship-->
+            <Grid x:Name="preview" Visibility="Collapsed" MouseMove="frameHolder_MouseMove" MouseLeftButtonUp="SetLensPos_1" Background="#FFF3F3F8"  Margin="257,55,10,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition Height="0*"/>
+                        <RowDefinition Height="10*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Background="#FFE7E7E7">
+                        <TextBlock Text="Curatorship" HorizontalAlignment="Center" Foreground="#FF050505" FontSize="17" VerticalAlignment="Center" FontWeight="Bold"/>
+                    </Grid>
+                    <Grid Grid.Row="1" Background="#FFC9C9C9">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.08*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <TextBlock Text="Note:" HorizontalAlignment="Left" Foreground="#FF050505" FontSize="17" VerticalAlignment="Center"/>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <TextBlock x:Name="note" Text=" " HorizontalAlignment="Left" Foreground="#FF050505" FontSize="17" VerticalAlignment="Center"/>
+                        </Grid>
+                    </Grid>
+                    <Grid x:Name="imagePreview" Grid.Row="3">
+                        <Image Name="imagePreview_" Visibility="Visible"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  Canvas.Left="0" Canvas.Top="0" Width="648" Height="486"/>
+                        <Canvas Name="canvas" Visibility="Visible" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="486" Width="648"/>
+                        <Canvas Name="canvasMask" Visibility="Visible" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="648" Height="486"/>
+                        <TextBox x:Name="submenuBox" Visibility="Visible" IsEnabled="true" IsReadOnly="True" CaretBrush="{x:Null}" ContextMenuOpening="TextBox_ContextMenuOpening"  ContextMenuClosing="TextBox_ContextMenuClosing" >
+                            <TextBox.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Existing Defect">
+                                        <MenuItem.Icon>
+                                            <materialDesign:PackIcon Kind="ImageFilterCenterFocusStrongOutline"  Width="25" Height="25" Margin="-10,-7,0,0"/>
+                                        </MenuItem.Icon>
+                                        <MenuItem Header="Error 1" x:Name="defect_a" Click="error_1_Click">
+                                            <MenuItem.Icon>
+                                                <materialDesign:PackIcon Kind="CircleDouble"  Width="25" Height="25" Margin="-10,-7,0,0"/>
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Header="Error 2" x:Name="defect_b" Click="error_2_Click">
+                                            <MenuItem.Icon>
+                                                <materialDesign:PackIcon Kind="CircleDouble"  Width="25" Height="25" Margin="-10,-7,0,0"/>
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Header="Error 3" x:Name="defect_c" Click="error_3_Click">
+                                            <MenuItem.Icon>
+                                                <materialDesign:PackIcon Kind="CircleDouble"  Width="25" Height="25" Margin="-10,-7,0,0"/>
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Header="Undefined" x:Name="undefined" Click="undefined_Click">
+                                            <MenuItem.Icon>
+                                                <materialDesign:PackIcon Kind="CircleDouble"  Width="25" Height="25" Margin="-10,-7,0,0"/>
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Header="Ok" x:Name="none" Click="none_Click">
+                                            <MenuItem.Icon>
+                                                <materialDesign:PackIcon Kind="CircleDouble"  Width="25" Height="25" Margin="-10,-7,0,0"/>
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                    </MenuItem>
+                                    <MenuItem Header="Property" x:Name="property_" Click="property_Click">
+                                        <MenuItem.Icon>
+                                            <materialDesign:PackIcon Kind="MicrosoftXboxControllerMenu"  Width="25" Height="25" Margin="-10,-7,0,0"/>
+                                        </MenuItem.Icon>
+                                        <MenuItem Header="Box Size">
+                                            <MenuItem.Icon>
+                                                <materialDesign:PackIcon Kind="Resize"  Width="25" Height="25" Margin="-10,-7,0,0"/>
+                                            </MenuItem.Icon>
+                                            <MenuItem Header="85 x 85" x:Name="size1" Click="size1_Click">
+                                                <MenuItem.Icon>
+                                                    <materialDesign:PackIcon Kind="Resize"  Width="25" Height="25" Margin="-10,-7,0,0"/>
+                                                </MenuItem.Icon>
+                                            </MenuItem>
+                                            <MenuItem Header="80 x 80" x:Name="size2" Click="size2_Click">
+                                                <MenuItem.Icon>
+                                                    <materialDesign:PackIcon Kind="Resize"  Width="25" Height="25" Margin="-10,-7,0,0"/>
+                                                </MenuItem.Icon>
+                                            </MenuItem>
+                                            <MenuItem Header="75 x 75" x:Name="size3" Click="size3_Click">
+                                                <MenuItem.Icon>
+                                                    <materialDesign:PackIcon Kind="Resize"  Width="25" Height="25" Margin="-10,-7,0,0"/>
+                                                </MenuItem.Icon>
+                                            </MenuItem>
+                                            <MenuItem Header="70 x 70" x:Name="size4" Click="size4_Click">
+                                                <MenuItem.Icon>
+                                                    <materialDesign:PackIcon Kind="Resize"  Width="25" Height="25" Margin="-10,-7,0,0"/>
+                                                </MenuItem.Icon>
+                                            </MenuItem>
+                                            <MenuItem Header="65 x 65" x:Name="size5" Click="size5_Click">
+                                                <MenuItem.Icon>
+                                                    <materialDesign:PackIcon Kind="Resize"  Width="25" Height="25" Margin="-10,-7,0,0"/>
+                                                </MenuItem.Icon>
+                                            </MenuItem>
+                                        </MenuItem>
+                                    </MenuItem>
+                                    <Separator/>
+                                    <MenuItem Header="Cancelar" Foreground="Red" x:Name="cancelar" Click="Cancelar_Click">
+                                        <MenuItem.Icon>
+                                            <materialDesign:PackIcon Kind="Cancel" Foreground="Red" Width="25" Height="25" Margin="-10,-7,0,0"/>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                </ContextMenu>
+                            </TextBox.ContextMenu>
+                        </TextBox>
+                    </Grid>
+                </Grid>
+            </Grid>
+            <!--ValidationImage-->
+            <Grid x:Name="validationImageViewer_" Visibility="Collapsed" MouseMove="frameHolder_MouseMove" MouseLeftButtonUp="SetLensPos_1" Background="#FFF3F3F8"  Margin="257,55,10,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition Height="0*"/>
+                        <RowDefinition Height="10*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Background="#FFE7E7E7">
+                        <TextBlock Text="Validation Image Viewer" HorizontalAlignment="Center" Foreground="#FF050505" FontSize="17" VerticalAlignment="Center" FontWeight="Bold"/>
+                    </Grid>
+                    <Grid Grid.Row="1" Background="#FFC9C9C9">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="1" >
+                            <Button x:Name ="comeBack" Content="{materialDesign:PackIcon arrowback, Size=25}" ToolTip="Come Back" Background="#FFD9534F" BorderBrush="{x:Null}" Height="Auto" Padding="0" Click="comeBack_Click"/>
+                        </Grid>
+                        <Grid Grid.Column="2" Background="#FFD9534F">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <TextBlock x:Name="numberValidationImages" Text="0" HorizontalAlignment="Right"  Foreground="#FFFAE8E8" FontSize="20" VerticalAlignment="Center" FontWeight="Bold"/>
+                            </Grid>
+                            <Grid Grid.Column="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="1*"/>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <TextBlock Text="Total" HorizontalAlignment="Center"  Foreground="#FFFAE8E8" FontSize="12" VerticalAlignment="Top"  FontWeight="Bold"/>
+                                </Grid>
+                                <Grid Grid.Row="1">
+                                    <TextBlock x:Name="totalValidationImages" Text="0" HorizontalAlignment="Center"  Foreground="#FFFAE8E8" FontSize="12" Margin="0,-2,0,0" VerticalAlignment="Top"  FontWeight="Bold"/>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Column="3" >
+                            <Button x:Name ="advance" Content="{materialDesign:PackIcon arrowforward, Size=25}" ToolTip="Advance" Background="#FFD9534F" BorderBrush="{x:Null}" Height="Auto" Padding="0" Click="advance_Click"/>
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Row="3">
+                        <Image Name="validationImageViewer" Visibility="Visible"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  Canvas.Left="0" Canvas.Top="0" Width="648" Height="486"/>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+
+        <!--LoadingWait-->
+        <Grid x:Name="LoadingWait" Visibility="Collapsed">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                <local:LoadingControl Diameter="60" Color1="#FFD9534F" Color2="Transparent"/>
+                <Label Content="loading ..." VerticalAlignment="Center" Foreground="Black"  FontSize="25" Margin="10,0,0,0"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- Alert-->
+        <Grid x:Name="warning" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40*"/>
+                <RowDefinition Height="8*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="40*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.Background>
+                    <SolidColorBrush Color="#FF1A1A1A" Opacity="0.3"/>
+                </Grid.Background>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.Background>
+                        <SolidColorBrush Color="#FF1A1A1A" Opacity="0.3"/>
+                    </Grid.Background>
+                </Grid>
+                <Grid x:Name="warningText1" Grid.Column="1" Visibility="Visible" Background="#FFDD4B39" >
+                    <Viewbox>
+                        <TextBox Text="Changing model ... Please wait ..." FontSize="8"  IsReadOnly="True" BorderBrush="{x:Null}" CaretBrush="{x:Null}" Width="178" SelectionBrush="{x:Null}" Background="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
+                    </Viewbox>
+                    <materialDesign:PackIcon Foreground="#FFBC4031" Kind="Information"  Width="61" Height="Auto" Margin="0,0,10,0" RenderTransformOrigin="0.853,4.714" VerticalAlignment="Stretch" HorizontalAlignment="Right" />
+                </Grid>
+                <Grid x:Name="warningText2" Grid.Column="1" Visibility="Collapsed" Background="#FFDD4B39" >
+                    <Viewbox>
+                        <TextBox Text="Successfully changed!" FontSize="8"  IsReadOnly="True" BorderBrush="{x:Null}" CaretBrush="{x:Null}" Width="178" SelectionBrush="{x:Null}" Background="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
+                    </Viewbox>
+                    <materialDesign:PackIcon Foreground="#FFBC4031" Kind="Information"  Width="61" Height="Auto" Margin="0,0,10,0" RenderTransformOrigin="0.853,4.714" VerticalAlignment="Stretch" HorizontalAlignment="Right" />
+                </Grid>
+                <Grid x:Name="warningText3" Grid.Column="1" Visibility="Collapsed" Background="#FFDD4B39" >
+                    <Viewbox>
+                        <TextBox Text="Error trying to change model!" FontSize="8"  IsReadOnly="True" BorderBrush="{x:Null}" CaretBrush="{x:Null}" Width="178" SelectionBrush="{x:Null}" Background="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
+                    </Viewbox>
+                    <materialDesign:PackIcon Foreground="#FFBC4031" Kind="Information"  Width="61" Height="Auto" Margin="0,0,10,0" RenderTransformOrigin="0.853,4.714" VerticalAlignment="Stretch" HorizontalAlignment="Right" />
+                </Grid>
+                <Grid Grid.Column="2">
+                    <Grid.Background>
+                        <SolidColorBrush Color="#FF1A1A1A" Opacity="0.3"/>
+                    </Grid.Background>
+                </Grid>
+
+            </Grid>
+            <Grid x:Name="noButton" Grid.Row="2" Visibility="Visible">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.8*"/>
+                    <ColumnDefinition Width="4.5*"/>
+                    <ColumnDefinition Width="1.8*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.Background>
+                        <SolidColorBrush Color="#FF1A1A1A" Opacity="0.3"/>
+                    </Grid.Background>
+                </Grid>
+                <Grid x:Name="modal" Grid.Column="1" Visibility="Visible" Background="#FFBC4031">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="1">
+                        <Button x:Name="buttonCancel"  Content="Cancel" Background="#FFC64333" BorderBrush="#FFD9534F" OpacityMask="Black" Margin="0,4,0,5" Height="Auto" Click="buttonCancel_Click" Padding="0"/>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Column="4">
+                    <Grid.Background>
+                        <SolidColorBrush Color="#FF1A1A1A" Opacity="0.3"/>
+                    </Grid.Background>
+                </Grid>
+            </Grid>
+            <Grid x:Name="yesButton" Grid.Row="2" Visibility="Collapsed">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.8*"/>
+                    <ColumnDefinition Width="1.5*"/>
+                    <ColumnDefinition Width="1.5*"/>
+                    <ColumnDefinition Width="1.5*"/>
+                    <ColumnDefinition Width="1.8*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.Background>
+                        <SolidColorBrush Color="#FF1A1A1A" Opacity="0.3"/>
+                    </Grid.Background>
+                </Grid>
+                <Grid x:Name="modalL" Grid.Column="1" Background="#FFBC4031">
+                </Grid>
+                <Grid x:Name="warningButton1" Visibility="Visible" Grid.Column="2"  Background="#FFBC4031">
+                    <Button x:Name="buttonWarning1" Visibility="Visible" Content="Ok" Background="#FFC64333" BorderBrush="#FFD9534F" OpacityMask="Black" Margin="0,4,0,5" Height="Auto" Click="buttonWarning1_Click" Padding="0"/>
+                </Grid>
+                <Grid x:Name="modalR" Grid.Column="3" Background="#FFBC4031">
+                </Grid>
+                <Grid Grid.Column="4">
+                    <Grid.Background>
+                        <SolidColorBrush Color="#FF1A1A1A" Opacity="0.3"/>
+                    </Grid.Background>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="317*"/>
+                    <ColumnDefinition Width="147*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.Background>
+                    <SolidColorBrush Color="#FF1A1A1A" Opacity="0.3"/>
+                </Grid.Background>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

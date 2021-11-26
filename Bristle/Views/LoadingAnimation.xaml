@@ -1,0 +1,23 @@
+﻿<Window x:Class="Bristle.Views.LoadingAnimation"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:materialDesign ="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local2="clr-namespace:Bristle.Views"
+      xmlns:local="clr-namespace:LoadingSpinner"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AutomaticBristleClassification" Height="100" Width="350" WindowStyle="None" WindowStartupLocation="CenterScreen">
+
+    <Window.Background>
+        <SolidColorBrush Opacity="1" Color="White"/>
+    </Window.Background>
+
+    <Grid Background="Transparent">
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" >
+            <local:LoadingControl Diameter="60" Color1="#FFD9534F" Color2="Transparent"/>
+            <Label x:Name="tex"  Content="loading ..." VerticalAlignment="Center" Foreground="#FF3D3D3D" FontSize="25" Margin="10,0,0,0" FontWeight="Bold" Background="{x:Null}"/>
+        </StackPanel>
+    </Grid>
+</Window>
