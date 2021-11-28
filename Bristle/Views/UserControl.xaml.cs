@@ -13,6 +13,10 @@ using APIVision.Controllers.DataBaseControllers;
 using Database;
 using Bristle.UseCases;
 using Bristle.utils;
+using System.Threading.Tasks;
+using System.Threading;
+using System.Windows.Threading;
+using System.Windows.Media;
 
 namespace Bristle.Views
 {
@@ -22,6 +26,8 @@ namespace Bristle.Views
     public partial class UserControl : Window
     {
         private readonly BusinessSystem businessSystem = new BusinessSystem();
+        private readonly System.Windows.Forms.Timer timerToLogIn = new System.Windows.Forms.Timer();
+
         private bool select = false;
 
         private readonly UserSystemController _userSystemController;
@@ -79,19 +85,18 @@ namespace Bristle.Views
 
         private void UserControl_Loaded(object sender, EventArgs e)
         {
-               txtDomain.Text = UserControlUseCases.GetDomainName();    
+            txtDomain.Text = UserControlUseCases.GetDomainName();
+
+            timerToLogIn.Tick += new EventHandler(LogInUser);
         }
 
         private void ButtonValidateUser_Click(object sender, RoutedEventArgs e)
         {
-            businessSystem.NetworkUserModel.NetworkUserGroup = new string[] { "BRVA_TB_ WonderwareAdminsU" };
-            businessSystem.UserSystemCurrent.Name = "Iago";
+            ButtonValidateUser.Background = Brushes.Gray;
+            ButtonValidateUser.IsEnabled = false;
 
-            _colgateSkeltaEntities = new ColgateSkeltaEntities();
-            Views.MainWindow mainWindow = new Views.MainWindow(true, businessSystem, _colgateSkeltaEntities);
-            mainWindow.ShowDialog();
-
-            this.Hide();
+            timerToLogIn.Interval = 500;
+            timerToLogIn.Start();
         }
 
         private void ValidateUser()
@@ -319,5 +324,25 @@ namespace Bristle.Views
             Application.Current.Shutdown();
             System.Environment.Exit(1);
         }           
+
+        private void LogInUser(object myObject, EventArgs eventArgs)
+        {
+            timerToLogIn.Stop();
+
+            user.Text = string.Empty;
+            password.Clear();
+
+            ButtonValidateUser.Background = Brushes.Red;
+            ButtonValidateUser.IsEnabled = true;
+
+            businessSystem.NetworkUserModel.NetworkUserGroup = new string[] { "BRVA_TB_ WonderwareAdminsU" };
+            businessSystem.UserSystemCurrent.Name = "Iago";
+
+            _colgateSkeltaEntities = new ColgateSkeltaEntities();
+            Views.MainWindow mainWindow = new Views.MainWindow(true, businessSystem, _colgateSkeltaEntities);
+            mainWindow.ShowDialog();
+
+            this.Hide();
+        }
     }
 }

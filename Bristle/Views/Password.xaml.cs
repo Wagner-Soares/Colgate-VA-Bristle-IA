@@ -87,9 +87,8 @@ namespace Bristle.Views
 
         private void ButtonAutomaticBristleClassification_Click(object sender, RoutedEventArgs e)
         {
-            Views.AutomaticBristleClassification automaticBristleClassification = new Views.AutomaticBristleClassification(maximized, businessSystem, _colgateSkeltaEntities);
-            automaticBristleClassification.Show();
-            this.Close();
+            if (ScreenNavigationUseCases.OpenAutomaticBristleClassificationScreen(ScreenNavigationUseCases.GetGeneralLocalSettings(), businessSystem, _colgateSkeltaEntities, maximized))
+                this.Close();
         }
 
         private void ButtonWindowMaximize_Click(object sender, RoutedEventArgs e)
@@ -113,54 +112,37 @@ namespace Bristle.Views
 
         private void ButtonNeuralNetworkRetraining_Click(object sender, RoutedEventArgs e)
         {
-            if (businessSystem.UserSystemCurrent.Type == "administrator")
+            if (ScreenNavigationUseCases.OpenNeuralNetworkRetrainingScreen(businessSystem.UserSystemCurrent, businessSystem.NetworkUserModel, ScreenNavigationUseCases.GetGeneralLocalSettings(), businessSystem, _colgateSkeltaEntities, maximized))
             {
-                Views.NeuralNetworkRetraining neuralNetworkRetraining = new NeuralNetworkRetraining(maximized, businessSystem, _colgateSkeltaEntities);
-                neuralNetworkRetraining.Show();
                 this.Close();
             }
             else
             {
-                if (ScreenNavigationUseCases.ValidateUserAdministratorPermission(businessSystem.NetworkUserModel) || ScreenNavigationUseCases.ValidateUserQualityPermission(businessSystem.NetworkUserModel))
-                {
-                    Views.NeuralNetworkRetraining neuralNetworkRetraining = new NeuralNetworkRetraining(maximized, businessSystem, _colgateSkeltaEntities);
-                        neuralNetworkRetraining.Show();
-                        this.Close();
-                }
-                else
-                {
-                    MessageBox.Show("Necessary administrative rights!");
-                }
+                MessageBox.Show("Necessary administrative rights!");
             }
         }
 
         private void ButtonGeneralReport_Click(object sender, RoutedEventArgs e)
         {
-            Views.GeneralReport generalReport = new GeneralReport(maximized, businessSystem, _colgateSkeltaEntities);
-            generalReport.Show();
-            this.Close();
-        }
-
-        private void ButtonBristleRegister_Click_1(object sender, RoutedEventArgs e)
-        {           
-            if (businessSystem.UserSystemCurrent.Type == "administrator")
+            if (ScreenNavigationUseCases.OpenGeneralReportScreen(businessSystem.UserSystemCurrent, businessSystem.NetworkUserModel, ScreenNavigationUseCases.GetGeneralLocalSettings(), businessSystem, _colgateSkeltaEntities, maximized))
             {
-                Views.GeneralSettings generalSettings = new Views.GeneralSettings(maximized, businessSystem, _colgateSkeltaEntities);
-                generalSettings.Show();
                 this.Close();
             }
             else
             {
-                if (ScreenNavigationUseCases.ValidateUserAdministratorPermission(businessSystem.NetworkUserModel) || ScreenNavigationUseCases.ValidateUserQualityPermission(businessSystem.NetworkUserModel))
-                {
-                    Views.GeneralSettings generalSettings = new Views.GeneralSettings(maximized, businessSystem, _colgateSkeltaEntities);
-                        generalSettings.Show();
-                        this.Close();
-                }
-                else
-                {
-                    MessageBox.Show("Necessary administrative rights!");
-                }
+                MessageBox.Show("Necessary administrative rights!");
+            }
+        }
+
+        private void ButtonBristleRegister_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (ScreenNavigationUseCases.OpenGeneralSettingsScreen(businessSystem.UserSystemCurrent, businessSystem.NetworkUserModel, ScreenNavigationUseCases.GetGeneralLocalSettings(), businessSystem, _colgateSkeltaEntities, maximized))
+            {
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Necessary administrative rights!");
             }
         }
 

@@ -37,7 +37,7 @@ namespace Bristle.Views
         private BitmapImage bi;
         private int X;
         private int Y;
-        private int size_ = 75;
+        private int size_ = ConfigurationConstants.DefaultManualNewBoxSize;
         private bool LED1On = true;
         private bool LED2On = true;
         private bool LED3On = true;
@@ -615,11 +615,9 @@ namespace Bristle.Views
         private void ButtonHome_Click(object sender, RoutedEventArgs e)
         {
             Live = false;
-            ScreenNavigationUseCases.SaveGeneralLocalSettings(GeneralSettings);
 
-            Views.MainWindow mainWindow = new Views.MainWindow(Maximized, businessSystem, ColgateSkeltaEntities);
-            mainWindow.Show();
-            this.Close();
+            if (ScreenNavigationUseCases.OpenMainScreen(GeneralSettings, businessSystem, ColgateSkeltaEntities, Maximized))
+                this.Close();
         }
 
         private void ButtonWindowMaximize_Click(object sender, RoutedEventArgs e)
@@ -650,66 +648,40 @@ namespace Bristle.Views
         /// <param name="e"></param>
         private void ButtonNeuralNetworkRetraining_Click(object sender, RoutedEventArgs e)
         {
-            if (businessSystem.UserSystemCurrent.Type == "administrator")
+            if (ScreenNavigationUseCases.OpenNeuralNetworkRetrainingScreen(businessSystem.UserSystemCurrent, businessSystem.NetworkUserModel, GeneralSettings, businessSystem, ColgateSkeltaEntities, Maximized))
             {
-                ScreenNavigationUseCases.SaveGeneralLocalSettings(GeneralSettings);
-                Views.NeuralNetworkRetraining neuralNetworkRetraining = new NeuralNetworkRetraining(Maximized, businessSystem, ColgateSkeltaEntities);
-                neuralNetworkRetraining.Show();
                 this.Close();
             }
             else
             {
-                if (ScreenNavigationUseCases.ValidateUserAdministratorPermission(businessSystem.NetworkUserModel) || ScreenNavigationUseCases.ValidateUserQualityPermission(businessSystem.NetworkUserModel))
-                {
-                    Live = false;
-                    ScreenNavigationUseCases.SaveGeneralLocalSettings(GeneralSettings);
-
-                    Views.NeuralNetworkRetraining neuralNetworkRetraining = new NeuralNetworkRetraining(Maximized, businessSystem, ColgateSkeltaEntities);
-                    neuralNetworkRetraining.Show();
-                    this.Close();
-                }
-                else
-                {
-                    MessageBox.Show("Necessary administrative rights!");
-                }
+                MessageBox.Show("Necessary administrative rights!");
             }
         }
 
         private void ButtonBristleRegister_Click_1(object sender, RoutedEventArgs e)
         {
-            if (businessSystem.UserSystemCurrent.Type == "administrator")
+            if (ScreenNavigationUseCases.OpenGeneralSettingsScreen(businessSystem.UserSystemCurrent, businessSystem.NetworkUserModel, GeneralSettings, businessSystem, ColgateSkeltaEntities, Maximized))
             {
-                ScreenNavigationUseCases.SaveGeneralLocalSettings(GeneralSettings);
-                Views.GeneralSettings generalSettings = new Views.GeneralSettings(Maximized, businessSystem, ColgateSkeltaEntities);
-                generalSettings.Show();
                 this.Close();
             }
             else
             {
-                if (ScreenNavigationUseCases.ValidateUserAdministratorPermission(businessSystem.NetworkUserModel) || ScreenNavigationUseCases.ValidateUserQualityPermission(businessSystem.NetworkUserModel))
-                {
-                    Live = false;
-                    ScreenNavigationUseCases.SaveGeneralLocalSettings(GeneralSettings);
-
-                    Views.GeneralSettings generalSettings = new Views.GeneralSettings(Maximized, businessSystem, ColgateSkeltaEntities);
-                    generalSettings.Show();
-                    this.Close();
-                }
-                else
-                {
-                    MessageBox.Show("Necessary administrative rights!");
-                }
+                MessageBox.Show("Necessary administrative rights!");
             }
         }
 
         private void ButtonGeneralReport_Click_1(object sender, RoutedEventArgs e)
         {
             Live = false;
-            ScreenNavigationUseCases.SaveGeneralLocalSettings(GeneralSettings);
 
-            Views.GeneralReport generalReport = new GeneralReport(Maximized, businessSystem, ColgateSkeltaEntities);
-            generalReport.Show();
-            this.Close();
+            if (ScreenNavigationUseCases.OpenGeneralReportScreen(businessSystem.UserSystemCurrent, businessSystem.NetworkUserModel, GeneralSettings, businessSystem, ColgateSkeltaEntities, Maximized))
+            {
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Necessary administrative rights!");
+            }
         }
 
         /// <summary>
@@ -2338,55 +2310,25 @@ namespace Bristle.Views
 
         private void Password_Click(object sender, RoutedEventArgs e)
         {
-            if (businessSystem.UserSystemCurrent.Type == "administrator")
+            if (ScreenNavigationUseCases.OpenPasswordScreen(businessSystem.UserSystemCurrent, businessSystem.NetworkUserModel, GeneralSettings, businessSystem, ColgateSkeltaEntities, Maximized))
             {
-                ScreenNavigationUseCases.SaveGeneralLocalSettings(GeneralSettings);
-                Password passwordView = new Password(Maximized, businessSystem, ColgateSkeltaEntities);
-                passwordView.Show();
                 this.Close();
             }
             else
             {
-                if (ScreenNavigationUseCases.ValidateUserAdministratorPermission(businessSystem.NetworkUserModel) || ScreenNavigationUseCases.ValidateUserQualityPermission(businessSystem.NetworkUserModel))
-                {
-                    Live = false;
-                    ScreenNavigationUseCases.SaveGeneralLocalSettings(GeneralSettings);
-
-                    Views.Password passwordView = new Views.Password(Maximized, businessSystem, ColgateSkeltaEntities);
-                    passwordView.Show();
-                    this.Close();
-                }
-                else
-                {
-                    MessageBox.Show("Necessary administrative rights!");
-                }
+                MessageBox.Show("Necessary administrative rights!");
             }
         }
 
         private void User_Click(object sender, RoutedEventArgs e)
         {
-            if (businessSystem.UserSystemCurrent.Type == "administrator")
+            if (ScreenNavigationUseCases.OpenUserScreen(businessSystem.UserSystemCurrent, businessSystem.NetworkUserModel, GeneralSettings, businessSystem, ColgateSkeltaEntities, Maximized))
             {
-                ScreenNavigationUseCases.SaveGeneralLocalSettings(GeneralSettings);
-                Views.User userView = new Views.User(Maximized, businessSystem, ColgateSkeltaEntities);
-                userView.Show();
                 this.Close();
             }
             else
             {
-                if (ScreenNavigationUseCases.ValidateUserAdministratorPermission(businessSystem.NetworkUserModel) || ScreenNavigationUseCases.ValidateUserQualityPermission(businessSystem.NetworkUserModel))
-                {
-                    Live = false;
-                    ScreenNavigationUseCases.SaveGeneralLocalSettings(GeneralSettings);
-
-                    Views.User userView = new Views.User(Maximized, businessSystem, ColgateSkeltaEntities);
-                    userView.Show();
-                    this.Close();
-                }
-                else
-                {
-                    MessageBox.Show("Necessary administrative rights!");
-                }
+                MessageBox.Show("Necessary administrative rights!");
             }
         }
 
@@ -3946,6 +3888,18 @@ namespace Bristle.Views
         private void PythonConnectionStatus_Click(object sender, RoutedEventArgs e)
         {
             CameraConfigure();
+        }
+
+        private void ButtonBristleRegister_Click(object sender, RoutedEventArgs e)
+        {
+            if (ScreenNavigationUseCases.OpenGeneralSettingsScreen(businessSystem.UserSystemCurrent, businessSystem.NetworkUserModel, GeneralSettings, businessSystem, ColgateSkeltaEntities, Maximized))
+            {
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Necessary administrative rights!");
+            }
         }
     }
 }

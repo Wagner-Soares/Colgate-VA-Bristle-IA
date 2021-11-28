@@ -36,7 +36,16 @@
 
 
     <Grid Background="#FFF2F2F2" Margin="0,0,2,0">
-        <Grid Height="50" Margin="0,0,-2,0" VerticalAlignment="Top" Background="#FFCC0000" MouseLeftButtonDown="MouseLeftButtonDown">
+        <Grid Height="50" Margin="0,0,-2,0" VerticalAlignment="Top" MouseLeftButtonDown="MouseLeftButtonDown">
+            <Grid.Background >
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
+
+                    <GradientStop Color="Red" Offset="0" />
+
+                    <GradientStop Color="#FFE7E7E7" Offset="1.0" />
+
+                </LinearGradientBrush>
+            </Grid.Background>
             <TextBlock Text="About" Margin="10 10" HorizontalAlignment="Left"  VerticalAlignment="Top" FontStyle="Normal"  FontSize="22"/>
             <Button x:Name="ButtonWindowMaximize" Width="42" Height="24" Margin="0,14,37,12" VerticalAlignment="Center" RenderTransformOrigin="-1.417,0.667" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="ButtonWindowMaximize_Click" Foreground="#FFE7E7E7">
                 <materialDesign:PackIcon Kind="WindowMaximize"  Width="42" Height="24" Margin="0,14,37,12" VerticalAlignment="Center" RenderTransformOrigin="-1.417,0.667" HorizontalAlignment="Right" />

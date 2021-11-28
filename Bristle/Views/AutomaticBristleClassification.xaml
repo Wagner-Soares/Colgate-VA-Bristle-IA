@@ -55,9 +55,17 @@
     </Window.Triggers>
 
     <Grid x:Name="controlGeneral">
-        <Grid Background="#FFF2F2F2" Margin="0,0,-2,0">
-            <Grid Background="#FFF2F2F2"/>
-            <Grid Height="50" Margin="331,0,0,0" VerticalAlignment="Top" Background="#FFCC0000" MouseLeftButtonDown="MouseLeftButtonDown">
+        <Grid Margin="0,0,-2,0">
+            <Grid Height="50" Margin="331,0,0,0" VerticalAlignment="Top" MouseLeftButtonDown="MouseLeftButtonDown">
+                <Grid.Background >
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
+
+                        <GradientStop Color="Red" Offset="0" />
+
+                        <GradientStop Color="White" Offset="1.0" />
+
+                    </LinearGradientBrush>
+                </Grid.Background>
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Right">
                     <materialDesign:PopupBox Margin="10" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
                         <StackPanel Width="150">
@@ -3673,7 +3681,16 @@
                 <TextBlock x:Name="focusValue" FontStyle="Normal" Text="0" FontSize="20" Padding="0,0,0,0" Foreground="#FF515151"  HorizontalAlignment="Left" VerticalAlignment="Top" Height="28" Margin="123,0,0,0" Width="62" />
             </Grid>
             <Grid x:Name="GridMenu" Width="60" HorizontalAlignment="Left" Background="#FFCCCCCC" Margin="0,0,0,5">
-                <Grid Height="50" Width="338" Background="#FFCC0000" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,-278,0" RenderTransformOrigin="0.741,0.493" >
+                <Grid Height="50" Width="338" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,-278,0" RenderTransformOrigin="0.741,0.493" >
+                    <Grid.Background >
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
+
+                            <GradientStop Color="Red" Offset="0" />
+
+                            <GradientStop Color="White" Offset="1.0" />
+
+                        </LinearGradientBrush>
+                    </Grid.Background>
                     <TextBlock Text="Automatic Bristle Classification" Margin="10 10" HorizontalAlignment="Left"  VerticalAlignment="Top" FontStyle="Normal"  FontSize="22"/>
                 </Grid>
 
@@ -3698,15 +3715,15 @@
                         </ListViewItem>
                         <ListViewItem Height="60" Selected="ButtonBristleRegister_Click_1">
                             <StackPanel Orientation="Horizontal">
-                                <Button x:Name="ButtonBristleRegister" Width="46" Height="45" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Right">
+                                <Button x:Name="ButtonBristleRegister" Width="46" Height="45" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Right" Click="ButtonBristleRegister_Click">
                                     <materialDesign:PackIcon  Foreground="Black" Kind="Gear"  Width="25" Height="25" Margin="-5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </Button>
                                 <TextBlock Text="General Settings" VerticalAlignment="Center" Margin="0 10" FontSize="14"/>
                             </StackPanel>
                         </ListViewItem>
-                        <ListViewItem Height="60" >
-                            <StackPanel Orientation="Horizontal">
-                                <Button x:Name="ButtonNeuralNetworkRetraining" Width="46" Height="45" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Right">
+                        <ListViewItem Height="60" Selected="ButtonNeuralNetworkRetraining_Click" >
+                            <StackPanel Orientation="Horizontal" >
+                                <Button x:Name="ButtonNeuralNetworkRetraining" Width="46" Height="45" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Right" Click="ButtonNeuralNetworkRetraining_Click">
                                     <materialDesign:PackIcon Foreground="Black" Kind="Graphql"  Width="25" Height="25" Margin="-5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </Button>
                                 <TextBlock Text="Neural Network Retraining" VerticalAlignment="Center" Margin="0 10" FontSize="14"/>

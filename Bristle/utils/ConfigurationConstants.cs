@@ -22,5 +22,7 @@
 
         public const int StatusPassedTest = 2;
         public const int StatusRejectedTest = 3;
+
+        public const int DefaultManualNewBoxSize = 50;
     }
 }

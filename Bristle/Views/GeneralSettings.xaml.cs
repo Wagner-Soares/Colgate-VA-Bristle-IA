@@ -404,6 +404,11 @@ namespace Bristle.Views
 
         private void TestIpPredictionConnection(object sender, RoutedEventArgs e)
         {
+            TestPredictionIPConn();
+        }
+
+        private void TestPredictionIPConn()
+        {
             if (NetworkTestUseCases.TestIpPingConnection(IpPrediction.Text))
             {
                 btnIPPrediction.Background = Brushes.Green;
@@ -415,6 +420,11 @@ namespace Bristle.Views
         }
 
         private void TestIpTrainConnection(object sender, RoutedEventArgs e)
+        {
+            TestTrainIPConn();
+        }
+
+        private void TestTrainIPConn()
         {
             if (NetworkTestUseCases.TestIpPingConnection(IpTrain.Text))
             {
@@ -428,6 +438,11 @@ namespace Bristle.Views
 
         private void BtnPortPrediction_Click(object sender, RoutedEventArgs e)
         {
+            TestPortPrediction();
+        }
+
+        private void TestPortPrediction()
+        {
             if (NetworkTestUseCases.TestIpPortConnection(IpPrediction.Text, Convert.ToInt16(PortPrediction.Text)))
             {
                 btnPortPredition.Background = Brushes.Green;
@@ -440,6 +455,11 @@ namespace Bristle.Views
 
         private void BtnPortTrain_Click(object sender, RoutedEventArgs e)
         {
+            TestPortTrain();
+        }
+
+        private void TestPortTrain()
+        {
             if (NetworkTestUseCases.TestIpPortConnection(IpTrain.Text, Convert.ToInt16(PortTrain.Text)))
             {
                 btnPortTrain.Background = Brushes.Green;
@@ -448,6 +468,26 @@ namespace Bristle.Views
             {
                 btnPortTrain.Background = Brushes.DarkRed;
             }
+        }
+
+        private void BtnTestIpPrediction_Click(object sender, RoutedEventArgs e)
+        {
+            TestPredictionIPConn();
+        }
+
+        private void BtnTestPortPrediction_Click(object sender, RoutedEventArgs e)
+        {
+            TestPortPrediction();
+        }
+
+        private void BtnTestIpTrain_Click(object sender, RoutedEventArgs e)
+        {
+            TestTrainIPConn();
+        }
+
+        private void BtnTestPortTrain_Click(object sender, RoutedEventArgs e)
+        {
+            TestPortTrain();
         }
     }
 }

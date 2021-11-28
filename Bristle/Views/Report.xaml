@@ -35,7 +35,16 @@
     </Window.Triggers>
 
     <Grid Background="#FFF2F2F2" Margin="0,0,2,0">
-        <Grid Height="50" Margin="280,0,-2,0" VerticalAlignment="Top" Background="#FFCC0000" MouseLeftButtonDown="MouseLeftButtonDown">
+        <Grid Height="50" Margin="280,0,-2,0" VerticalAlignment="Top" MouseLeftButtonDown="MouseLeftButtonDown">
+            <Grid.Background >
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
+
+                    <GradientStop Color="Red" Offset="0" />
+
+                    <GradientStop Color="#FFF2F2F2" Offset="1.0" />
+
+                </LinearGradientBrush>
+            </Grid.Background>
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Right">
                 <materialDesign:PopupBox Margin="10" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
                     <StackPanel Width="150">
@@ -161,8 +170,17 @@
         <!-- Teste de exibição-->
 
         <Grid x:Name="GridMenu" Width="60" HorizontalAlignment="Left" Background="#FFCCCCCC" Margin="0,0,0,10">
-            <Grid Height="50" Width="281" Background="#FFCC0000" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,-221,0" RenderTransformOrigin="0.741,0.493" >
-                <TextBlock Text="Report" Margin="10 10" HorizontalAlignment="Left"  VerticalAlignment="Top" FontStyle="Normal"  FontSize="22"/>
+            <Grid Height="50" Width="281" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,-221,0" RenderTransformOrigin="0.741,0.493" >
+                <Grid.Background >
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
+
+                        <GradientStop Color="Red" Offset="0" />
+
+                        <GradientStop Color="#FFF2F2F2" Offset="1.0" />
+
+                    </LinearGradientBrush>
+                </Grid.Background>
+                <TextBlock Text="Report" Margin="10 10" HorizontalAlignment="Left" Foreground="AntiqueWhite" VerticalAlignment="Top" FontStyle="Normal"  FontSize="22"/>
             </Grid>
 
             <StackPanel Margin="0,50,0,180">

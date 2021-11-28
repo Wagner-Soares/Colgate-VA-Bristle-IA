@@ -9,8 +9,16 @@
         Title="MainWindow" Height="610.5" Width="934.5"  Foreground="White" WindowStyle="none" WindowStartupLocation="CenterScreen">
 
     <Grid Background="#FFF2F2F2" Margin="0,0,2,0" SizeChanged="SizeChanged">
+        <Grid Height="50" Margin="195,0,-2,0" VerticalAlignment="Top" RenderTransformOrigin="0.971,0.58" MouseLeftButtonDown="MouseLeftButtonDown">
+            <Grid.Background >
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
 
-        <Grid Height="50" Margin="195,0,-2,0" VerticalAlignment="Top" Background="#FFCC0000" RenderTransformOrigin="0.971,0.58" MouseLeftButtonDown="MouseLeftButtonDown">
+                    <GradientStop Color="Red" Offset="0" />
+
+                    <GradientStop Color="#FFF2F2F2" Offset="1.0" />
+
+                </LinearGradientBrush>
+            </Grid.Background>
             <Button x:Name="ButtonWindowMaximize" Width="42" Height="24" Margin="0,14,37,12" VerticalAlignment="Center" RenderTransformOrigin="-1.417,0.667" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="ButtonWindowMaximize_Click" Foreground="#FFE7E7E7">
                 <materialDesign:PackIcon Kind="WindowMaximize"  Width="42" Height="24" Margin="0,14,37,12" VerticalAlignment="Center" RenderTransformOrigin="-1.417,0.667" HorizontalAlignment="Right" />
             </Button>
@@ -55,8 +63,17 @@
             <TextBlock Text="Position the  Brush" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
         </Grid>
         <Grid x:Name="GridMenu" Width="250" HorizontalAlignment="Left" Background="#FFCCCCCC" Margin="0,0,0,10">
-            <Grid Height="50" Width="250" Background="#FFCC0000" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,-140,0" RenderTransformOrigin="0.741,0.493" >
-                <TextBlock Text="Bristle" Margin="10 10" HorizontalAlignment="Left"  VerticalAlignment="Top" FontStyle="Normal"  FontSize="22"/>
+            <Grid Height="50" Width="250" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,-140,0" RenderTransformOrigin="0.741,0.493" >
+                <Grid.Background >
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
+
+                        <GradientStop Color="Red" Offset="0" />
+
+                        <GradientStop Color="#FFF2F2F2" Offset="1.0" />
+
+                    </LinearGradientBrush>
+                </Grid.Background>
+                <TextBlock Text="Bristle" Margin="10 10" HorizontalAlignment="Left" Foreground="AntiqueWhite"  VerticalAlignment="Top" FontStyle="Normal"  FontSize="22"/>
             </Grid>
 
             <StackPanel x:Name="MainPainel" Margin="0,50,0,180">

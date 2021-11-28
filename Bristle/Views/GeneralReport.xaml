@@ -35,7 +35,16 @@
     </Window.Triggers>
 
     <Grid Background="#FFF2F2F2" Margin="0,0,2,0">
-        <Grid Height="50" Margin="206,0,-2,0" VerticalAlignment="Top" Background="#FFCC0000" MouseLeftButtonDown="MouseLeftButtonDown">
+        <Grid Height="50" Margin="206,0,-2,0" VerticalAlignment="Top" MouseLeftButtonDown="MouseLeftButtonDown">
+            <Grid.Background >
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
+
+                    <GradientStop Color="Red" Offset="0" />
+
+                    <GradientStop Color="White" Offset="1.0" />
+
+                </LinearGradientBrush>
+            </Grid.Background>
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Right">
                 <materialDesign:PopupBox Margin="10" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
                     <StackPanel Width="150">
@@ -104,8 +113,17 @@
         <!-- <StackPanel Margin="182,80,-840,30">-->
         <!-- Teste de exibição-->
 
-        <Grid x:Name="GridMenu" Width="250" HorizontalAlignment="Left" Background="#FFCCCCCC" Margin="0,0,0,10">
-            <Grid Height="50" Width="259" Background="#FFCC0000" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,-199,0" RenderTransformOrigin="0.741,0.493" >
+        <Grid x:Name="GridMenu" Width="60" HorizontalAlignment="Left" Background="#FFCCCCCC" Margin="0,0,0,10">
+            <Grid Height="50" Width="259" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,-199,0" RenderTransformOrigin="0.741,0.493" >
+                <Grid.Background >
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
+
+                        <GradientStop Color="Red" Offset="0" />
+
+                        <GradientStop Color="White" Offset="1.0" />
+
+                    </LinearGradientBrush>
+                </Grid.Background>
                 <TextBlock Text="General Report" Margin="10 10" HorizontalAlignment="Left"  VerticalAlignment="Top" FontStyle="Normal"  FontSize="22"/>
             </Grid>
 

@@ -9,7 +9,16 @@
         Title="EvaluateSample" Height="610.5" Width="934.5"  WindowStyle="None" Foreground="White" WindowStartupLocation="CenterScreen">
 
     <Grid Background="#FFF2F2F2" Margin="0,0,2,0">
-        <Grid Height="50" Margin="187,0,-2,0" VerticalAlignment="Top" Background="#FFCC0000" MouseLeftButtonDown="MouseLeftButtonDown">
+        <Grid Height="50" Margin="187,0,-2,0" VerticalAlignment="Top" MouseLeftButtonDown="MouseLeftButtonDown">
+            <Grid.Background >
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
+
+                    <GradientStop Color="Red" Offset="0" />
+
+                    <GradientStop Color="White" Offset="1.0" />
+
+                </LinearGradientBrush>
+            </Grid.Background>
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Right">
                 <materialDesign:PopupBox Margin="10" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
                     <StackPanel Width="150">
@@ -66,8 +75,10 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="5*"/>
                         <ColumnDefinition Width="8*"/>
+                        <ColumnDefinition Width="2*"/>
                         <ColumnDefinition Width="5*"/>
                         <ColumnDefinition Width="8*"/>
+                        <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0" Background="White" Height="43" VerticalAlignment="Bottom">
                         <Button x:Name="btnIPPrediction" Content="IP Prediction:" Background="DarkCyan" BorderBrush="#FF69C6C6" Margin="0,0,0,5" Height="32" VerticalAlignment="Bottom" Click="TestIpPredictionConnection"/>
@@ -75,16 +86,58 @@
                     <Grid Grid.Column="1" Background="White" Height="43" VerticalAlignment="Bottom">
                         <TextBox x:Name="IpPrediction" FontSize="17" IsReadOnly="false" Text="" CaretBrush="#FF686868" Foreground="Black" Margin="10,0,10,9" VerticalAlignment="Bottom" TextChanged="TestIpPredictionConnection"/>
                     </Grid>
+
                     <Grid Grid.Column="2" Background="White" Height="43" VerticalAlignment="Bottom">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+
+                        <Button x:Name="btnTestIPPrediction" ToolTip="Classify as Ok" Height="Auto" Margin="0,0,0,2" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Click="BtnTestIpPrediction_Click"/>
+
+                        <Grid Grid.Row="0">
+                            <Viewbox Stretch="Uniform"  Margin="0,5,0,0">
+                                <materialDesign:PackIcon Foreground="DarkCyan" Kind="TestTube"/>
+                            </Viewbox>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Viewbox Stretch="Uniform" ToolTip="Classify as Ok">
+                                <TextBlock Foreground="Black" FontWeight="Bold" Margin="2,2,2,2">Test IP Prediction</TextBlock>
+                            </Viewbox>
+                        </Grid>
+                    </Grid>
+
+                    <Grid Grid.Column="3" Background="White" Height="43" VerticalAlignment="Bottom">
                         <Button x:Name="btnPortPredition" Content="Port Prediction:" Background="DarkCyan" BorderBrush="#FF69C6C6" Margin="0,0,0,5" VerticalAlignment="Bottom" Click="BtnPortPrediction_Click"/>
                     </Grid>
-                    <Grid Grid.Column="3" Background="White" Height="43" VerticalAlignment="Bottom">
+                    <Grid Grid.Column="4" Background="White" Height="43" VerticalAlignment="Bottom">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="13*"/>
                             <RowDefinition Height="9*"/>
                         </Grid.RowDefinitions>
                         <TextBox x:Name="PortPrediction" FontSize="17" IsReadOnly="false" Text="" CaretBrush="#FF686868" Foreground="Black" Margin="10,0,10,10" VerticalAlignment="Bottom" Grid.RowSpan="2"  />
                     </Grid>
+
+                    <Grid Grid.Column="5" Background="White" Height="43" VerticalAlignment="Bottom">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+
+                        <Button x:Name="btnTestPortPrediction" ToolTip="Classify as Ok" Height="Auto" Margin="0,0,0,2" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Click="BtnTestPortPrediction_Click"/>
+
+                        <Grid Grid.Row="0">
+                            <Viewbox Stretch="Uniform"  Margin="0,5,0,0">
+                                <materialDesign:PackIcon Foreground="DarkCyan" Kind="TestTube"/>
+                            </Viewbox>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Viewbox Stretch="Uniform" ToolTip="Classify as Ok">
+                                <TextBlock Foreground="Black" FontWeight="Bold" Margin="2,2,2,2">Test Port Prediction</TextBlock>
+                            </Viewbox>
+                        </Grid>
+                    </Grid>
+
                 </Grid>
                 <Grid Grid.Row="8">
                     <Grid.ColumnDefinitions>
@@ -286,8 +339,10 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="5*"/>
                         <ColumnDefinition Width="8*"/>
+                        <ColumnDefinition Width="2*"/>
                         <ColumnDefinition Width="5*"/>
                         <ColumnDefinition Width="8*"/>
+                        <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0" Background="White" Height="44" VerticalAlignment="Bottom">
                         <Grid.ColumnDefinitions>
@@ -299,12 +354,54 @@
                     <Grid Grid.Column="1" Background="White" Height="44" VerticalAlignment="Bottom" RenderTransformOrigin="0.371,0.432">
                         <TextBox x:Name="IpTrain" FontSize="17" IsReadOnly="false" Text="" CaretBrush="#FF686868" Foreground="Black" Margin="10,-11,10,10" VerticalAlignment="Bottom"  TextChanged="TestIpTrainConnection"/>
                     </Grid>
-                    <Grid Grid.Column="2" Background="White" Height="44" VerticalAlignment="Bottom">
+
+                    <Grid Grid.Column="2" Background="White" Height="43" VerticalAlignment="Bottom">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+
+                        <Button x:Name="btnTestIPTrain" ToolTip="Classify as Ok" Height="Auto" Margin="0,0,0,2" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Click="BtnTestIpTrain_Click"/>
+
+                        <Grid Grid.Row="0">
+                            <Viewbox Stretch="Uniform"  Margin="0,5,0,0">
+                                <materialDesign:PackIcon Foreground="DarkCyan" Kind="TestTube"/>
+                            </Viewbox>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Viewbox Stretch="Uniform" ToolTip="Classify as Ok">
+                                <TextBlock Foreground="Black" FontWeight="Bold" Margin="2,2,2,2">Test IP Train</TextBlock>
+                            </Viewbox>
+                        </Grid>
+                    </Grid>
+
+                    <Grid Grid.Column="3" Background="White" Height="44" VerticalAlignment="Bottom">
                         <Button x:Name="btnPortTrain" Content="Port Train:" Background="DarkCyan" BorderBrush="#FF69C6C6" Margin="0,0,0,6" VerticalAlignment="Bottom" Click="BtnPortTrain_Click"/>
                     </Grid>
-                    <Grid Grid.Column="3" Background="White" Height="44" VerticalAlignment="Bottom">
+                    <Grid Grid.Column="4" Background="White" Height="44" VerticalAlignment="Bottom">
                         <TextBox x:Name="PortTrain" FontSize="17"  IsReadOnly="false" Text="" CaretBrush="#FF686868" Foreground="Black" Margin="10,0,10,10" VerticalAlignment="Bottom"  />
                     </Grid>
+
+                    <Grid Grid.Column="5" Background="White" Height="43" VerticalAlignment="Bottom">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+
+                        <Button x:Name="btnTestPortTrain" ToolTip="Classify as Ok" Height="Auto" Margin="0,0,0,2" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Click="BtnTestPortPrediction_Click"/>
+
+                        <Grid Grid.Row="0">
+                            <Viewbox Stretch="Uniform"  Margin="0,5,0,0">
+                                <materialDesign:PackIcon Foreground="DarkCyan" Kind="TestTube"/>
+                            </Viewbox>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Viewbox Stretch="Uniform" ToolTip="Classify as Ok">
+                                <TextBlock Foreground="Black" FontWeight="Bold" Margin="2,2,2,2">Test Port Train</TextBlock>
+                            </Viewbox>
+                        </Grid>
+                    </Grid>
+
                 </Grid>
 
                 <Grid Grid.Row="16" Background="White">
@@ -321,8 +418,17 @@
         </Grid>
 
         <Grid x:Name="GridMenu" Width="250" HorizontalAlignment="Left" Background="#FFCCCCCC" Margin="0,0,0,10">
-            <Grid Height="50" Width="557" Background="#FFCC0000" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,-307,0" RenderTransformOrigin="0.741,0.493" >
-                <TextBlock Text="General Settings" Margin="10 10" HorizontalAlignment="Left"  VerticalAlignment="Top" FontStyle="Normal"  FontSize="22"/>
+            <Grid Height="50" Width="557" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,-307,0" RenderTransformOrigin="0.741,0.493" >
+                <Grid.Background >
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
+
+                        <GradientStop Color="Red" Offset="0" />
+
+                        <GradientStop Color="White" Offset="1.0" />
+
+                    </LinearGradientBrush>
+                </Grid.Background>
+                <TextBlock Text="General Settings" Margin="10 10" Foreground="AntiqueWhite" HorizontalAlignment="Left"  VerticalAlignment="Top" FontStyle="Normal"  FontSize="22"/>
             </Grid>
 
             <StackPanel Margin="0,50,0,180">

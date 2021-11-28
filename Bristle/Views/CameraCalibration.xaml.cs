@@ -137,9 +137,8 @@ namespace Bristle.Views
 
         private void ButtonAutomaticBristleClassification_Click(object sender, RoutedEventArgs e)
         {
-            Views.AutomaticBristleClassification automaticBristleClassification = new Views.AutomaticBristleClassification(maximized, businessSystem, _colgateSkeltaEntities);
-            automaticBristleClassification.Show();
-            this.Close();
+            if (ScreenNavigationUseCases.OpenAutomaticBristleClassificationScreen(ScreenNavigationUseCases.GetGeneralLocalSettings(), businessSystem, _colgateSkeltaEntities, maximized))
+                this.Close();
         }
 
         private void ButtonWindowMaximize_Click(object sender, RoutedEventArgs e)
@@ -163,24 +162,12 @@ namespace Bristle.Views
 
         private void ButtonNeuralNetworkRetraining_Click(object sender, RoutedEventArgs e)
         {
-            if (businessSystem.UserSystemCurrent.Type == "administrator")
+            if (ScreenNavigationUseCases.OpenNeuralNetworkRetrainingScreen(businessSystem.UserSystemCurrent, businessSystem.NetworkUserModel, ScreenNavigationUseCases.GetGeneralLocalSettings(), businessSystem, _colgateSkeltaEntities, maximized))
             {
-                Views.NeuralNetworkRetraining neuralNetworkRetraining = new NeuralNetworkRetraining(maximized, businessSystem, _colgateSkeltaEntities);
-                neuralNetworkRetraining.Show();
                 this.Close();
             }
             else
             {
-                //Validate the group that can access this part 
-                foreach (var group in businessSystem.NetworkUserModel.NetworkUserGroup)
-                {
-                    if (group == "type1" || group == "type2")
-                    {
-                        Views.NeuralNetworkRetraining neuralNetworkRetraining = new NeuralNetworkRetraining(maximized, businessSystem, _colgateSkeltaEntities);
-                        neuralNetworkRetraining.Show();
-                        this.Close();
-                    }
-                }
                 MessageBox.Show("Necessary administrative rights!");
             }
         }
@@ -194,9 +181,14 @@ namespace Bristle.Views
 
         private void ButtonBristleRegister_Click_1(object sender, RoutedEventArgs e)
         {
-            Views.GeneralSettings generalSettings = new Views.GeneralSettings(maximized, businessSystem, _colgateSkeltaEntities);
-            generalSettings.Show();
-            this.Close();
+            if (ScreenNavigationUseCases.OpenGeneralSettingsScreen(businessSystem.UserSystemCurrent, businessSystem.NetworkUserModel, ScreenNavigationUseCases.GetGeneralLocalSettings(), businessSystem, _colgateSkeltaEntities, maximized))
+            {
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Necessary administrative rights!");
+            }
         }
 
         private void Button2_Click(object sender, RoutedEventArgs e)
@@ -358,48 +350,24 @@ namespace Bristle.Views
 
         private void Password_Click(object sender, RoutedEventArgs e)
         {
-            if (businessSystem.UserSystemCurrent.Type == "administrator")
+            if (ScreenNavigationUseCases.OpenPasswordScreen(businessSystem.UserSystemCurrent, businessSystem.NetworkUserModel, ScreenNavigationUseCases.GetGeneralLocalSettings(), businessSystem, _colgateSkeltaEntities, maximized))
             {
-                Views.Password passwordView = new Views.Password(maximized, businessSystem, _colgateSkeltaEntities);
-                passwordView.Show();
                 this.Close();
             }
             else
             {
-                //Validate the group that can access this part 
-                foreach (var group in businessSystem.NetworkUserModel.NetworkUserGroup)
-                {
-                    if (group == "type1" || group == "type2")
-                    {
-                        Views.NeuralNetworkRetraining neuralNetworkRetraining = new NeuralNetworkRetraining(maximized, businessSystem, _colgateSkeltaEntities);
-                        neuralNetworkRetraining.Show();
-                        this.Close();
-                    }
-                }
                 MessageBox.Show("Necessary administrative rights!");
             }
         }
 
         private void User_Click(object sender, RoutedEventArgs e)
         {
-            if (businessSystem.UserSystemCurrent.Type == "adminstrator")
+            if (ScreenNavigationUseCases.OpenUserScreen(businessSystem.UserSystemCurrent, businessSystem.NetworkUserModel, ScreenNavigationUseCases.GetGeneralLocalSettings(), businessSystem, _colgateSkeltaEntities, maximized))
             {
-                Views.User userView = new Views.User(maximized, businessSystem, _colgateSkeltaEntities);
-                userView.Show();
                 this.Close();
             }
             else
             {
-                //Validate the group that can access this part 
-                foreach (var group in businessSystem.NetworkUserModel.NetworkUserGroup)
-                {
-                    if (group == "type1" || group == "type2")
-                    {
-                        Views.NeuralNetworkRetraining neuralNetworkRetraining = new NeuralNetworkRetraining(maximized, businessSystem, _colgateSkeltaEntities);
-                        neuralNetworkRetraining.Show();
-                        this.Close();
-                    }
-                }
                 MessageBox.Show("Necessary administrative rights!");
             }
         }

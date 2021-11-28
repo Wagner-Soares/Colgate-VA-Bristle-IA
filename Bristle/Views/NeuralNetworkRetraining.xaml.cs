@@ -405,9 +405,8 @@ namespace Bristle.Views
 
         private void ButtonHome_Click(object sender, RoutedEventArgs e)
         {
-            Views.MainWindow mainWindow = new Views.MainWindow(maximized, businessSystem, _colgateSkeltaEntities);
-            mainWindow.Show();
-            this.Close();
+            if (ScreenNavigationUseCases.OpenMainScreen(_generalSettings, businessSystem, _colgateSkeltaEntities, maximized))
+                this.Close();
         }
 
         private void ButtonAutomaticBristleClassification_Click(object sender, RoutedEventArgs e)
@@ -452,77 +451,49 @@ namespace Bristle.Views
 
         private void ButtonGeneralReport_Click(object sender, RoutedEventArgs e)
         {
-            Views.GeneralReport generalReport = new GeneralReport(maximized, businessSystem, _colgateSkeltaEntities);
-            generalReport.Show();
-            this.Close();
-        }
-
-        private void ButtonBristleRegister_Click_1(object sender, RoutedEventArgs e)
-        {           
-            if (businessSystem.UserSystemCurrent.Type == "administrator")
+            if (ScreenNavigationUseCases.OpenGeneralReportScreen(businessSystem.UserSystemCurrent, businessSystem.NetworkUserModel, ScreenNavigationUseCases.GetGeneralLocalSettings(), businessSystem, _colgateSkeltaEntities, maximized))
             {
-                Views.GeneralSettings generalSettings = new Views.GeneralSettings(maximized, businessSystem, _colgateSkeltaEntities);
-                generalSettings.Show();
                 this.Close();
             }
             else
             {
-                if (ScreenNavigationUseCases.ValidateUserAdministratorPermission(businessSystem.NetworkUserModel) || ScreenNavigationUseCases.ValidateUserQualityPermission(businessSystem.NetworkUserModel))
-                {
-                    Views.GeneralSettings generalSettings = new Views.GeneralSettings(maximized, businessSystem, _colgateSkeltaEntities);
-                        generalSettings.Show();
-                        this.Close();
-                }
-                else
-                {
-                    MessageBox.Show("Necessary administrative rights!");
-                }
+                MessageBox.Show("Necessary administrative rights!");
+            }
+        }
+
+        private void ButtonBristleRegister_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (ScreenNavigationUseCases.OpenGeneralSettingsScreen(businessSystem.UserSystemCurrent, businessSystem.NetworkUserModel, _generalSettings, businessSystem, _colgateSkeltaEntities, maximized))
+            {
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Necessary administrative rights!");
             }
         }
 
         private void Password_Click(object sender, RoutedEventArgs e)
         {
-            if (businessSystem.UserSystemCurrent.Type == "administrator")
+            if (ScreenNavigationUseCases.OpenPasswordScreen(businessSystem.UserSystemCurrent, businessSystem.NetworkUserModel, _generalSettings, businessSystem, _colgateSkeltaEntities, maximized))
             {
-                Views.Password passwordView = new Views.Password(maximized, businessSystem, _colgateSkeltaEntities);
-                passwordView.Show();
                 this.Close();
             }
             else
             {
-                if (ScreenNavigationUseCases.ValidateUserAdministratorPermission(businessSystem.NetworkUserModel) || ScreenNavigationUseCases.ValidateUserQualityPermission(businessSystem.NetworkUserModel))
-                {
-                    Views.Password passwordView = new Views.Password(maximized, businessSystem, _colgateSkeltaEntities);
-                            passwordView.Show();
-                            this.Close();
-                }
-                else
-                {
-                    MessageBox.Show("Necessary administrative rights!");
-                }
+                MessageBox.Show("Necessary administrative rights!");
             }
         }
 
         private void User_Click(object sender, RoutedEventArgs e)
         {
-            if (businessSystem.UserSystemCurrent.Type == "administrator")
+            if (ScreenNavigationUseCases.OpenUserScreen(businessSystem.UserSystemCurrent, businessSystem.NetworkUserModel, _generalSettings, businessSystem, _colgateSkeltaEntities, maximized))
             {
-                Views.User userView = new Views.User(maximized, businessSystem, _colgateSkeltaEntities);
-                userView.Show();
                 this.Close();
             }
             else
             {
-                if (ScreenNavigationUseCases.ValidateUserAdministratorPermission(businessSystem.NetworkUserModel) || ScreenNavigationUseCases.ValidateUserQualityPermission(businessSystem.NetworkUserModel))
-                {
-                    Views.User userView = new Views.User(maximized, businessSystem, _colgateSkeltaEntities);
-                        userView.Show();
-                        this.Close();
-                }
-                else
-                {
-                    MessageBox.Show("Necessary administrative rights!");
-                }
+                MessageBox.Show("Necessary administrative rights!");
             }
         }
 

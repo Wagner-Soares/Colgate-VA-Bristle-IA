@@ -190,7 +190,7 @@ namespace APIVision.Controllers
 
         public void SendBitmapCommand(string command, string address, int port, Bitmap frame)
         {
-            Thread t = new Thread(() => SendCommand_(command, address, port, frame))
+            Thread t = new Thread(() => SendCommandBitmap(command, address, port, frame))
             {
                 Name = "t",
                 IsBackground = true
@@ -200,7 +200,7 @@ namespace APIVision.Controllers
 
         public void SendStringJsonCommand(string command, string address, int port, string json)
         {
-            Thread t2 = new Thread(() => SendCommand_2(command, address, port, json))
+            Thread t2 = new Thread(() => SendCommandJson(command, address, port, json))
             {
                 Name = "t2",
                 IsBackground = true
@@ -208,7 +208,7 @@ namespace APIVision.Controllers
             t2.Start();
         }
 
-        private void SendCommand_(string command, string address, int port, Bitmap frame)
+        private void SendCommandBitmap(string command, string address, int port, Bitmap frame)
         {
             try
             {
@@ -216,19 +216,7 @@ namespace APIVision.Controllers
                 {
                     byte[] fileNameByte = Encoding.ASCII.GetBytes(command); //COMMDS100
                     byte[] fileData = ImageToByteArray(frame);
-                    byte[] clientData = new byte[4 + fileNameByte.Length + fileData.Length];
-                    byte[] fileNameLen = BitConverter.GetBytes(fileNameByte.Length);
-
-                    fileNameLen.CopyTo(clientData, 0);
-                    fileNameByte.CopyTo(clientData, 4);
-                    fileData.CopyTo(clientData, 4 + fileNameByte.Length);
-
-                    TcpClient clientSocket = new TcpClient(address, port);
-                    NetworkStream networkStream = clientSocket.GetStream();
-
-                    networkStream.Write(clientData, 0, clientData.GetLength(0));
-                    networkStream.Close();
-                    clientSocket.Close();
+                    SendTcpData(address, port, fileNameByte, fileData);
                 }
             }
             catch (Exception e)
@@ -237,7 +225,7 @@ namespace APIVision.Controllers
             }
         }
 
-        public void SendCommand_2(string command, string address, int port, string json)
+        public void SendCommandJson(string command, string address, int port, string json)
         {
             try
             {
@@ -245,25 +233,30 @@ namespace APIVision.Controllers
                 {
                     byte[] fileNameByte = Encoding.ASCII.GetBytes(command);
                     byte[] fileData = Encoding.ASCII.GetBytes(json);
-                    byte[] clientData = new byte[4 + fileNameByte.Length + fileData.Length];
-                    byte[] fileNameLen = BitConverter.GetBytes(fileNameByte.Length);
-
-                    fileNameLen.CopyTo(clientData, 0);
-                    fileNameByte.CopyTo(clientData, 4);
-                    fileData.CopyTo(clientData, 4 + fileNameByte.Length);
-
-                    TcpClient clientSocket = new TcpClient(address, port);
-                    NetworkStream networkStream = clientSocket.GetStream();
-
-                    networkStream.Write(clientData, 0, clientData.GetLength(0));
-                    networkStream.Close();
-                    clientSocket.Close();
+                    SendTcpData(address, port, fileNameByte, fileData);
                 }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
+        }
+
+        private static void SendTcpData(string address, int port, byte[] fileNameByte, byte[] fileData)
+        {
+            byte[] clientData = new byte[4 + fileNameByte.Length + fileData.Length];
+            byte[] fileNameLen = BitConverter.GetBytes(fileNameByte.Length);
+
+            fileNameLen.CopyTo(clientData, 0);
+            fileNameByte.CopyTo(clientData, 4);
+            fileData.CopyTo(clientData, 4 + fileNameByte.Length);
+
+            TcpClient clientSocket = new TcpClient(address, port);
+            NetworkStream networkStream = clientSocket.GetStream();
+
+            networkStream.Write(clientData, 0, clientData.GetLength(0));
+            networkStream.Close();
+            clientSocket.Close();
         }
 
         /// <summary>

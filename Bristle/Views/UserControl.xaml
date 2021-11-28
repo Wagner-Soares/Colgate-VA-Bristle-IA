@@ -8,8 +8,9 @@
         mc:Ignorable="d"
         Title="UserControl" Height="610.5" Width="934.5" WindowStyle="None"  Foreground="White" WindowStartupLocation="CenterScreen" >
 
+
     <Grid Background="#FFE7E7E7" Margin="0,0,2,0" KeyUp="KeyUp" >
-        <Grid VerticalAlignment="Top" Margin="0,0,-2,0"  Background="#FFCC0000" MouseLeftButtonDown="MouseLeftButtonDown">
+        <Grid VerticalAlignment="Top" Margin="0,0,-2,0" MouseLeftButtonDown="MouseLeftButtonDown">
             <TextBlock Text="" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22"/>
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Right"/>
             <Grid Margin="874,0,0,0">
@@ -17,6 +18,15 @@
                 <Button x:Name ="ButtonWindowClose" Content="{materialDesign:PackIcon WindowClose, Size=34}" ToolTip="Close The System" Background="{x:Null}" BorderBrush="{x:Null}" Click="ButtonWindowClose_Click" Height="Auto" Padding="0"  />
             </Grid>
             <Image HorizontalAlignment="Left" Height="50" Margin="65,10,0,-10" VerticalAlignment="Top" Width="100"/>
+            <Grid.Background >
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
+
+                    <GradientStop Color="Red" Offset="0" />
+
+                    <GradientStop Color="#FFE7E7E7" Offset="1.0" />
+
+                </LinearGradientBrush>
+            </Grid.Background>
         </Grid>
         <Grid Background="#FFE7E7E7" Margin="65,55,674,494"/>
         <!-- <StackPanel Margin="182,80,-840,30">-->
@@ -27,7 +37,7 @@
                 <ColumnDefinition Width="199*"/>
             </Grid.ColumnDefinitions>
 
-            <Grid Background="White" Margin="262,148,73,92">
+            <Grid x:Name="LoginGrid" Background="White" Margin="262,148,73,92">
                 <TextBlock Text="Access Login"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" Height="28" Margin="134,34,123,250" Foreground="LightGray" Width="133" RenderTransformOrigin="0.512,-1.121"/>
                 <materialDesign:PackIcon Kind="User"  Width="25" Height="25" Margin="117,112,0,174" VerticalAlignment="Center" RenderTransformOrigin="3.502,-0.262" Foreground="Black" />
                 <TextBox x:Name="user" HorizontalAlignment="Left" SelectionBrush="#FFD3000C" Height="23" Margin="147,112,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Background="#00000000" BorderBrush="#89000000" CaretBrush="#FFD3000C" Foreground="Black" TextChanged="User_TextChanged"/>
