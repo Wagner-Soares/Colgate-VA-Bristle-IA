@@ -1614,7 +1614,7 @@
                 </Grid>
 
                 <Grid Grid.Column="1">
-                    <Button x:Name ="PythonConnectionStatus" Content="{materialDesign:PackIcon LanguagePython, Size=25}" ToolTip="Python Connection Status" Background="Green" BorderBrush="{x:Null}" Click="PythonConnectionStatus_Click"/>
+                    <Button x:Name ="PythonConnectionStatus" Content="{materialDesign:PackIcon LanguagePython, Size=25}" ToolTip="Python Connection Status" Background="Green" BorderBrush="{x:Null}"/>
                 </Grid>
             </Grid>
 
