@@ -27,6 +27,7 @@ namespace Bristle.UseCases
             if (networkUserModel.NetworkUserGroup == null)
                 return false;
 
+
             var _generalSettings = ScreenNavigationUseCases.GetGeneralLocalSettings();
 
             return networkUserModel.NetworkUserGroup.Any(group => group == _generalSettings.AD_Admin);
