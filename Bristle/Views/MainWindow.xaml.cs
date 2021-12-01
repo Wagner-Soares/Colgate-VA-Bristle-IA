@@ -445,7 +445,7 @@ namespace Bristle.Views
 
         private void ButtonBristleRegister_Click_1(object sender, RoutedEventArgs e)
         {
-            if (ScreenNavigationUseCases.OpenNeuralNetworkRetrainingScreen(businessSystem.UserSystemCurrent, businessSystem.NetworkUserModel, _generalSettings, businessSystem, _colgateSkeltaEntities, maximized))
+            if (ScreenNavigationUseCases.OpenGeneralSettingsScreen(businessSystem.UserSystemCurrent, businessSystem.NetworkUserModel, _generalSettings, businessSystem, _colgateSkeltaEntities, maximized))
             {
                 this.Close();
             }

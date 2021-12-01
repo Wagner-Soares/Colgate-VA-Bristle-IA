@@ -45,7 +45,7 @@ namespace APIVision.Controllers.DataBaseControllers
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                return null;
+                return new TestSpecificationModel();
             }
         }
     }
