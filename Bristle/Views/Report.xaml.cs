@@ -653,6 +653,7 @@ namespace Bristle.Views
             Thread.Sleep(280);
             Views.UserControl userControl = new UserControl();
             userControl.Show();
+            automaticBristleClassification.Close();
             this.Close();
         }
 
@@ -677,6 +678,7 @@ namespace Bristle.Views
         {
             if (ScreenNavigationUseCases.OpenGeneralReportScreen(businessSystem.UserSystemCurrent, businessSystem.NetworkUserModel, _generalSettings, businessSystem, _colgateSkeltaEntities, maximized))
             {
+                automaticBristleClassification.Close();
                 this.Close();
             }
             else
@@ -688,18 +690,19 @@ namespace Bristle.Views
         private void ButtonHome_Click(object sender, RoutedEventArgs e)
         {
             if (ScreenNavigationUseCases.OpenMainScreen(_generalSettings, businessSystem, _colgateSkeltaEntities, maximized))
+            {
+                automaticBristleClassification.Close();
                 this.Close();
+            }
         }
 
         private void ButtonAutomaticBristleClassification_Click(object sender, RoutedEventArgs e)
         {
-            if (automaticBristleClassification == null)
-            {
-                automaticBristleClassification = new Views.AutomaticBristleClassification(maximized, businessSystem, _colgateSkeltaEntities);
-            }
+            automaticBristleClassification.Close();
 
-            automaticBristleClassification.Live = true;
-            automaticBristleClassification.Show();
+            var automaticBristleClassificationNew = new Views.AutomaticBristleClassification(maximized, businessSystem, _colgateSkeltaEntities);
+
+            automaticBristleClassificationNew.Show();
             this.Close();
         }
 
@@ -726,6 +729,7 @@ namespace Bristle.Views
         {
             if (ScreenNavigationUseCases.OpenNeuralNetworkRetrainingScreen(businessSystem.UserSystemCurrent, businessSystem.NetworkUserModel, _generalSettings, businessSystem, _colgateSkeltaEntities, maximized))
             {
+                automaticBristleClassification.Close();
                 this.Close();
             }
             else
@@ -738,6 +742,7 @@ namespace Bristle.Views
         {
             if (ScreenNavigationUseCases.OpenGeneralSettingsScreen(businessSystem.UserSystemCurrent, businessSystem.NetworkUserModel, _generalSettings, businessSystem, _colgateSkeltaEntities, maximized))
             {
+                automaticBristleClassification.Close();
                 this.Close();
             }
             else
@@ -750,6 +755,7 @@ namespace Bristle.Views
         {
             if (ScreenNavigationUseCases.OpenPasswordScreen(businessSystem.UserSystemCurrent, businessSystem.NetworkUserModel, _generalSettings, businessSystem, _colgateSkeltaEntities, maximized))
             {
+                automaticBristleClassification.Close();
                 this.Close();
             }
             else
@@ -762,6 +768,7 @@ namespace Bristle.Views
         {
             if (ScreenNavigationUseCases.OpenUserScreen(businessSystem.UserSystemCurrent, businessSystem.NetworkUserModel, _generalSettings, businessSystem, _colgateSkeltaEntities, maximized))
             {
+                automaticBristleClassification.Close();
                 this.Close();
             }
             else
