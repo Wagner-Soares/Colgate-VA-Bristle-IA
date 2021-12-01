@@ -7,8 +7,8 @@ namespace APIVision.DataModels
     public class TestSpecificationModel
     {
         public int TestId { get; set; }
-        public double TestTarget { get; set; }
-        public double TestSpecLowerLimit { get; set; }
-        public double TestSpecUpperLimit { get; set; }
+        public double TestTarget { get; set; } = 1;
+        public double TestSpecLowerLimit { get; set; } = 0;
+        public double TestSpecUpperLimit { get; set; } = 2;
     }
 }
