@@ -24,7 +24,7 @@ namespace APIVision.DAO
 
         public IList<Database.Models> GetAllModelss()
         {
-            return _colgateSkeltaEntities.Models.ToList();
+            return _colgateSkeltaEntities.ModelsSet.ToList();
         }
     }
 }

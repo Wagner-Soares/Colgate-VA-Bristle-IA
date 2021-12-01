@@ -24,7 +24,7 @@ namespace APIVision.DAO
 
         public IList<VimageSet> GetAllVimageSets()
         {
-            return _colgateSkeltaEntities.VimageSet.ToList();
+            return _colgateSkeltaEntities.VimageSets.ToList();
         }
     }
 }

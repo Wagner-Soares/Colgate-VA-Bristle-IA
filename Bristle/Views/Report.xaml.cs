@@ -40,6 +40,7 @@ namespace Bristle.Views
         private readonly BrushAnalysisResultSetController _brushAnalysisResultSet;
         private readonly BristleAnalysisResultSetController _bristleAnalysisResultSetController;
         private readonly AiSampleLogController _aI_Sample_LogController;
+        private readonly SampleLogController _Sample_LogController;
 
         private readonly GeneralLocalSettings _generalSettings;
 
@@ -56,6 +57,7 @@ namespace Bristle.Views
             _brushAnalysisResultSet = new BrushAnalysisResultSetController(colgateSkeltaEntities);
             _bristleAnalysisResultSetController = new BristleAnalysisResultSetController(colgateSkeltaEntities);
             _aI_Sample_LogController = new AiSampleLogController(colgateSkeltaEntities);
+            _Sample_LogController = new SampleLogController(colgateSkeltaEntities);
 
             _generalSettings = automaticBristleClassification_.GeneralSettings;
 
@@ -95,13 +97,20 @@ namespace Bristle.Views
 
         private void SetPropertiesToSaveResult()
         {
+            string userName;
+
+            if (businessSystem.UserSystemCurrent.Name.Contains(@"\"))
+                userName = businessSystem.UserSystemCurrent.Name.Substring(businessSystem.UserSystemCurrent.Name.IndexOf(@"\")+1);
+            else
+                userName = businessSystem.UserSystemCurrent.Name;
+
             //saving final result in skelta's sample log table
             endroundTestResult.SOperator = endroundTestResult.SCreated_by =
                 nBristlesTSpecTestResult.SOperator = nBristlesTSpecTestResult.SCreated_by =
                 nBristlesM1SpecTestResult.SOperator = nBristlesM1SpecTestResult.SCreated_by =
                 nBristlesM2SpecTestResult.SOperator = nBristlesM2SpecTestResult.SCreated_by =
                 nBristlesM3SpecTestResult.SOperator = nBristlesM3SpecTestResult.SCreated_by =
-                nBristlesNSpecTestResult.SOperator = nBristlesNSpecTestResult.SCreated_by = businessSystem.UserSystemCurrent.Name;
+                nBristlesNSpecTestResult.SOperator = nBristlesNSpecTestResult.SCreated_by = userName;
 
             equipament.Text = businessSystem.AnalyzeModels[businessSystem.AnalyzeModels.Count - 1].Equipament;
             sku.Text = businessSystem.AnalyzeModels[businessSystem.AnalyzeModels.Count - 1].Name;
@@ -146,15 +155,15 @@ namespace Bristle.Views
         {
             businessSystem.ShiftsModel = _shiftController.ListShiftsModel();
 
-            if(dateTime >= DateTime.Parse(businessSystem.ShiftsModel[0].Shift_start) && dateTime <= DateTime.Parse(businessSystem.ShiftsModel[0].Shift_end))
+            if(dateTime >= DateTime.Parse(businessSystem.ShiftsModel[0].Shift_start).AddHours(-3) && dateTime <= DateTime.Parse(businessSystem.ShiftsModel[0].Shift_end).AddHours(-3))
             {
                 return 1;
             }
-            else if (dateTime >= DateTime.Parse(businessSystem.ShiftsModel[1].Shift_start) && dateTime <= DateTime.Parse(businessSystem.ShiftsModel[1].Shift_end))
+            else if (dateTime >= DateTime.Parse(businessSystem.ShiftsModel[1].Shift_start).AddHours(-3) && dateTime <= DateTime.Parse(businessSystem.ShiftsModel[1].Shift_end).AddHours(-3))
             {
                 return 2;
             }
-            else if (dateTime >= DateTime.Parse(businessSystem.ShiftsModel[2].Shift_start) && dateTime <= DateTime.Parse(businessSystem.ShiftsModel[2].Shift_end))
+            else if (dateTime >= DateTime.Parse(businessSystem.ShiftsModel[2].Shift_start).AddHours(-3) && dateTime <= DateTime.Parse(businessSystem.ShiftsModel[2].Shift_end).AddHours(-3))
             {
                 return 3;
             }
@@ -199,14 +208,14 @@ namespace Bristle.Views
             int r1 = ((int.Parse(totalGoodBristles.Text)) * 100) / (noneTotal);
             int r2 = 100 - r1;
 
-            mcChart.LegendTitle = "Total: " + (noneTotal).ToString();  
+            mcChart.LegendTitle = "Total: " + (noneTotal).ToString();
             mcChart.FontSize = 24;
 
             //saving final result in skelta's sample log table 
             endroundTestResult.FResult = r1;
 
             ((PieSeries)mcChart.Series[0]).ItemsSource =
-                new KeyValuePair<string, int>[]{ 
+                new KeyValuePair<string, int>[]{
                 new KeyValuePair<string,int>("Ok bristles: " + r1 +"%", r1),
                 new KeyValuePair<string,int>("Defect/Not Found: " + r2 +"%",  r2)};
 
@@ -238,27 +247,55 @@ namespace Bristle.Views
             }
 
             //saving final result in skelta's sample log table
-            _aI_Sample_LogController.UpdateAI_Sample_log(endroundTestResult);
+            if (!(endroundTestResult.Id > 0))
+            {
+                _aI_Sample_LogController.UpdateAI_Sample_log(endroundTestResult);
+                _Sample_LogController.UpdateSample_log(DataHandlerUseCases.ConvertAI_SampleLogToSampleLog(endroundTestResult));
+            }
 
             nBristlesTSpecTestResult.FResult = int.Parse(totalBristleT.Text);
             nBristlesTSpecTestResult.IStatus_id = ReportUseCase.EvaluateTestAndReturnStatus(nBristlesTSpecTestResult.FResult, _generalSettings.TuftTBristleCountSpecTest.TestSpecLowerLimit, _generalSettings.TuftTBristleCountSpecTest.TestSpecUpperLimit);
-            _aI_Sample_LogController.UpdateAI_Sample_log(nBristlesTSpecTestResult);
 
+            if (!(nBristlesTSpecTestResult.Id > 0))
+            {
+                _aI_Sample_LogController.UpdateAI_Sample_log(nBristlesTSpecTestResult);
+                _Sample_LogController.UpdateSample_log(DataHandlerUseCases.ConvertAI_SampleLogToSampleLog(nBristlesTSpecTestResult));
+            }
             nBristlesM1SpecTestResult.FResult = int.Parse(totalBristleM1.Text);
             nBristlesM1SpecTestResult.IStatus_id = ReportUseCase.EvaluateTestAndReturnStatus(nBristlesM1SpecTestResult.FResult, _generalSettings.TuftM1BristleCountSpecTest.TestSpecLowerLimit, _generalSettings.TuftM1BristleCountSpecTest.TestSpecUpperLimit);
-            _aI_Sample_LogController.UpdateAI_Sample_log(nBristlesM1SpecTestResult);
+
+            if (!(nBristlesM1SpecTestResult.Id > 0))
+            {
+                _aI_Sample_LogController.UpdateAI_Sample_log(nBristlesM1SpecTestResult);
+                _Sample_LogController.UpdateSample_log(DataHandlerUseCases.ConvertAI_SampleLogToSampleLog(nBristlesM1SpecTestResult));
+            }
 
             nBristlesM2SpecTestResult.FResult = int.Parse(totalBristleM2.Text);
             nBristlesM2SpecTestResult.IStatus_id = ReportUseCase.EvaluateTestAndReturnStatus(nBristlesM2SpecTestResult.FResult, _generalSettings.TuftM2BristleCountSpecTest.TestSpecLowerLimit, _generalSettings.TuftM2BristleCountSpecTest.TestSpecUpperLimit);
-            _aI_Sample_LogController.UpdateAI_Sample_log(nBristlesM2SpecTestResult);
+
+            if (!(nBristlesM2SpecTestResult.Id > 0))
+            {
+                _aI_Sample_LogController.UpdateAI_Sample_log(nBristlesM2SpecTestResult);
+                _Sample_LogController.UpdateSample_log(DataHandlerUseCases.ConvertAI_SampleLogToSampleLog(nBristlesM2SpecTestResult));
+            }
 
             nBristlesM3SpecTestResult.FResult = int.Parse(totalBristleM3.Text);
             nBristlesM3SpecTestResult.IStatus_id = ReportUseCase.EvaluateTestAndReturnStatus(nBristlesM3SpecTestResult.FResult, _generalSettings.TuftM3BristleCountSpecTest.TestSpecLowerLimit, _generalSettings.TuftM3BristleCountSpecTest.TestSpecUpperLimit);
-            _aI_Sample_LogController.UpdateAI_Sample_log(nBristlesM3SpecTestResult);
+
+            if (!(nBristlesM3SpecTestResult.Id > 0))
+            {
+                _aI_Sample_LogController.UpdateAI_Sample_log(nBristlesM3SpecTestResult);
+                _Sample_LogController.UpdateSample_log(DataHandlerUseCases.ConvertAI_SampleLogToSampleLog(nBristlesM3SpecTestResult));
+            }
 
             nBristlesNSpecTestResult.FResult = int.Parse(totalBristleN.Text);
             nBristlesNSpecTestResult.IStatus_id = ReportUseCase.EvaluateTestAndReturnStatus(nBristlesNSpecTestResult.FResult, _generalSettings.TuftNBristleCountSpecTest.TestSpecLowerLimit, _generalSettings.TuftNBristleCountSpecTest.TestSpecUpperLimit);
-            _aI_Sample_LogController.UpdateAI_Sample_log(nBristlesNSpecTestResult);
+
+            if (!(nBristlesNSpecTestResult.Id > 0))
+            {
+                _aI_Sample_LogController.UpdateAI_Sample_log(nBristlesNSpecTestResult);
+                _Sample_LogController.UpdateSample_log(DataHandlerUseCases.ConvertAI_SampleLogToSampleLog(nBristlesNSpecTestResult));
+            }
         }
 
         private void LoadPieChartDataT(List<BristleAnalysisResultModel> bristleAnalysisResultModels)

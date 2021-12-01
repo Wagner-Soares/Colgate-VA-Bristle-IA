@@ -20,7 +20,7 @@ namespace APIVision.DAO
 
         public IList<SKU> GetAllSKUs()
         {
-            return _colgateSkeltaEntities.SKU.ToList();
+            return _colgateSkeltaEntities.SKUs.ToList();
         }
     }
 }

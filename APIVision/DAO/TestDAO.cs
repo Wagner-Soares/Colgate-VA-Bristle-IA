@@ -24,7 +24,7 @@ namespace APIVision.DAO
 
         public IList<Test> GetAllTests()
         {
-            return _colgateSkeltaEntities.Test.ToList();
+            return _colgateSkeltaEntities.Tests.ToList();
         }
     }
 }
