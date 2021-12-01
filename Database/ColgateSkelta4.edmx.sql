@@ -544,6 +544,11 @@ ADD CONSTRAINT [PK_AI_Sample_log]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
+-- Creating primary key on [Id] in table 'AI_Sample_log'
+ALTER TABLE [dbo].[Sample_log]
+ADD CONSTRAINT [PK_Sample_log]
+    PRIMARY KEY CLUSTERED ([iID] ASC);
+GO
 -- --------------------------------------------------
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------

@@ -2,7 +2,7 @@
 {
     public static class ConfigurationConstants
     {
-        public const string AdAdminsGroup = "BRVA_TB_ WonderwareAdminsU";
+        public const string AdAdminsGroup = "BRAV_WonderwareAdminsU";
         public const string AdQualityGroup = "BRVA_TB_QualityU";
         public const string AdOperatorsGroup = "BRAV_OperatorU";
 
@@ -14,6 +14,7 @@
         public const string TuftNBristleCountTestName = "NPontasSpecN";
 
         public const string DefaultCameraConfigurationName = "Default";
+        public const string DefaultUserNameMsg = "Logged as: ";
 
         public const string GeneralConfigurationName = @"generalSettings";
         public const string CameraConfigurationName = @"cameraSettings";

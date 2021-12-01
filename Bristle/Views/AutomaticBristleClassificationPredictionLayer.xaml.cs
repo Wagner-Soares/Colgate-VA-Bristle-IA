@@ -26,7 +26,6 @@ namespace Bristle.Views
     {
         private Point startPoint;
         private Rectangle maskToMultipleSelection;
-        protected bool enableBoundignBoxMove;
         protected bool isDragging;
         private Point clickPosition;
         readonly AutomaticBristleClassification _automaticBristleClassification;
@@ -35,6 +34,7 @@ namespace Bristle.Views
         public int YCurrent { get; set; } = 0;
         public int AnalyzedId { get; set; } = 0;
         public bool EnableSelectMultiple { get; set; }
+        public bool EnableBoundignBoxMove { get; set; }
         public List<int> ListOfSelectedItems { get; set; } = new List<int>();
 
         public AutomaticBristleClassificationPredictionLayer(AutomaticBristleClassification automaticBristleClassification)
@@ -220,53 +220,54 @@ namespace Bristle.Views
                             ToolBoxOperationsUseCases.DeleteBoundBoxFromPrediction(_automaticBristleClassification, _automaticBristleClassification.SelectedCanvasBoundingBox - 1);
                             _automaticBristleClassification.DrawBoundingBox();
                             _automaticBristleClassification.FrameHolderMouseMove = true;
-                            enableBoundignBoxMove = false;
+                            EnableBoundignBoxMove = false;
                             EnableSelectMultiple = false;
+                            MultipleSelectionDecision.Visibility = Visibility.Collapsed;
                             break;
                         case 10:
                             ToolBoxOperationsUseCases.ClassifyBristleAsOk(_automaticBristleClassification, _automaticBristleClassification.SelectedCanvasBoundingBox - 1);
                             _automaticBristleClassification.DrawBoundingBox();
-                            enableBoundignBoxMove = false;
+                            EnableBoundignBoxMove = false;
                             EnableSelectMultiple = false;
                             break;
                         case 20:
                             ToolBoxOperationsUseCases.ClassifyBristleAsError1(_automaticBristleClassification, _automaticBristleClassification.SelectedCanvasBoundingBox - 1);
                             _automaticBristleClassification.DrawBoundingBox();
-                            enableBoundignBoxMove = false;
+                            EnableBoundignBoxMove = false;
                             EnableSelectMultiple = false;
                             break;
                         case 30:
                             ToolBoxOperationsUseCases.ClassifyBristleAsError2(_automaticBristleClassification, _automaticBristleClassification.SelectedCanvasBoundingBox - 1);
                             _automaticBristleClassification.DrawBoundingBox();
-                            enableBoundignBoxMove = false;
+                            EnableBoundignBoxMove = false;
                             EnableSelectMultiple = false;
                             break;
                         case 40:
                             ToolBoxOperationsUseCases.ClassifyBristleAsError3(_automaticBristleClassification, _automaticBristleClassification.SelectedCanvasBoundingBox - 1);
                             _automaticBristleClassification.DrawBoundingBox();
-                            enableBoundignBoxMove = false;
+                            EnableBoundignBoxMove = false;
                             EnableSelectMultiple = false;
                             break;
                         case 50:
                             ToolBoxOperationsUseCases.ResizeBristleToSize1(_automaticBristleClassification, _automaticBristleClassification.SelectedCanvasBoundingBox - 1);
                             _automaticBristleClassification.DrawBoundingBox();
-                            enableBoundignBoxMove = false;
+                            EnableBoundignBoxMove = false;
                             EnableSelectMultiple = false;
                             break;
                         case 60:
                             ToolBoxOperationsUseCases.ResizeBristleToSize2(_automaticBristleClassification, _automaticBristleClassification.SelectedCanvasBoundingBox - 1);
                             _automaticBristleClassification.DrawBoundingBox();
-                            enableBoundignBoxMove = false;
+                            EnableBoundignBoxMove = false;
                             EnableSelectMultiple = false;
                             break;
                         case 70:
                             ToolBoxOperationsUseCases.ResizeBristleToSize3(_automaticBristleClassification, _automaticBristleClassification.SelectedCanvasBoundingBox - 1);
                             _automaticBristleClassification.DrawBoundingBox();
-                            enableBoundignBoxMove = false;
+                            EnableBoundignBoxMove = false;
                             EnableSelectMultiple = false;
                             break;
                         case 80:
-                            enableBoundignBoxMove = true;
+                            EnableBoundignBoxMove = true;
                             EnableSelectMultiple = false;
                             break;
                     }
@@ -468,6 +469,8 @@ namespace Bristle.Views
             _automaticBristleClassification.BoundingBoxSelectType = "Ok";
             _automaticBristleClassification.WriteBoundingBox();
             _automaticBristleClassification.DrawBoundingBox();
+
+            MultipleSelectionDecision.Visibility = Visibility.Collapsed;
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)
@@ -604,7 +607,7 @@ namespace Bristle.Views
 
         private void Control_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (enableBoundignBoxMove)
+            if (EnableBoundignBoxMove)
             {
                 isDragging = true;
 
@@ -616,7 +619,7 @@ namespace Bristle.Views
 
         private void Control_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            if (enableBoundignBoxMove)
+            if (EnableBoundignBoxMove)
             {
                 isDragging = false;
                 var draggable = sender as Rectangle;
@@ -682,6 +685,8 @@ namespace Bristle.Views
         {
             if (EnableSelectMultiple)
             {
+                BtnCancelMultiple_Click(null, null);
+
                 startPoint = e.GetPosition(canvasMask);
 
                 maskToMultipleSelection = new Rectangle

@@ -39,13 +39,13 @@
 
             <Grid x:Name="LoginGrid" Background="White" Margin="262,148,73,92">
                 <TextBlock Text="Access Login"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" Height="28" Margin="134,34,123,250" Foreground="LightGray" Width="133" RenderTransformOrigin="0.512,-1.121"/>
-                <materialDesign:PackIcon Kind="User"  Width="25" Height="25" Margin="117,112,0,174" VerticalAlignment="Center" RenderTransformOrigin="3.502,-0.262" Foreground="Black" />
-                <TextBox x:Name="user" HorizontalAlignment="Left" SelectionBrush="#FFD3000C" Height="23" Margin="147,112,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Background="#00000000" BorderBrush="#89000000" CaretBrush="#FFD3000C" Foreground="Black" TextChanged="User_TextChanged"/>
-                <materialDesign:PackIcon Kind="Lock"   Width="25" Height="26" Margin="117,166,0,119" VerticalAlignment="Center" RenderTransformOrigin="3.502,-0.262" Foreground="Black" />
+                <materialDesign:PackIcon Kind="User"  Width="25" Height="26" Margin="32,112,0,174" VerticalAlignment="Center" RenderTransformOrigin="3.502,-0.262" Foreground="Black" />
+                <TextBox x:Name="user" HorizontalAlignment="Left" SelectionBrush="#FFD3000C" Height="23" Margin="62,112,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="292" Background="#00000000" BorderBrush="#89000000" CaretBrush="#FFD3000C" Foreground="Black" TextChanged="User_TextChanged"/>
+                <materialDesign:PackIcon Kind="Lock"   Width="25" Height="26" Margin="32,166,0,120" VerticalAlignment="Center" RenderTransformOrigin="3.502,-0.262" Foreground="Black" />
                 <Button x:Name="ButtonValidateUser" Content="Enter" Background="#FFCC0000" HorizontalAlignment="Left" Margin="147,241,0,0" VerticalAlignment="Top" Width="100" Height="40" Click="ButtonValidateUser_Click"/>
-                <PasswordBox x:Name="password" HorizontalAlignment="Left" Margin="147,166,0,0" VerticalAlignment="Top" Width="120" Height="26" Foreground="Black" CaretBrush="#FFF1F2F7" SelectionBrush="#FFD3000C"/>
-                <TextBlock Text=" Domain: "  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="11" Height="19" Margin="117,202,216,91" Foreground="Black" Width="59" RenderTransformOrigin="0.512,-1.121"/>
-                <TextBlock x:Name="txtDomain" Text="      "  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="11" Height="19" Margin="183,202,0,91" Foreground="Black" Width="158" RenderTransformOrigin="0.512,-1.121"/>
+                <PasswordBox x:Name="password" HorizontalAlignment="Left" Margin="62,166,0,0" VerticalAlignment="Top" Width="289" Height="26" Foreground="Black" CaretBrush="#FFF1F2F7" SelectionBrush="#FFD3000C"/>
+                <TextBlock Text=" Domain: "  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="11" Height="19" Margin="32,202,301,91" Foreground="Black" Width="59" RenderTransformOrigin="0.512,-1.121"/>
+                <TextBlock x:Name="txtDomain" Text="      "  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="11" Height="19" Margin="98,202,0,91" Foreground="Black" Width="226" RenderTransformOrigin="0.512,-1.121"/>
             </Grid>
             <Image HorizontalAlignment="Left" Height="116" Margin="383,10,0,0" VerticalAlignment="Top" Width="151"  Source="/Resources/logoColgate.png" Stretch="UniformToFill" StretchDirection="UpOnly"/>
             <Image HorizontalAlignment="Left" Height="47" Margin="345,495,0,0" VerticalAlignment="Top" Width="225" Source="/Resources/LogoISISIM2.png" RenderTransformOrigin="0.595,0.458"/>

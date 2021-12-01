@@ -57,9 +57,9 @@
         <EntityTypeShape EntityType="ColgateSkeltaModel.CheckList" Width="1.5" PointX="14.75" PointY="15.75" />
         <EntityTypeShape EntityType="ColgateSkeltaModel.EquipmentType" Width="1.5" PointX="16.75" PointY="0.75" />
         <EntityTypeShape EntityType="ColgateSkeltaModel.ImportData" Width="1.5" PointX="16.75" PointY="3.75" />
-        <EntityTypeShape EntityType="ColgateSkeltaModel.Sample_log" Width="1.5" PointX="16.75" PointY="9.75" />
         <EntityTypeShape EntityType="ColgateSkeltaModel.Shift" Width="1.5" PointX="16.75" PointY="14.75" />
         <EntityTypeShape EntityType="ColgateSkeltaModel.VW_SampleValues" Width="1.5" PointX="6.75" PointY="17.75" />
+        <EntityTypeShape EntityType="ColgateSkeltaModel.Sample_log" Width="1.5" PointX="16.375" PointY="9.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

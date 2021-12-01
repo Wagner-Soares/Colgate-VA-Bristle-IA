@@ -307,20 +307,9 @@ warning 6002: The table/view 'ColgateSkelta.dbo.ImportData' does not have a prim
           <Property Name="SKU_Id" Type="int" Nullable="false" />
           <Property Name="DatasetSet_Id" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'ColgateSkelta.dbo.Sample_log' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Sample_log">
           <Key>
             <PropertyRef Name="iID" />
-            <PropertyRef Name="iStatus_id" />
-            <PropertyRef Name="iShift" />
-            <PropertyRef Name="iTest_id" />
-            <PropertyRef Name="fResult" />
-            <PropertyRef Name="sOperator" />
-            <PropertyRef Name="dtPublished_at" />
-            <PropertyRef Name="sComments" />
-            <PropertyRef Name="sCreated_by" />
-            <PropertyRef Name="dtCreated_at" />
           </Key>
           <Property Name="iID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="iStatus_id" Type="int" Nullable="false" />
@@ -876,18 +865,18 @@ warning 6002: The table/view 'ColgateSkelta.dbo.VW_SampleValues' does not have a
         <Function Name="SP_S_ReturnCPKValues" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="StartDate" Type="datetime" Mode="In" />
           <Parameter Name="EndDate" Type="datetime" Mode="In" />
-          <Parameter Name="SKU" Type="nvarchar" Mode="In" />
+          <Parameter Name="SKU" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="ShiftId" Type="nvarchar" Mode="In" />
-          <Parameter Name="Test" Type="nvarchar" Mode="In" />
-          <Parameter Name="Area" Type="nvarchar" Mode="In" />
+          <Parameter Name="Test" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Area" Type="nvarchar(max)" Mode="In" />
         </Function>
         <Function Name="SP_S_ReturnCPKValues_Equipment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="StartDate" Type="datetime" Mode="In" />
           <Parameter Name="EndDate" Type="datetime" Mode="In" />
-          <Parameter Name="SKU" Type="nvarchar" Mode="In" />
+          <Parameter Name="SKU" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="ShiftId" Type="nvarchar" Mode="In" />
-          <Parameter Name="Test" Type="nvarchar" Mode="In" />
-          <Parameter Name="Area" Type="nvarchar" Mode="In" />
+          <Parameter Name="Test" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Area" Type="nvarchar(max)" Mode="In" />
         </Function>
         <Function Name="SP_S_ReturnCPKValues_Equipment_20200511" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="StartDate" Type="datetime" Mode="In" />
@@ -1066,6 +1055,7 @@ warning 6002: The table/view 'ColgateSkelta.dbo.VW_SampleValues' does not have a
           <EntitySet Name="QM_Status" EntityType="Self.QM_Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RegistrationWaitingSet" EntityType="Self.RegistrationWaitingSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sample_ASet" EntityType="Self.Sample_ASet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sample_log" EntityType="Self.Sample_log" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SKU" EntityType="Self.SKU" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Test" EntityType="Self.Test" Schema="dbo" store:Type="Tables" />
@@ -1128,25 +1118,6 @@ warning 6002: The table/view 'ColgateSkelta.dbo.VW_SampleValues' does not have a
     [ImportData].[sCreated_by] AS [sCreated_by], 
     [ImportData].[dtCreated_at] AS [dtCreated_at]
     FROM [dbo].[ImportData] AS [ImportData]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Sample_log" EntityType="Self.Sample_log" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Sample_log].[iID] AS [iID], 
-    [Sample_log].[iStatus_id] AS [iStatus_id], 
-    [Sample_log].[bActive] AS [bActive], 
-    [Sample_log].[iShift] AS [iShift], 
-    [Sample_log].[iTest_id] AS [iTest_id], 
-    [Sample_log].[sEquipament] AS [sEquipament], 
-    [Sample_log].[sArea] AS [sArea], 
-    [Sample_log].[sBatchLote] AS [sBatchLote], 
-    [Sample_log].[dtSample] AS [dtSample], 
-    [Sample_log].[fResult] AS [fResult], 
-    [Sample_log].[sOperator] AS [sOperator], 
-    [Sample_log].[dtPublished_at] AS [dtPublished_at], 
-    [Sample_log].[sComments] AS [sComments], 
-    [Sample_log].[sCreated_by] AS [sCreated_by], 
-    [Sample_log].[dtCreated_at] AS [dtCreated_at]
-    FROM [dbo].[Sample_log] AS [Sample_log]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="Shifts" EntityType="Self.Shifts" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -5223,11 +5194,10 @@ warning 6002: The table/view 'ColgateSkelta.dbo.VW_SampleValues' does not have a
           <EntitySet Name="CheckLists" EntityType="ColgateSkeltaModel.CheckList" />
           <EntitySet Name="EquipmentTypes" EntityType="ColgateSkeltaModel.EquipmentType" />
           <EntitySet Name="ImportDatas" EntityType="ColgateSkeltaModel.ImportData" />
-          <EntitySet Name="Sample_log" EntityType="ColgateSkeltaModel.Sample_log" />
           <EntitySet Name="Shifts" EntityType="ColgateSkeltaModel.Shift" />
           <EntitySet Name="VW_SampleValues" EntityType="ColgateSkeltaModel.VW_SampleValues" />
           <FunctionImport Name="ngsfr_fn_S_Split_List11" IsComposable="true" ReturnType="Collection(String)">
-            <Parameter Name="string" Mode="In" Type="String" />
+          <Parameter Name="string" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_alterdiagram11">
             <Parameter Name="diagramname" Mode="In" Type="String" />
@@ -5242,10 +5212,10 @@ warning 6002: The table/view 'ColgateSkelta.dbo.VW_SampleValues' does not have a
             <Parameter Name="definition" Mode="In" Type="Binary" />
           </FunctionImport>
           <FunctionImport Name="SP_D_QMSpec11">
-            <Parameter Name="iQM" Mode="In" Type="String" />
+          <Parameter Name="iQM" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SP_D_Sample11">
-            <Parameter Name="iSample" Mode="In" Type="Int32" />
+          <Parameter Name="iSample" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SP_D_SKU11" ReturnType="Collection(String)">
             <Parameter Name="SKU" Mode="In" Type="String" />
@@ -5322,7 +5292,7 @@ warning 6002: The table/view 'ColgateSkelta.dbo.VW_SampleValues' does not have a
             <Parameter Name="iID_Import" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SP_I_ImportDate_All11" ReturnType="Collection(String)">
-            <Parameter Name="iProcessID" Mode="In" Type="String" />
+          <Parameter Name="iProcessID" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SP_I_QMSpec11" ReturnType="Collection(String)">
             <Parameter Name="TestID" Mode="In" Type="Int32" />
@@ -5384,13 +5354,13 @@ warning 6002: The table/view 'ColgateSkelta.dbo.VW_SampleValues' does not have a
           </FunctionImport>
           <FunctionImport Name="SP_S_AllData11" ReturnType="Collection(ColgateSkeltaModel.SP_S_AllData11_Result)" />
           <FunctionImport Name="SP_S_ReportFilterArea11" ReturnType="Collection(String)">
-            <Parameter Name="SKU" Mode="In" Type="String" />
+          <Parameter Name="SKU" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SP_S_ReportFilterEquip11" ReturnType="Collection(String)">
-            <Parameter Name="Area" Mode="In" Type="String" />
+          <Parameter Name="Area" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SP_S_ReportFilterTest11">
-            <Parameter Name="ssku" Mode="In" Type="String" />
+          <Parameter Name="ssku" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SP_S_ReturnCPKValues11">
             <Parameter Name="StartDate" Mode="In" Type="DateTime" />
@@ -5499,7 +5469,7 @@ warning 6002: The table/view 'ColgateSkelta.dbo.VW_SampleValues' does not have a
             <Parameter Name="Batch" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SP_S_SampleValues11" ReturnType="Collection(ColgateSkeltaModel.SP_S_SampleValues11_Result)">
-            <Parameter Name="dtSample" Mode="In" Type="DateTime" />
+          <Parameter Name="dtSample" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="SP_S_Specs11" ReturnType="Collection(ColgateSkeltaModel.SP_S_Specs11_Result)" />
           <FunctionImport Name="SP_S_TestSpec11" ReturnType="Collection(ColgateSkeltaModel.SP_S_TestSpec11_Result)">
@@ -5549,7 +5519,7 @@ warning 6002: The table/view 'ColgateSkelta.dbo.VW_SampleValues' does not have a
             <Parameter Name="Created_By" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SP_U_Sample_Log_AvoidSample11" ReturnType="Collection(String)">
-            <Parameter Name="sampleID" Mode="In" Type="Int32" />
+          <Parameter Name="sampleID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SP_U_SKU11" ReturnType="Collection(String)">
             <Parameter Name="ID" Mode="In" Type="Int32" />
@@ -5565,6 +5535,7 @@ warning 6002: The table/view 'ColgateSkelta.dbo.VW_SampleValues' does not have a
             <Parameter Name="sCreatedBy" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams11" />
+          <EntitySet Name="Sample_log" EntityType="ColgateSkeltaModel.Sample_log" />
         </EntityContainer>
         <ComplexType Name="SP_S_AllData_Result">
           <Property Type="Int32" Name="AreaID" Nullable="false" />
@@ -8447,35 +8418,6 @@ warning 6002: The table/view 'ColgateSkelta.dbo.VW_SampleValues' does not have a
           <Property Name="sCreated_by" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="dtCreated_at" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
-        <EntityType Name="Sample_log">
-          <Key>
-            <PropertyRef Name="iID" />
-            <PropertyRef Name="iStatus_id" />
-            <PropertyRef Name="iShift" />
-            <PropertyRef Name="iTest_id" />
-            <PropertyRef Name="fResult" />
-            <PropertyRef Name="sOperator" />
-            <PropertyRef Name="dtPublished_at" />
-            <PropertyRef Name="sComments" />
-            <PropertyRef Name="sCreated_by" />
-            <PropertyRef Name="dtCreated_at" />
-          </Key>
-          <Property Name="iID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="iStatus_id" Type="Int32" Nullable="false" />
-          <Property Name="bActive" Type="Boolean" />
-          <Property Name="iShift" Type="Int32" Nullable="false" />
-          <Property Name="iTest_id" Type="Int32" Nullable="false" />
-          <Property Name="sEquipament" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="sArea" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="sBatchLote" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="dtSample" Type="DateTime" Precision="3" />
-          <Property Name="fResult" Type="Double" Nullable="false" />
-          <Property Name="sOperator" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="dtPublished_at" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="sComments" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="sCreated_by" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="dtCreated_at" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
         <EntityType Name="Shift">
           <Key>
             <PropertyRef Name="Shift_id" />
@@ -8766,6 +8708,26 @@ warning 6002: The table/view 'ColgateSkelta.dbo.VW_SampleValues' does not have a
           <Property Type="Double" Name="fAccept_LowerLimit" Nullable="false" />
           <Property Type="Double" Name="fTarget" Nullable="false" />
         </ComplexType>
+        <EntityType Name="Sample_log">
+          <Key>
+            <PropertyRef Name="iID" />
+          </Key>
+          <Property Name="iID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="iStatus_id" Type="Int32" Nullable="false" />
+          <Property Name="bActive" Type="Boolean" />
+          <Property Name="iShift" Type="Int32" Nullable="false" />
+          <Property Name="iTest_id" Type="Int32" Nullable="false" />
+          <Property Name="sEquipament" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="sArea" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="sBatchLote" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="dtSample" Type="DateTime" Precision="3" />
+          <Property Name="fResult" Type="Double" Nullable="false" />
+          <Property Name="sOperator" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="dtPublished_at" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="sComments" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="sCreated_by" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="dtCreated_at" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -9318,27 +9280,6 @@ warning 6002: The table/view 'ColgateSkelta.dbo.VW_SampleValues' does not have a
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Sample_log">
-            <EntityTypeMapping TypeName="ColgateSkeltaModel.Sample_log">
-              <MappingFragment StoreEntitySet="Sample_log">
-                <ScalarProperty Name="dtCreated_at" ColumnName="dtCreated_at" />
-                <ScalarProperty Name="sCreated_by" ColumnName="sCreated_by" />
-                <ScalarProperty Name="sComments" ColumnName="sComments" />
-                <ScalarProperty Name="dtPublished_at" ColumnName="dtPublished_at" />
-                <ScalarProperty Name="sOperator" ColumnName="sOperator" />
-                <ScalarProperty Name="fResult" ColumnName="fResult" />
-                <ScalarProperty Name="dtSample" ColumnName="dtSample" />
-                <ScalarProperty Name="sBatchLote" ColumnName="sBatchLote" />
-                <ScalarProperty Name="sArea" ColumnName="sArea" />
-                <ScalarProperty Name="sEquipament" ColumnName="sEquipament" />
-                <ScalarProperty Name="iTest_id" ColumnName="iTest_id" />
-                <ScalarProperty Name="iShift" ColumnName="iShift" />
-                <ScalarProperty Name="bActive" ColumnName="bActive" />
-                <ScalarProperty Name="iStatus_id" ColumnName="iStatus_id" />
-                <ScalarProperty Name="iID" ColumnName="iID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Shifts">
             <EntityTypeMapping TypeName="ColgateSkeltaModel.Shift">
               <MappingFragment StoreEntitySet="Shifts">
@@ -9718,6 +9659,27 @@ warning 6002: The table/view 'ColgateSkelta.dbo.VW_SampleValues' does not have a
           <FunctionImportMapping FunctionImportName="SP_U_SKU11" FunctionName="ColgateSkeltaModel.Store.SP_U_SKU" />
           <FunctionImportMapping FunctionImportName="SP_U_Test11" FunctionName="ColgateSkeltaModel.Store.SP_U_Test" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams11" FunctionName="ColgateSkeltaModel.Store.sp_upgraddiagrams" />
+          <EntitySetMapping Name="Sample_log">
+            <EntityTypeMapping TypeName="ColgateSkeltaModel.Sample_log">
+              <MappingFragment StoreEntitySet="Sample_log">
+                <ScalarProperty Name="dtCreated_at" ColumnName="dtCreated_at" />
+                <ScalarProperty Name="sCreated_by" ColumnName="sCreated_by" />
+                <ScalarProperty Name="sComments" ColumnName="sComments" />
+                <ScalarProperty Name="dtPublished_at" ColumnName="dtPublished_at" />
+                <ScalarProperty Name="sOperator" ColumnName="sOperator" />
+                <ScalarProperty Name="fResult" ColumnName="fResult" />
+                <ScalarProperty Name="dtSample" ColumnName="dtSample" />
+                <ScalarProperty Name="sBatchLote" ColumnName="sBatchLote" />
+                <ScalarProperty Name="sArea" ColumnName="sArea" />
+                <ScalarProperty Name="sEquipament" ColumnName="sEquipament" />
+                <ScalarProperty Name="iTest_id" ColumnName="iTest_id" />
+                <ScalarProperty Name="iShift" ColumnName="iShift" />
+                <ScalarProperty Name="bActive" ColumnName="bActive" />
+                <ScalarProperty Name="iStatus_id" ColumnName="iStatus_id" />
+                <ScalarProperty Name="iID" ColumnName="iID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>

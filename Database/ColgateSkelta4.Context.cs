@@ -17,17 +17,11 @@ namespace Database
     
     public partial class ColgateSkeltaEntities : DbContext
     {
-        public ColgateSkeltaEntities(string connString)
-            : base()
-        {
-        }
-
         public ColgateSkeltaEntities()
-            : base ("name=ColgateSkeltaEntities")
+            : base("name=ColgateSkeltaEntities")
         {
         }
-
-        
+    
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
@@ -46,20 +40,32 @@ namespace Database
         public virtual DbSet<TuffAnalysisResultSet> TuffAnalysisResultSet { get; set; }
         public virtual DbSet<TuftSet> TuftSet { get; set; }
         public virtual DbSet<TuftTempSetSet> TuftTempSetSet { get; set; }
-        public virtual DbSet<Models> Models { get; set; }
-        public virtual DbSet<ValidationDataset> ValidationDataset { get; set; }
+        public virtual DbSet<Models> ModelsSet { get; set; }
+        public virtual DbSet<Datasets> DatasetsSet { get; set; }
+        public virtual DbSet<ValidationDataset> ValidationDatasetSet { get; set; }
         public virtual DbSet<Vsample_ASet> Vsample_ASet { get; set; }
-        public virtual DbSet<VtuftSet> VtuftSet { get; set; }
-        public virtual DbSet<VbristleSet> VbristleSet { get; set; }
-        public virtual DbSet<VimageSet> VimageSet { get; set; }
-        public virtual DbSet<UserSystem> UserSystem { get; set; }
+        public virtual DbSet<VtuftSet> VtuftSets { get; set; }
+        public virtual DbSet<VbristleSet> VbristleSets { get; set; }
+        public virtual DbSet<VimageSet> VimageSets { get; set; }
+        public virtual DbSet<ValidationDatasets> ValidationDatasets { get; set; }
+        public virtual DbSet<UserSystem> UserSystems { get; set; }
         public virtual DbSet<GeneralSettings> GeneralSettings { get; set; }
         public virtual DbSet<AI_Sample_log> AI_Sample_log { get; set; }
-        public virtual DbSet<Equipment> Equipment { get; set; }
+        public virtual DbSet<Area> Areas { get; set; }
+        public virtual DbSet<Audit_Trail> Audit_Trail { get; set; }
+        public virtual DbSet<Equipment> Equipments { get; set; }
         public virtual DbSet<QM_Spec> QM_Spec { get; set; }
-        public virtual DbSet<SKU> SKU { get; set; }
-        public virtual DbSet<Test> Test { get; set; }
-        public virtual DbSet<Shift> Shift { get; set; }
+        public virtual DbSet<QM_Status> QM_Status { get; set; }
+        public virtual DbSet<SKU> SKUs { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<Test> Tests { get; set; }
+        public virtual DbSet<C_Debug> C_Debug { get; set; }
+        public virtual DbSet<CheckList> CheckLists { get; set; }
+        public virtual DbSet<EquipmentType> EquipmentTypes { get; set; }
+        public virtual DbSet<ImportData> ImportDatas { get; set; }
+        public virtual DbSet<Shift> Shifts { get; set; }
+        public virtual DbSet<VW_SampleValues> VW_SampleValues { get; set; }
+        public virtual DbSet<Sample_log> Sample_log { get; set; }
     
         [DbFunction("ColgateSkeltaEntities", "ngsfr_fn_S_Split_List")]
         public virtual IQueryable<ngsfr_fn_S_Split_List_Result> ngsfr_fn_S_Split_List(string @string)
@@ -69,6 +75,14600 @@ namespace Database
                 new ObjectParameter("string", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<ngsfr_fn_S_Split_List_Result>("[ColgateSkeltaEntities].[ngsfr_fn_S_Split_List](@string)", stringParameter);
-        }         
+        }
+    
+        public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_alterdiagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int sp_creatediagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_creatediagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int SP_D_QMSpec(string iQM)
+        {
+            var iQMParameter = iQM != null ?
+                new ObjectParameter("iQM", iQM) :
+                new ObjectParameter("iQM", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_D_QMSpec", iQMParameter);
+        }
+    
+        public virtual int SP_D_Sample(Nullable<int> iSample)
+        {
+            var iSampleParameter = iSample.HasValue ?
+                new ObjectParameter("iSample", iSample) :
+                new ObjectParameter("iSample", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_D_Sample", iSampleParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_D_SKU(string sKU, string sDescription)
+        {
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_D_SKU", sKUParameter, sDescriptionParameter);
+        }
+    
+        public virtual int sp_dropdiagram(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_dropdiagram", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual int sp_helpdiagramdefinition(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_helpdiagramdefinition", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual int sp_helpdiagrams(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_helpdiagrams", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_Area(string sArea, string sDescription, string sCreatedBy)
+        {
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_Area", sAreaParameter, sDescriptionParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_Checklist(Nullable<int> iID, string sDescription, string iSampleName, string sCreatedBy)
+        {
+            var iIDParameter = iID.HasValue ?
+                new ObjectParameter("iID", iID) :
+                new ObjectParameter("iID", typeof(int));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var iSampleNameParameter = iSampleName != null ?
+                new ObjectParameter("iSampleName", iSampleName) :
+                new ObjectParameter("iSampleName", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Checklist", iIDParameter, sDescriptionParameter, iSampleNameParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_CommandImport()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_CommandImport");
+        }
+    
+        public virtual ObjectResult<string> SP_I_Equipment(string sEquipment, string sDescription, string sAreaID, string sCreatedBy)
+        {
+            var sEquipmentParameter = sEquipment != null ?
+                new ObjectParameter("sEquipment", sEquipment) :
+                new ObjectParameter("sEquipment", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_Equipment", sEquipmentParameter, sDescriptionParameter, sAreaIDParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_ImportDate(string ssku, string sDescription, string sSKUArea, Nullable<int> iTestid, string sTestDescription, Nullable<double> fSpec_UpperLimit, Nullable<double> fSpec_LowerLimit, Nullable<double> fControl_UpperLimit, Nullable<double> fControl_LowerLimit, Nullable<double> fAccept_UpperLimit, Nullable<double> fAccept_LowerLimit, Nullable<double> fTarget, string sAreaID, string sAreaDesc, string sEquipID, string sEquipDesc, string sCreated_by, Nullable<int> iID_Import)
+        {
+            var sskuParameter = ssku != null ?
+                new ObjectParameter("ssku", ssku) :
+                new ObjectParameter("ssku", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sSKUAreaParameter = sSKUArea != null ?
+                new ObjectParameter("sSKUArea", sSKUArea) :
+                new ObjectParameter("sSKUArea", typeof(string));
+    
+            var iTestidParameter = iTestid.HasValue ?
+                new ObjectParameter("iTestid", iTestid) :
+                new ObjectParameter("iTestid", typeof(int));
+    
+            var sTestDescriptionParameter = sTestDescription != null ?
+                new ObjectParameter("sTestDescription", sTestDescription) :
+                new ObjectParameter("sTestDescription", typeof(string));
+    
+            var fSpec_UpperLimitParameter = fSpec_UpperLimit.HasValue ?
+                new ObjectParameter("fSpec_UpperLimit", fSpec_UpperLimit) :
+                new ObjectParameter("fSpec_UpperLimit", typeof(double));
+    
+            var fSpec_LowerLimitParameter = fSpec_LowerLimit.HasValue ?
+                new ObjectParameter("fSpec_LowerLimit", fSpec_LowerLimit) :
+                new ObjectParameter("fSpec_LowerLimit", typeof(double));
+    
+            var fControl_UpperLimitParameter = fControl_UpperLimit.HasValue ?
+                new ObjectParameter("fControl_UpperLimit", fControl_UpperLimit) :
+                new ObjectParameter("fControl_UpperLimit", typeof(double));
+    
+            var fControl_LowerLimitParameter = fControl_LowerLimit.HasValue ?
+                new ObjectParameter("fControl_LowerLimit", fControl_LowerLimit) :
+                new ObjectParameter("fControl_LowerLimit", typeof(double));
+    
+            var fAccept_UpperLimitParameter = fAccept_UpperLimit.HasValue ?
+                new ObjectParameter("fAccept_UpperLimit", fAccept_UpperLimit) :
+                new ObjectParameter("fAccept_UpperLimit", typeof(double));
+    
+            var fAccept_LowerLimitParameter = fAccept_LowerLimit.HasValue ?
+                new ObjectParameter("fAccept_LowerLimit", fAccept_LowerLimit) :
+                new ObjectParameter("fAccept_LowerLimit", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sAreaDescParameter = sAreaDesc != null ?
+                new ObjectParameter("sAreaDesc", sAreaDesc) :
+                new ObjectParameter("sAreaDesc", typeof(string));
+    
+            var sEquipIDParameter = sEquipID != null ?
+                new ObjectParameter("sEquipID", sEquipID) :
+                new ObjectParameter("sEquipID", typeof(string));
+    
+            var sEquipDescParameter = sEquipDesc != null ?
+                new ObjectParameter("sEquipDesc", sEquipDesc) :
+                new ObjectParameter("sEquipDesc", typeof(string));
+    
+            var sCreated_byParameter = sCreated_by != null ?
+                new ObjectParameter("sCreated_by", sCreated_by) :
+                new ObjectParameter("sCreated_by", typeof(string));
+    
+            var iID_ImportParameter = iID_Import.HasValue ?
+                new ObjectParameter("iID_Import", iID_Import) :
+                new ObjectParameter("iID_Import", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_ImportDate", sskuParameter, sDescriptionParameter, sSKUAreaParameter, iTestidParameter, sTestDescriptionParameter, fSpec_UpperLimitParameter, fSpec_LowerLimitParameter, fControl_UpperLimitParameter, fControl_LowerLimitParameter, fAccept_UpperLimitParameter, fAccept_LowerLimitParameter, fTargetParameter, sAreaIDParameter, sAreaDescParameter, sEquipIDParameter, sEquipDescParameter, sCreated_byParameter, iID_ImportParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_ImportDate_20200114(string ssku, string sDescription, string sSKUArea, Nullable<int> iTestid, string sTestDescription, Nullable<double> fSpec_UpperLimit, Nullable<double> fSpec_LowerLimit, Nullable<double> fControl_UpperLimit, Nullable<double> fControl_LowerLimit, Nullable<double> fAccept_UpperLimit, Nullable<double> fAccept_LowerLimit, Nullable<double> fTarget, string sAreaID, string sAreaDesc, string sEquipID, string sEquipDesc, string sCreated_by, Nullable<int> iID_Import)
+        {
+            var sskuParameter = ssku != null ?
+                new ObjectParameter("ssku", ssku) :
+                new ObjectParameter("ssku", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sSKUAreaParameter = sSKUArea != null ?
+                new ObjectParameter("sSKUArea", sSKUArea) :
+                new ObjectParameter("sSKUArea", typeof(string));
+    
+            var iTestidParameter = iTestid.HasValue ?
+                new ObjectParameter("iTestid", iTestid) :
+                new ObjectParameter("iTestid", typeof(int));
+    
+            var sTestDescriptionParameter = sTestDescription != null ?
+                new ObjectParameter("sTestDescription", sTestDescription) :
+                new ObjectParameter("sTestDescription", typeof(string));
+    
+            var fSpec_UpperLimitParameter = fSpec_UpperLimit.HasValue ?
+                new ObjectParameter("fSpec_UpperLimit", fSpec_UpperLimit) :
+                new ObjectParameter("fSpec_UpperLimit", typeof(double));
+    
+            var fSpec_LowerLimitParameter = fSpec_LowerLimit.HasValue ?
+                new ObjectParameter("fSpec_LowerLimit", fSpec_LowerLimit) :
+                new ObjectParameter("fSpec_LowerLimit", typeof(double));
+    
+            var fControl_UpperLimitParameter = fControl_UpperLimit.HasValue ?
+                new ObjectParameter("fControl_UpperLimit", fControl_UpperLimit) :
+                new ObjectParameter("fControl_UpperLimit", typeof(double));
+    
+            var fControl_LowerLimitParameter = fControl_LowerLimit.HasValue ?
+                new ObjectParameter("fControl_LowerLimit", fControl_LowerLimit) :
+                new ObjectParameter("fControl_LowerLimit", typeof(double));
+    
+            var fAccept_UpperLimitParameter = fAccept_UpperLimit.HasValue ?
+                new ObjectParameter("fAccept_UpperLimit", fAccept_UpperLimit) :
+                new ObjectParameter("fAccept_UpperLimit", typeof(double));
+    
+            var fAccept_LowerLimitParameter = fAccept_LowerLimit.HasValue ?
+                new ObjectParameter("fAccept_LowerLimit", fAccept_LowerLimit) :
+                new ObjectParameter("fAccept_LowerLimit", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sAreaDescParameter = sAreaDesc != null ?
+                new ObjectParameter("sAreaDesc", sAreaDesc) :
+                new ObjectParameter("sAreaDesc", typeof(string));
+    
+            var sEquipIDParameter = sEquipID != null ?
+                new ObjectParameter("sEquipID", sEquipID) :
+                new ObjectParameter("sEquipID", typeof(string));
+    
+            var sEquipDescParameter = sEquipDesc != null ?
+                new ObjectParameter("sEquipDesc", sEquipDesc) :
+                new ObjectParameter("sEquipDesc", typeof(string));
+    
+            var sCreated_byParameter = sCreated_by != null ?
+                new ObjectParameter("sCreated_by", sCreated_by) :
+                new ObjectParameter("sCreated_by", typeof(string));
+    
+            var iID_ImportParameter = iID_Import.HasValue ?
+                new ObjectParameter("iID_Import", iID_Import) :
+                new ObjectParameter("iID_Import", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_ImportDate_20200114", sskuParameter, sDescriptionParameter, sSKUAreaParameter, iTestidParameter, sTestDescriptionParameter, fSpec_UpperLimitParameter, fSpec_LowerLimitParameter, fControl_UpperLimitParameter, fControl_LowerLimitParameter, fAccept_UpperLimitParameter, fAccept_LowerLimitParameter, fTargetParameter, sAreaIDParameter, sAreaDescParameter, sEquipIDParameter, sEquipDescParameter, sCreated_byParameter, iID_ImportParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_ImportDate_All(string iProcessID)
+        {
+            var iProcessIDParameter = iProcessID != null ?
+                new ObjectParameter("iProcessID", iProcessID) :
+                new ObjectParameter("iProcessID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_ImportDate_All", iProcessIDParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_QMSpec(Nullable<int> testID, Nullable<double> fSpecUpper, Nullable<double> fSpecLower, Nullable<double> fControlUpper, Nullable<double> fControlLower, Nullable<double> fAcceptUpper, Nullable<double> fAcceptLower, Nullable<double> fTarget, string sCreatedBy)
+        {
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var fSpecUpperParameter = fSpecUpper.HasValue ?
+                new ObjectParameter("fSpecUpper", fSpecUpper) :
+                new ObjectParameter("fSpecUpper", typeof(double));
+    
+            var fSpecLowerParameter = fSpecLower.HasValue ?
+                new ObjectParameter("fSpecLower", fSpecLower) :
+                new ObjectParameter("fSpecLower", typeof(double));
+    
+            var fControlUpperParameter = fControlUpper.HasValue ?
+                new ObjectParameter("fControlUpper", fControlUpper) :
+                new ObjectParameter("fControlUpper", typeof(double));
+    
+            var fControlLowerParameter = fControlLower.HasValue ?
+                new ObjectParameter("fControlLower", fControlLower) :
+                new ObjectParameter("fControlLower", typeof(double));
+    
+            var fAcceptUpperParameter = fAcceptUpper.HasValue ?
+                new ObjectParameter("fAcceptUpper", fAcceptUpper) :
+                new ObjectParameter("fAcceptUpper", typeof(double));
+    
+            var fAcceptLowerParameter = fAcceptLower.HasValue ?
+                new ObjectParameter("fAcceptLower", fAcceptLower) :
+                new ObjectParameter("fAcceptLower", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_QMSpec", testIDParameter, fSpecUpperParameter, fSpecLowerParameter, fControlUpperParameter, fControlLowerParameter, fAcceptUpperParameter, fAcceptLowerParameter, fTargetParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_Sample(Nullable<int> iSample, string sDescription, string iEquipmentName, Nullable<int> iBatch, string sCreatedBy)
+        {
+            var iSampleParameter = iSample.HasValue ?
+                new ObjectParameter("iSample", iSample) :
+                new ObjectParameter("iSample", typeof(int));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var iEquipmentNameParameter = iEquipmentName != null ?
+                new ObjectParameter("iEquipmentName", iEquipmentName) :
+                new ObjectParameter("iEquipmentName", typeof(string));
+    
+            var iBatchParameter = iBatch.HasValue ?
+                new ObjectParameter("iBatch", iBatch) :
+                new ObjectParameter("iBatch", typeof(int));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Sample", iSampleParameter, sDescriptionParameter, iEquipmentNameParameter, iBatchParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_Sample_Log(string test, Nullable<int> sKU, Nullable<double> results, string @operator, string comment, string created_By, string sBatch, Nullable<System.DateTime> dtSample, string sArea, string sEquipament)
+        {
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            var resultsParameter = results.HasValue ?
+                new ObjectParameter("Results", results) :
+                new ObjectParameter("Results", typeof(double));
+    
+            var operatorParameter = @operator != null ?
+                new ObjectParameter("Operator", @operator) :
+                new ObjectParameter("Operator", typeof(string));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("Comment", comment) :
+                new ObjectParameter("Comment", typeof(string));
+    
+            var created_ByParameter = created_By != null ?
+                new ObjectParameter("Created_By", created_By) :
+                new ObjectParameter("Created_By", typeof(string));
+    
+            var sBatchParameter = sBatch != null ?
+                new ObjectParameter("sBatch", sBatch) :
+                new ObjectParameter("sBatch", typeof(string));
+    
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sEquipamentParameter = sEquipament != null ?
+                new ObjectParameter("sEquipament", sEquipament) :
+                new ObjectParameter("sEquipament", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Sample_Log", testParameter, sKUParameter, resultsParameter, operatorParameter, commentParameter, created_ByParameter, sBatchParameter, dtSampleParameter, sAreaParameter, sEquipamentParameter);
+        }
+    
+        public virtual int SP_I_Sample_Log_SKUDesc(string test, string sKU, Nullable<double> results, string @operator, string comment, string created_By, string sBatch, Nullable<System.DateTime> dtSample, string sArea, string sEquipament)
+        {
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var resultsParameter = results.HasValue ?
+                new ObjectParameter("Results", results) :
+                new ObjectParameter("Results", typeof(double));
+    
+            var operatorParameter = @operator != null ?
+                new ObjectParameter("Operator", @operator) :
+                new ObjectParameter("Operator", typeof(string));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("Comment", comment) :
+                new ObjectParameter("Comment", typeof(string));
+    
+            var created_ByParameter = created_By != null ?
+                new ObjectParameter("Created_By", created_By) :
+                new ObjectParameter("Created_By", typeof(string));
+    
+            var sBatchParameter = sBatch != null ?
+                new ObjectParameter("sBatch", sBatch) :
+                new ObjectParameter("sBatch", typeof(string));
+    
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sEquipamentParameter = sEquipament != null ?
+                new ObjectParameter("sEquipament", sEquipament) :
+                new ObjectParameter("sEquipament", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Sample_Log_SKUDesc", testParameter, sKUParameter, resultsParameter, operatorParameter, commentParameter, created_ByParameter, sBatchParameter, dtSampleParameter, sAreaParameter, sEquipamentParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_SKU(string sKU, string sDescription, string sArea, string sCreatedBy)
+        {
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_SKU", sKUParameter, sDescriptionParameter, sAreaParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_Test(string testDesc, Nullable<int> sKU, string sCreatedBy)
+        {
+            var testDescParameter = testDesc != null ?
+                new ObjectParameter("TestDesc", testDesc) :
+                new ObjectParameter("TestDesc", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_Test", testDescParameter, sKUParameter, sCreatedByParameter);
+        }
+    
+        public virtual int sp_renamediagram(string diagramname, Nullable<int> owner_id, string new_diagramname)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var new_diagramnameParameter = new_diagramname != null ?
+                new ObjectParameter("new_diagramname", new_diagramname) :
+                new ObjectParameter("new_diagramname", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_renamediagram", diagramnameParameter, owner_idParameter, new_diagramnameParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_AllData_Result> SP_S_AllData()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_AllData_Result>("SP_S_AllData");
+        }
+    
+        public virtual ObjectResult<string> SP_S_ReportFilterArea(string sKU)
+        {
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_S_ReportFilterArea", sKUParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_S_ReportFilterEquip(string area)
+        {
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_S_ReportFilterEquip", areaParameter);
+        }
+    
+        public virtual int SP_S_ReportFilterTest(string ssku)
+        {
+            var sskuParameter = ssku != null ?
+                new ObjectParameter("ssku", ssku) :
+                new ObjectParameter("ssku", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReportFilterTest", sskuParameter);
+        }
+    
+        public virtual int SP_S_ReturnCPKValues(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReturnCPKValues", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_Equipment_Result> SP_S_ReturnCPKValues_Equipment(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_Equipment_Result>("SP_S_ReturnCPKValues_Equipment", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_Equipment_20200511_Result> SP_S_ReturnCPKValues_Equipment_20200511(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_Equipment_20200511_Result>("SP_S_ReturnCPKValues_Equipment_20200511", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_Equipment_20200527_Result> SP_S_ReturnCPKValues_Equipment_20200527(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_Equipment_20200527_Result>("SP_S_ReturnCPKValues_Equipment_20200527", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_Result> SP_S_ReturnCPKValues_SKU(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_Result>("SP_S_ReturnCPKValues_SKU", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_20200507_Result> SP_S_ReturnCPKValues_SKU_20200507(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_20200507_Result>("SP_S_ReturnCPKValues_SKU_20200507", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_20200508_Result> SP_S_ReturnCPKValues_SKU_20200508(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_20200508_Result>("SP_S_ReturnCPKValues_SKU_20200508", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_20200511_Result> SP_S_ReturnCPKValues_SKU_20200511(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_20200511_Result>("SP_S_ReturnCPKValues_SKU_20200511", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_20200511_02_Result> SP_S_ReturnCPKValues_SKU_20200511_02(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_20200511_02_Result>("SP_S_ReturnCPKValues_SKU_20200511_02", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_20200515_Result> SP_S_ReturnCPKValues_SKU_20200515(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_20200515_Result>("SP_S_ReturnCPKValues_SKU_20200515", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_20200527_Result> SP_S_ReturnCPKValues_SKU_20200527(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_20200527_Result>("SP_S_ReturnCPKValues_SKU_20200527", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual int SP_S_ReturnLossValues(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReturnLossValues", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnValues_Result> SP_S_ReturnValues(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area, string equipment, string batch)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            var equipmentParameter = equipment != null ?
+                new ObjectParameter("Equipment", equipment) :
+                new ObjectParameter("Equipment", typeof(string));
+    
+            var batchParameter = batch != null ?
+                new ObjectParameter("Batch", batch) :
+                new ObjectParameter("Batch", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnValues_Result>("SP_S_ReturnValues", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter, equipmentParameter, batchParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_SampleValues_Result> SP_S_SampleValues(Nullable<System.DateTime> dtSample)
+        {
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_SampleValues_Result>("SP_S_SampleValues", dtSampleParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_Specs_Result> SP_S_Specs()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_Specs_Result>("SP_S_Specs");
+        }
+    
+        public virtual ObjectResult<SP_S_TestSpec_Result> SP_S_TestSpec(string test, Nullable<int> sKU)
+        {
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_TestSpec_Result>("SP_S_TestSpec", testParameter, sKUParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Area(Nullable<int> iD, string area, string sDescription, string sCreatedBy)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Area", iDParameter, areaParameter, sDescriptionParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Equipment(Nullable<int> iID, string sEquipment, string sDescription, string sAreaID, string sCreatedBy)
+        {
+            var iIDParameter = iID.HasValue ?
+                new ObjectParameter("iID", iID) :
+                new ObjectParameter("iID", typeof(int));
+    
+            var sEquipmentParameter = sEquipment != null ?
+                new ObjectParameter("sEquipment", sEquipment) :
+                new ObjectParameter("sEquipment", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Equipment", iIDParameter, sEquipmentParameter, sDescriptionParameter, sAreaIDParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_QMSpec(Nullable<int> testID, Nullable<double> fSpecUpper, Nullable<double> fSpecLower, Nullable<double> fControlUpper, Nullable<double> fControlLower, Nullable<double> fAcceptUpper, Nullable<double> fAcceptLower, Nullable<double> fTarget, string sCreatedBy)
+        {
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var fSpecUpperParameter = fSpecUpper.HasValue ?
+                new ObjectParameter("fSpecUpper", fSpecUpper) :
+                new ObjectParameter("fSpecUpper", typeof(double));
+    
+            var fSpecLowerParameter = fSpecLower.HasValue ?
+                new ObjectParameter("fSpecLower", fSpecLower) :
+                new ObjectParameter("fSpecLower", typeof(double));
+    
+            var fControlUpperParameter = fControlUpper.HasValue ?
+                new ObjectParameter("fControlUpper", fControlUpper) :
+                new ObjectParameter("fControlUpper", typeof(double));
+    
+            var fControlLowerParameter = fControlLower.HasValue ?
+                new ObjectParameter("fControlLower", fControlLower) :
+                new ObjectParameter("fControlLower", typeof(double));
+    
+            var fAcceptUpperParameter = fAcceptUpper.HasValue ?
+                new ObjectParameter("fAcceptUpper", fAcceptUpper) :
+                new ObjectParameter("fAcceptUpper", typeof(double));
+    
+            var fAcceptLowerParameter = fAcceptLower.HasValue ?
+                new ObjectParameter("fAcceptLower", fAcceptLower) :
+                new ObjectParameter("fAcceptLower", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_QMSpec", testIDParameter, fSpecUpperParameter, fSpecLowerParameter, fControlUpperParameter, fControlLowerParameter, fAcceptUpperParameter, fAcceptLowerParameter, fTargetParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_U_Sample(Nullable<int> iSampleID, Nullable<int> iBatch, string iEquipmentName, string sDescription, string sCreatedBy)
+        {
+            var iSampleIDParameter = iSampleID.HasValue ?
+                new ObjectParameter("iSampleID", iSampleID) :
+                new ObjectParameter("iSampleID", typeof(int));
+    
+            var iBatchParameter = iBatch.HasValue ?
+                new ObjectParameter("iBatch", iBatch) :
+                new ObjectParameter("iBatch", typeof(int));
+    
+            var iEquipmentNameParameter = iEquipmentName != null ?
+                new ObjectParameter("iEquipmentName", iEquipmentName) :
+                new ObjectParameter("iEquipmentName", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_U_Sample", iSampleIDParameter, iBatchParameter, iEquipmentNameParameter, sDescriptionParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Sample_Log(Nullable<int> sampleID, Nullable<int> testID, Nullable<double> fResult, string sArea, string sEquipment, Nullable<System.DateTime> dtSample, string sComments, string sBatchLote, string created_By)
+        {
+            var sampleIDParameter = sampleID.HasValue ?
+                new ObjectParameter("sampleID", sampleID) :
+                new ObjectParameter("sampleID", typeof(int));
+    
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var fResultParameter = fResult.HasValue ?
+                new ObjectParameter("fResult", fResult) :
+                new ObjectParameter("fResult", typeof(double));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sEquipmentParameter = sEquipment != null ?
+                new ObjectParameter("sEquipment", sEquipment) :
+                new ObjectParameter("sEquipment", typeof(string));
+    
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            var sCommentsParameter = sComments != null ?
+                new ObjectParameter("sComments", sComments) :
+                new ObjectParameter("sComments", typeof(string));
+    
+            var sBatchLoteParameter = sBatchLote != null ?
+                new ObjectParameter("sBatchLote", sBatchLote) :
+                new ObjectParameter("sBatchLote", typeof(string));
+    
+            var created_ByParameter = created_By != null ?
+                new ObjectParameter("Created_By", created_By) :
+                new ObjectParameter("Created_By", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Sample_Log", sampleIDParameter, testIDParameter, fResultParameter, sAreaParameter, sEquipmentParameter, dtSampleParameter, sCommentsParameter, sBatchLoteParameter, created_ByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Sample_Log_AvoidSample(Nullable<int> sampleID)
+        {
+            var sampleIDParameter = sampleID.HasValue ?
+                new ObjectParameter("sampleID", sampleID) :
+                new ObjectParameter("sampleID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Sample_Log_AvoidSample", sampleIDParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_SKU(Nullable<int> iD, string sKU, string sDescription, string sArea, string sCreatedBy)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_SKU", iDParameter, sKUParameter, sDescriptionParameter, sAreaParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Test(Nullable<int> testID, string testDesc, Nullable<int> sKU, string sCreatedBy)
+        {
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var testDescParameter = testDesc != null ?
+                new ObjectParameter("TestDesc", testDesc) :
+                new ObjectParameter("TestDesc", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Test", testIDParameter, testDescParameter, sKUParameter, sCreatedByParameter);
+        }
+    
+        public virtual int sp_upgraddiagrams()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
+        }
+    
+        [DbFunction("ColgateSkeltaEntities", "ngsfr_fn_S_Split_List1")]
+        public virtual IQueryable<string> ngsfr_fn_S_Split_List1(string @string)
+        {
+            var stringParameter = @string != null ?
+                new ObjectParameter("string", @string) :
+                new ObjectParameter("string", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<string>("[ColgateSkeltaEntities].[ngsfr_fn_S_Split_List1](@string)", stringParameter);
+        }
+    
+        public virtual int sp_alterdiagram1(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_alterdiagram1", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int sp_creatediagram1(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_creatediagram1", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int SP_D_QMSpec1(string iQM)
+        {
+            var iQMParameter = iQM != null ?
+                new ObjectParameter("iQM", iQM) :
+                new ObjectParameter("iQM", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_D_QMSpec1", iQMParameter);
+        }
+    
+        public virtual int SP_D_Sample1(Nullable<int> iSample)
+        {
+            var iSampleParameter = iSample.HasValue ?
+                new ObjectParameter("iSample", iSample) :
+                new ObjectParameter("iSample", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_D_Sample1", iSampleParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_D_SKU1(string sKU, string sDescription)
+        {
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_D_SKU1", sKUParameter, sDescriptionParameter);
+        }
+    
+        public virtual int sp_dropdiagram1(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_dropdiagram1", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual int sp_helpdiagramdefinition1(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_helpdiagramdefinition1", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual int sp_helpdiagrams1(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_helpdiagrams1", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_Area1(string sArea, string sDescription, string sCreatedBy)
+        {
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_Area1", sAreaParameter, sDescriptionParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_Checklist1(Nullable<int> iID, string sDescription, string iSampleName, string sCreatedBy)
+        {
+            var iIDParameter = iID.HasValue ?
+                new ObjectParameter("iID", iID) :
+                new ObjectParameter("iID", typeof(int));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var iSampleNameParameter = iSampleName != null ?
+                new ObjectParameter("iSampleName", iSampleName) :
+                new ObjectParameter("iSampleName", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Checklist1", iIDParameter, sDescriptionParameter, iSampleNameParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_CommandImport1()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_CommandImport1");
+        }
+    
+        public virtual ObjectResult<string> SP_I_Equipment1(string sEquipment, string sDescription, string sAreaID, string sCreatedBy)
+        {
+            var sEquipmentParameter = sEquipment != null ?
+                new ObjectParameter("sEquipment", sEquipment) :
+                new ObjectParameter("sEquipment", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_Equipment1", sEquipmentParameter, sDescriptionParameter, sAreaIDParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_ImportDate1(string ssku, string sDescription, string sSKUArea, Nullable<int> iTestid, string sTestDescription, Nullable<double> fSpec_UpperLimit, Nullable<double> fSpec_LowerLimit, Nullable<double> fControl_UpperLimit, Nullable<double> fControl_LowerLimit, Nullable<double> fAccept_UpperLimit, Nullable<double> fAccept_LowerLimit, Nullable<double> fTarget, string sAreaID, string sAreaDesc, string sEquipID, string sEquipDesc, string sCreated_by, Nullable<int> iID_Import)
+        {
+            var sskuParameter = ssku != null ?
+                new ObjectParameter("ssku", ssku) :
+                new ObjectParameter("ssku", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sSKUAreaParameter = sSKUArea != null ?
+                new ObjectParameter("sSKUArea", sSKUArea) :
+                new ObjectParameter("sSKUArea", typeof(string));
+    
+            var iTestidParameter = iTestid.HasValue ?
+                new ObjectParameter("iTestid", iTestid) :
+                new ObjectParameter("iTestid", typeof(int));
+    
+            var sTestDescriptionParameter = sTestDescription != null ?
+                new ObjectParameter("sTestDescription", sTestDescription) :
+                new ObjectParameter("sTestDescription", typeof(string));
+    
+            var fSpec_UpperLimitParameter = fSpec_UpperLimit.HasValue ?
+                new ObjectParameter("fSpec_UpperLimit", fSpec_UpperLimit) :
+                new ObjectParameter("fSpec_UpperLimit", typeof(double));
+    
+            var fSpec_LowerLimitParameter = fSpec_LowerLimit.HasValue ?
+                new ObjectParameter("fSpec_LowerLimit", fSpec_LowerLimit) :
+                new ObjectParameter("fSpec_LowerLimit", typeof(double));
+    
+            var fControl_UpperLimitParameter = fControl_UpperLimit.HasValue ?
+                new ObjectParameter("fControl_UpperLimit", fControl_UpperLimit) :
+                new ObjectParameter("fControl_UpperLimit", typeof(double));
+    
+            var fControl_LowerLimitParameter = fControl_LowerLimit.HasValue ?
+                new ObjectParameter("fControl_LowerLimit", fControl_LowerLimit) :
+                new ObjectParameter("fControl_LowerLimit", typeof(double));
+    
+            var fAccept_UpperLimitParameter = fAccept_UpperLimit.HasValue ?
+                new ObjectParameter("fAccept_UpperLimit", fAccept_UpperLimit) :
+                new ObjectParameter("fAccept_UpperLimit", typeof(double));
+    
+            var fAccept_LowerLimitParameter = fAccept_LowerLimit.HasValue ?
+                new ObjectParameter("fAccept_LowerLimit", fAccept_LowerLimit) :
+                new ObjectParameter("fAccept_LowerLimit", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sAreaDescParameter = sAreaDesc != null ?
+                new ObjectParameter("sAreaDesc", sAreaDesc) :
+                new ObjectParameter("sAreaDesc", typeof(string));
+    
+            var sEquipIDParameter = sEquipID != null ?
+                new ObjectParameter("sEquipID", sEquipID) :
+                new ObjectParameter("sEquipID", typeof(string));
+    
+            var sEquipDescParameter = sEquipDesc != null ?
+                new ObjectParameter("sEquipDesc", sEquipDesc) :
+                new ObjectParameter("sEquipDesc", typeof(string));
+    
+            var sCreated_byParameter = sCreated_by != null ?
+                new ObjectParameter("sCreated_by", sCreated_by) :
+                new ObjectParameter("sCreated_by", typeof(string));
+    
+            var iID_ImportParameter = iID_Import.HasValue ?
+                new ObjectParameter("iID_Import", iID_Import) :
+                new ObjectParameter("iID_Import", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_ImportDate1", sskuParameter, sDescriptionParameter, sSKUAreaParameter, iTestidParameter, sTestDescriptionParameter, fSpec_UpperLimitParameter, fSpec_LowerLimitParameter, fControl_UpperLimitParameter, fControl_LowerLimitParameter, fAccept_UpperLimitParameter, fAccept_LowerLimitParameter, fTargetParameter, sAreaIDParameter, sAreaDescParameter, sEquipIDParameter, sEquipDescParameter, sCreated_byParameter, iID_ImportParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_ImportDate_202001141(string ssku, string sDescription, string sSKUArea, Nullable<int> iTestid, string sTestDescription, Nullable<double> fSpec_UpperLimit, Nullable<double> fSpec_LowerLimit, Nullable<double> fControl_UpperLimit, Nullable<double> fControl_LowerLimit, Nullable<double> fAccept_UpperLimit, Nullable<double> fAccept_LowerLimit, Nullable<double> fTarget, string sAreaID, string sAreaDesc, string sEquipID, string sEquipDesc, string sCreated_by, Nullable<int> iID_Import)
+        {
+            var sskuParameter = ssku != null ?
+                new ObjectParameter("ssku", ssku) :
+                new ObjectParameter("ssku", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sSKUAreaParameter = sSKUArea != null ?
+                new ObjectParameter("sSKUArea", sSKUArea) :
+                new ObjectParameter("sSKUArea", typeof(string));
+    
+            var iTestidParameter = iTestid.HasValue ?
+                new ObjectParameter("iTestid", iTestid) :
+                new ObjectParameter("iTestid", typeof(int));
+    
+            var sTestDescriptionParameter = sTestDescription != null ?
+                new ObjectParameter("sTestDescription", sTestDescription) :
+                new ObjectParameter("sTestDescription", typeof(string));
+    
+            var fSpec_UpperLimitParameter = fSpec_UpperLimit.HasValue ?
+                new ObjectParameter("fSpec_UpperLimit", fSpec_UpperLimit) :
+                new ObjectParameter("fSpec_UpperLimit", typeof(double));
+    
+            var fSpec_LowerLimitParameter = fSpec_LowerLimit.HasValue ?
+                new ObjectParameter("fSpec_LowerLimit", fSpec_LowerLimit) :
+                new ObjectParameter("fSpec_LowerLimit", typeof(double));
+    
+            var fControl_UpperLimitParameter = fControl_UpperLimit.HasValue ?
+                new ObjectParameter("fControl_UpperLimit", fControl_UpperLimit) :
+                new ObjectParameter("fControl_UpperLimit", typeof(double));
+    
+            var fControl_LowerLimitParameter = fControl_LowerLimit.HasValue ?
+                new ObjectParameter("fControl_LowerLimit", fControl_LowerLimit) :
+                new ObjectParameter("fControl_LowerLimit", typeof(double));
+    
+            var fAccept_UpperLimitParameter = fAccept_UpperLimit.HasValue ?
+                new ObjectParameter("fAccept_UpperLimit", fAccept_UpperLimit) :
+                new ObjectParameter("fAccept_UpperLimit", typeof(double));
+    
+            var fAccept_LowerLimitParameter = fAccept_LowerLimit.HasValue ?
+                new ObjectParameter("fAccept_LowerLimit", fAccept_LowerLimit) :
+                new ObjectParameter("fAccept_LowerLimit", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sAreaDescParameter = sAreaDesc != null ?
+                new ObjectParameter("sAreaDesc", sAreaDesc) :
+                new ObjectParameter("sAreaDesc", typeof(string));
+    
+            var sEquipIDParameter = sEquipID != null ?
+                new ObjectParameter("sEquipID", sEquipID) :
+                new ObjectParameter("sEquipID", typeof(string));
+    
+            var sEquipDescParameter = sEquipDesc != null ?
+                new ObjectParameter("sEquipDesc", sEquipDesc) :
+                new ObjectParameter("sEquipDesc", typeof(string));
+    
+            var sCreated_byParameter = sCreated_by != null ?
+                new ObjectParameter("sCreated_by", sCreated_by) :
+                new ObjectParameter("sCreated_by", typeof(string));
+    
+            var iID_ImportParameter = iID_Import.HasValue ?
+                new ObjectParameter("iID_Import", iID_Import) :
+                new ObjectParameter("iID_Import", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_ImportDate_202001141", sskuParameter, sDescriptionParameter, sSKUAreaParameter, iTestidParameter, sTestDescriptionParameter, fSpec_UpperLimitParameter, fSpec_LowerLimitParameter, fControl_UpperLimitParameter, fControl_LowerLimitParameter, fAccept_UpperLimitParameter, fAccept_LowerLimitParameter, fTargetParameter, sAreaIDParameter, sAreaDescParameter, sEquipIDParameter, sEquipDescParameter, sCreated_byParameter, iID_ImportParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_ImportDate_All1(string iProcessID)
+        {
+            var iProcessIDParameter = iProcessID != null ?
+                new ObjectParameter("iProcessID", iProcessID) :
+                new ObjectParameter("iProcessID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_ImportDate_All1", iProcessIDParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_QMSpec1(Nullable<int> testID, Nullable<double> fSpecUpper, Nullable<double> fSpecLower, Nullable<double> fControlUpper, Nullable<double> fControlLower, Nullable<double> fAcceptUpper, Nullable<double> fAcceptLower, Nullable<double> fTarget, string sCreatedBy)
+        {
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var fSpecUpperParameter = fSpecUpper.HasValue ?
+                new ObjectParameter("fSpecUpper", fSpecUpper) :
+                new ObjectParameter("fSpecUpper", typeof(double));
+    
+            var fSpecLowerParameter = fSpecLower.HasValue ?
+                new ObjectParameter("fSpecLower", fSpecLower) :
+                new ObjectParameter("fSpecLower", typeof(double));
+    
+            var fControlUpperParameter = fControlUpper.HasValue ?
+                new ObjectParameter("fControlUpper", fControlUpper) :
+                new ObjectParameter("fControlUpper", typeof(double));
+    
+            var fControlLowerParameter = fControlLower.HasValue ?
+                new ObjectParameter("fControlLower", fControlLower) :
+                new ObjectParameter("fControlLower", typeof(double));
+    
+            var fAcceptUpperParameter = fAcceptUpper.HasValue ?
+                new ObjectParameter("fAcceptUpper", fAcceptUpper) :
+                new ObjectParameter("fAcceptUpper", typeof(double));
+    
+            var fAcceptLowerParameter = fAcceptLower.HasValue ?
+                new ObjectParameter("fAcceptLower", fAcceptLower) :
+                new ObjectParameter("fAcceptLower", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_QMSpec1", testIDParameter, fSpecUpperParameter, fSpecLowerParameter, fControlUpperParameter, fControlLowerParameter, fAcceptUpperParameter, fAcceptLowerParameter, fTargetParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_Sample1(Nullable<int> iSample, string sDescription, string iEquipmentName, Nullable<int> iBatch, string sCreatedBy)
+        {
+            var iSampleParameter = iSample.HasValue ?
+                new ObjectParameter("iSample", iSample) :
+                new ObjectParameter("iSample", typeof(int));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var iEquipmentNameParameter = iEquipmentName != null ?
+                new ObjectParameter("iEquipmentName", iEquipmentName) :
+                new ObjectParameter("iEquipmentName", typeof(string));
+    
+            var iBatchParameter = iBatch.HasValue ?
+                new ObjectParameter("iBatch", iBatch) :
+                new ObjectParameter("iBatch", typeof(int));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Sample1", iSampleParameter, sDescriptionParameter, iEquipmentNameParameter, iBatchParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_Sample_Log1(string test, Nullable<int> sKU, Nullable<double> results, string @operator, string comment, string created_By, string sBatch, Nullable<System.DateTime> dtSample, string sArea, string sEquipament)
+        {
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            var resultsParameter = results.HasValue ?
+                new ObjectParameter("Results", results) :
+                new ObjectParameter("Results", typeof(double));
+    
+            var operatorParameter = @operator != null ?
+                new ObjectParameter("Operator", @operator) :
+                new ObjectParameter("Operator", typeof(string));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("Comment", comment) :
+                new ObjectParameter("Comment", typeof(string));
+    
+            var created_ByParameter = created_By != null ?
+                new ObjectParameter("Created_By", created_By) :
+                new ObjectParameter("Created_By", typeof(string));
+    
+            var sBatchParameter = sBatch != null ?
+                new ObjectParameter("sBatch", sBatch) :
+                new ObjectParameter("sBatch", typeof(string));
+    
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sEquipamentParameter = sEquipament != null ?
+                new ObjectParameter("sEquipament", sEquipament) :
+                new ObjectParameter("sEquipament", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Sample_Log1", testParameter, sKUParameter, resultsParameter, operatorParameter, commentParameter, created_ByParameter, sBatchParameter, dtSampleParameter, sAreaParameter, sEquipamentParameter);
+        }
+    
+        public virtual int SP_I_Sample_Log_SKUDesc1(string test, string sKU, Nullable<double> results, string @operator, string comment, string created_By, string sBatch, Nullable<System.DateTime> dtSample, string sArea, string sEquipament)
+        {
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var resultsParameter = results.HasValue ?
+                new ObjectParameter("Results", results) :
+                new ObjectParameter("Results", typeof(double));
+    
+            var operatorParameter = @operator != null ?
+                new ObjectParameter("Operator", @operator) :
+                new ObjectParameter("Operator", typeof(string));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("Comment", comment) :
+                new ObjectParameter("Comment", typeof(string));
+    
+            var created_ByParameter = created_By != null ?
+                new ObjectParameter("Created_By", created_By) :
+                new ObjectParameter("Created_By", typeof(string));
+    
+            var sBatchParameter = sBatch != null ?
+                new ObjectParameter("sBatch", sBatch) :
+                new ObjectParameter("sBatch", typeof(string));
+    
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sEquipamentParameter = sEquipament != null ?
+                new ObjectParameter("sEquipament", sEquipament) :
+                new ObjectParameter("sEquipament", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Sample_Log_SKUDesc1", testParameter, sKUParameter, resultsParameter, operatorParameter, commentParameter, created_ByParameter, sBatchParameter, dtSampleParameter, sAreaParameter, sEquipamentParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_SKU1(string sKU, string sDescription, string sArea, string sCreatedBy)
+        {
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_SKU1", sKUParameter, sDescriptionParameter, sAreaParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_Test1(string testDesc, Nullable<int> sKU, string sCreatedBy)
+        {
+            var testDescParameter = testDesc != null ?
+                new ObjectParameter("TestDesc", testDesc) :
+                new ObjectParameter("TestDesc", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_Test1", testDescParameter, sKUParameter, sCreatedByParameter);
+        }
+    
+        public virtual int sp_renamediagram1(string diagramname, Nullable<int> owner_id, string new_diagramname)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var new_diagramnameParameter = new_diagramname != null ?
+                new ObjectParameter("new_diagramname", new_diagramname) :
+                new ObjectParameter("new_diagramname", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_renamediagram1", diagramnameParameter, owner_idParameter, new_diagramnameParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_AllData1_Result> SP_S_AllData1()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_AllData1_Result>("SP_S_AllData1");
+        }
+    
+        public virtual ObjectResult<string> SP_S_ReportFilterArea1(string sKU)
+        {
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_S_ReportFilterArea1", sKUParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_S_ReportFilterEquip1(string area)
+        {
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_S_ReportFilterEquip1", areaParameter);
+        }
+    
+        public virtual int SP_S_ReportFilterTest1(string ssku)
+        {
+            var sskuParameter = ssku != null ?
+                new ObjectParameter("ssku", ssku) :
+                new ObjectParameter("ssku", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReportFilterTest1", sskuParameter);
+        }
+    
+        public virtual int SP_S_ReturnCPKValues1(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReturnCPKValues1", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_Equipment1_Result> SP_S_ReturnCPKValues_Equipment1(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_Equipment1_Result>("SP_S_ReturnCPKValues_Equipment1", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_Equipment_202005111_Result> SP_S_ReturnCPKValues_Equipment_202005111(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_Equipment_202005111_Result>("SP_S_ReturnCPKValues_Equipment_202005111", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_Equipment_202005271_Result> SP_S_ReturnCPKValues_Equipment_202005271(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_Equipment_202005271_Result>("SP_S_ReturnCPKValues_Equipment_202005271", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU1_Result> SP_S_ReturnCPKValues_SKU1(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU1_Result>("SP_S_ReturnCPKValues_SKU1", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_202005071_Result> SP_S_ReturnCPKValues_SKU_202005071(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_202005071_Result>("SP_S_ReturnCPKValues_SKU_202005071", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_202005081_Result> SP_S_ReturnCPKValues_SKU_202005081(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_202005081_Result>("SP_S_ReturnCPKValues_SKU_202005081", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_202005111_Result> SP_S_ReturnCPKValues_SKU_202005111(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_202005111_Result>("SP_S_ReturnCPKValues_SKU_202005111", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_20200511_021_Result> SP_S_ReturnCPKValues_SKU_20200511_021(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_20200511_021_Result>("SP_S_ReturnCPKValues_SKU_20200511_021", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_202005151_Result> SP_S_ReturnCPKValues_SKU_202005151(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_202005151_Result>("SP_S_ReturnCPKValues_SKU_202005151", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_202005271_Result> SP_S_ReturnCPKValues_SKU_202005271(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_202005271_Result>("SP_S_ReturnCPKValues_SKU_202005271", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual int SP_S_ReturnLossValues1(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReturnLossValues1", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnValues1_Result> SP_S_ReturnValues1(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area, string equipment, string batch)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            var equipmentParameter = equipment != null ?
+                new ObjectParameter("Equipment", equipment) :
+                new ObjectParameter("Equipment", typeof(string));
+    
+            var batchParameter = batch != null ?
+                new ObjectParameter("Batch", batch) :
+                new ObjectParameter("Batch", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnValues1_Result>("SP_S_ReturnValues1", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter, equipmentParameter, batchParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_SampleValues1_Result> SP_S_SampleValues1(Nullable<System.DateTime> dtSample)
+        {
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_SampleValues1_Result>("SP_S_SampleValues1", dtSampleParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_Specs1_Result> SP_S_Specs1()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_Specs1_Result>("SP_S_Specs1");
+        }
+    
+        public virtual ObjectResult<SP_S_TestSpec1_Result> SP_S_TestSpec1(string test, Nullable<int> sKU)
+        {
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_TestSpec1_Result>("SP_S_TestSpec1", testParameter, sKUParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Area1(Nullable<int> iD, string area, string sDescription, string sCreatedBy)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Area1", iDParameter, areaParameter, sDescriptionParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Equipment1(Nullable<int> iID, string sEquipment, string sDescription, string sAreaID, string sCreatedBy)
+        {
+            var iIDParameter = iID.HasValue ?
+                new ObjectParameter("iID", iID) :
+                new ObjectParameter("iID", typeof(int));
+    
+            var sEquipmentParameter = sEquipment != null ?
+                new ObjectParameter("sEquipment", sEquipment) :
+                new ObjectParameter("sEquipment", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Equipment1", iIDParameter, sEquipmentParameter, sDescriptionParameter, sAreaIDParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_QMSpec1(Nullable<int> testID, Nullable<double> fSpecUpper, Nullable<double> fSpecLower, Nullable<double> fControlUpper, Nullable<double> fControlLower, Nullable<double> fAcceptUpper, Nullable<double> fAcceptLower, Nullable<double> fTarget, string sCreatedBy)
+        {
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var fSpecUpperParameter = fSpecUpper.HasValue ?
+                new ObjectParameter("fSpecUpper", fSpecUpper) :
+                new ObjectParameter("fSpecUpper", typeof(double));
+    
+            var fSpecLowerParameter = fSpecLower.HasValue ?
+                new ObjectParameter("fSpecLower", fSpecLower) :
+                new ObjectParameter("fSpecLower", typeof(double));
+    
+            var fControlUpperParameter = fControlUpper.HasValue ?
+                new ObjectParameter("fControlUpper", fControlUpper) :
+                new ObjectParameter("fControlUpper", typeof(double));
+    
+            var fControlLowerParameter = fControlLower.HasValue ?
+                new ObjectParameter("fControlLower", fControlLower) :
+                new ObjectParameter("fControlLower", typeof(double));
+    
+            var fAcceptUpperParameter = fAcceptUpper.HasValue ?
+                new ObjectParameter("fAcceptUpper", fAcceptUpper) :
+                new ObjectParameter("fAcceptUpper", typeof(double));
+    
+            var fAcceptLowerParameter = fAcceptLower.HasValue ?
+                new ObjectParameter("fAcceptLower", fAcceptLower) :
+                new ObjectParameter("fAcceptLower", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_QMSpec1", testIDParameter, fSpecUpperParameter, fSpecLowerParameter, fControlUpperParameter, fControlLowerParameter, fAcceptUpperParameter, fAcceptLowerParameter, fTargetParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_U_Sample1(Nullable<int> iSampleID, Nullable<int> iBatch, string iEquipmentName, string sDescription, string sCreatedBy)
+        {
+            var iSampleIDParameter = iSampleID.HasValue ?
+                new ObjectParameter("iSampleID", iSampleID) :
+                new ObjectParameter("iSampleID", typeof(int));
+    
+            var iBatchParameter = iBatch.HasValue ?
+                new ObjectParameter("iBatch", iBatch) :
+                new ObjectParameter("iBatch", typeof(int));
+    
+            var iEquipmentNameParameter = iEquipmentName != null ?
+                new ObjectParameter("iEquipmentName", iEquipmentName) :
+                new ObjectParameter("iEquipmentName", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_U_Sample1", iSampleIDParameter, iBatchParameter, iEquipmentNameParameter, sDescriptionParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Sample_Log1(Nullable<int> sampleID, Nullable<int> testID, Nullable<double> fResult, string sArea, string sEquipment, Nullable<System.DateTime> dtSample, string sComments, string sBatchLote, string created_By)
+        {
+            var sampleIDParameter = sampleID.HasValue ?
+                new ObjectParameter("sampleID", sampleID) :
+                new ObjectParameter("sampleID", typeof(int));
+    
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var fResultParameter = fResult.HasValue ?
+                new ObjectParameter("fResult", fResult) :
+                new ObjectParameter("fResult", typeof(double));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sEquipmentParameter = sEquipment != null ?
+                new ObjectParameter("sEquipment", sEquipment) :
+                new ObjectParameter("sEquipment", typeof(string));
+    
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            var sCommentsParameter = sComments != null ?
+                new ObjectParameter("sComments", sComments) :
+                new ObjectParameter("sComments", typeof(string));
+    
+            var sBatchLoteParameter = sBatchLote != null ?
+                new ObjectParameter("sBatchLote", sBatchLote) :
+                new ObjectParameter("sBatchLote", typeof(string));
+    
+            var created_ByParameter = created_By != null ?
+                new ObjectParameter("Created_By", created_By) :
+                new ObjectParameter("Created_By", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Sample_Log1", sampleIDParameter, testIDParameter, fResultParameter, sAreaParameter, sEquipmentParameter, dtSampleParameter, sCommentsParameter, sBatchLoteParameter, created_ByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Sample_Log_AvoidSample1(Nullable<int> sampleID)
+        {
+            var sampleIDParameter = sampleID.HasValue ?
+                new ObjectParameter("sampleID", sampleID) :
+                new ObjectParameter("sampleID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Sample_Log_AvoidSample1", sampleIDParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_SKU1(Nullable<int> iD, string sKU, string sDescription, string sArea, string sCreatedBy)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_SKU1", iDParameter, sKUParameter, sDescriptionParameter, sAreaParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Test1(Nullable<int> testID, string testDesc, Nullable<int> sKU, string sCreatedBy)
+        {
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var testDescParameter = testDesc != null ?
+                new ObjectParameter("TestDesc", testDesc) :
+                new ObjectParameter("TestDesc", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Test1", testIDParameter, testDescParameter, sKUParameter, sCreatedByParameter);
+        }
+    
+        public virtual int sp_upgraddiagrams1()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams1");
+        }
+    
+        [DbFunction("ColgateSkeltaEntities", "ngsfr_fn_S_Split_List2")]
+        public virtual IQueryable<string> ngsfr_fn_S_Split_List2(string @string)
+        {
+            var stringParameter = @string != null ?
+                new ObjectParameter("string", @string) :
+                new ObjectParameter("string", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<string>("[ColgateSkeltaEntities].[ngsfr_fn_S_Split_List2](@string)", stringParameter);
+        }
+    
+        public virtual int sp_alterdiagram2(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_alterdiagram2", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int sp_creatediagram2(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_creatediagram2", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int SP_D_QMSpec2(string iQM)
+        {
+            var iQMParameter = iQM != null ?
+                new ObjectParameter("iQM", iQM) :
+                new ObjectParameter("iQM", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_D_QMSpec2", iQMParameter);
+        }
+    
+        public virtual int SP_D_Sample2(Nullable<int> iSample)
+        {
+            var iSampleParameter = iSample.HasValue ?
+                new ObjectParameter("iSample", iSample) :
+                new ObjectParameter("iSample", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_D_Sample2", iSampleParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_D_SKU2(string sKU, string sDescription)
+        {
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_D_SKU2", sKUParameter, sDescriptionParameter);
+        }
+    
+        public virtual int sp_dropdiagram2(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_dropdiagram2", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual int sp_helpdiagramdefinition2(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_helpdiagramdefinition2", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual int sp_helpdiagrams2(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_helpdiagrams2", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_Area2(string sArea, string sDescription, string sCreatedBy)
+        {
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_Area2", sAreaParameter, sDescriptionParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_Checklist2(Nullable<int> iID, string sDescription, string iSampleName, string sCreatedBy)
+        {
+            var iIDParameter = iID.HasValue ?
+                new ObjectParameter("iID", iID) :
+                new ObjectParameter("iID", typeof(int));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var iSampleNameParameter = iSampleName != null ?
+                new ObjectParameter("iSampleName", iSampleName) :
+                new ObjectParameter("iSampleName", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Checklist2", iIDParameter, sDescriptionParameter, iSampleNameParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_CommandImport2()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_CommandImport2");
+        }
+    
+        public virtual ObjectResult<string> SP_I_Equipment2(string sEquipment, string sDescription, string sAreaID, string sCreatedBy)
+        {
+            var sEquipmentParameter = sEquipment != null ?
+                new ObjectParameter("sEquipment", sEquipment) :
+                new ObjectParameter("sEquipment", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_Equipment2", sEquipmentParameter, sDescriptionParameter, sAreaIDParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_ImportDate2(string ssku, string sDescription, string sSKUArea, Nullable<int> iTestid, string sTestDescription, Nullable<double> fSpec_UpperLimit, Nullable<double> fSpec_LowerLimit, Nullable<double> fControl_UpperLimit, Nullable<double> fControl_LowerLimit, Nullable<double> fAccept_UpperLimit, Nullable<double> fAccept_LowerLimit, Nullable<double> fTarget, string sAreaID, string sAreaDesc, string sEquipID, string sEquipDesc, string sCreated_by, Nullable<int> iID_Import)
+        {
+            var sskuParameter = ssku != null ?
+                new ObjectParameter("ssku", ssku) :
+                new ObjectParameter("ssku", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sSKUAreaParameter = sSKUArea != null ?
+                new ObjectParameter("sSKUArea", sSKUArea) :
+                new ObjectParameter("sSKUArea", typeof(string));
+    
+            var iTestidParameter = iTestid.HasValue ?
+                new ObjectParameter("iTestid", iTestid) :
+                new ObjectParameter("iTestid", typeof(int));
+    
+            var sTestDescriptionParameter = sTestDescription != null ?
+                new ObjectParameter("sTestDescription", sTestDescription) :
+                new ObjectParameter("sTestDescription", typeof(string));
+    
+            var fSpec_UpperLimitParameter = fSpec_UpperLimit.HasValue ?
+                new ObjectParameter("fSpec_UpperLimit", fSpec_UpperLimit) :
+                new ObjectParameter("fSpec_UpperLimit", typeof(double));
+    
+            var fSpec_LowerLimitParameter = fSpec_LowerLimit.HasValue ?
+                new ObjectParameter("fSpec_LowerLimit", fSpec_LowerLimit) :
+                new ObjectParameter("fSpec_LowerLimit", typeof(double));
+    
+            var fControl_UpperLimitParameter = fControl_UpperLimit.HasValue ?
+                new ObjectParameter("fControl_UpperLimit", fControl_UpperLimit) :
+                new ObjectParameter("fControl_UpperLimit", typeof(double));
+    
+            var fControl_LowerLimitParameter = fControl_LowerLimit.HasValue ?
+                new ObjectParameter("fControl_LowerLimit", fControl_LowerLimit) :
+                new ObjectParameter("fControl_LowerLimit", typeof(double));
+    
+            var fAccept_UpperLimitParameter = fAccept_UpperLimit.HasValue ?
+                new ObjectParameter("fAccept_UpperLimit", fAccept_UpperLimit) :
+                new ObjectParameter("fAccept_UpperLimit", typeof(double));
+    
+            var fAccept_LowerLimitParameter = fAccept_LowerLimit.HasValue ?
+                new ObjectParameter("fAccept_LowerLimit", fAccept_LowerLimit) :
+                new ObjectParameter("fAccept_LowerLimit", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sAreaDescParameter = sAreaDesc != null ?
+                new ObjectParameter("sAreaDesc", sAreaDesc) :
+                new ObjectParameter("sAreaDesc", typeof(string));
+    
+            var sEquipIDParameter = sEquipID != null ?
+                new ObjectParameter("sEquipID", sEquipID) :
+                new ObjectParameter("sEquipID", typeof(string));
+    
+            var sEquipDescParameter = sEquipDesc != null ?
+                new ObjectParameter("sEquipDesc", sEquipDesc) :
+                new ObjectParameter("sEquipDesc", typeof(string));
+    
+            var sCreated_byParameter = sCreated_by != null ?
+                new ObjectParameter("sCreated_by", sCreated_by) :
+                new ObjectParameter("sCreated_by", typeof(string));
+    
+            var iID_ImportParameter = iID_Import.HasValue ?
+                new ObjectParameter("iID_Import", iID_Import) :
+                new ObjectParameter("iID_Import", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_ImportDate2", sskuParameter, sDescriptionParameter, sSKUAreaParameter, iTestidParameter, sTestDescriptionParameter, fSpec_UpperLimitParameter, fSpec_LowerLimitParameter, fControl_UpperLimitParameter, fControl_LowerLimitParameter, fAccept_UpperLimitParameter, fAccept_LowerLimitParameter, fTargetParameter, sAreaIDParameter, sAreaDescParameter, sEquipIDParameter, sEquipDescParameter, sCreated_byParameter, iID_ImportParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_ImportDate_202001142(string ssku, string sDescription, string sSKUArea, Nullable<int> iTestid, string sTestDescription, Nullable<double> fSpec_UpperLimit, Nullable<double> fSpec_LowerLimit, Nullable<double> fControl_UpperLimit, Nullable<double> fControl_LowerLimit, Nullable<double> fAccept_UpperLimit, Nullable<double> fAccept_LowerLimit, Nullable<double> fTarget, string sAreaID, string sAreaDesc, string sEquipID, string sEquipDesc, string sCreated_by, Nullable<int> iID_Import)
+        {
+            var sskuParameter = ssku != null ?
+                new ObjectParameter("ssku", ssku) :
+                new ObjectParameter("ssku", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sSKUAreaParameter = sSKUArea != null ?
+                new ObjectParameter("sSKUArea", sSKUArea) :
+                new ObjectParameter("sSKUArea", typeof(string));
+    
+            var iTestidParameter = iTestid.HasValue ?
+                new ObjectParameter("iTestid", iTestid) :
+                new ObjectParameter("iTestid", typeof(int));
+    
+            var sTestDescriptionParameter = sTestDescription != null ?
+                new ObjectParameter("sTestDescription", sTestDescription) :
+                new ObjectParameter("sTestDescription", typeof(string));
+    
+            var fSpec_UpperLimitParameter = fSpec_UpperLimit.HasValue ?
+                new ObjectParameter("fSpec_UpperLimit", fSpec_UpperLimit) :
+                new ObjectParameter("fSpec_UpperLimit", typeof(double));
+    
+            var fSpec_LowerLimitParameter = fSpec_LowerLimit.HasValue ?
+                new ObjectParameter("fSpec_LowerLimit", fSpec_LowerLimit) :
+                new ObjectParameter("fSpec_LowerLimit", typeof(double));
+    
+            var fControl_UpperLimitParameter = fControl_UpperLimit.HasValue ?
+                new ObjectParameter("fControl_UpperLimit", fControl_UpperLimit) :
+                new ObjectParameter("fControl_UpperLimit", typeof(double));
+    
+            var fControl_LowerLimitParameter = fControl_LowerLimit.HasValue ?
+                new ObjectParameter("fControl_LowerLimit", fControl_LowerLimit) :
+                new ObjectParameter("fControl_LowerLimit", typeof(double));
+    
+            var fAccept_UpperLimitParameter = fAccept_UpperLimit.HasValue ?
+                new ObjectParameter("fAccept_UpperLimit", fAccept_UpperLimit) :
+                new ObjectParameter("fAccept_UpperLimit", typeof(double));
+    
+            var fAccept_LowerLimitParameter = fAccept_LowerLimit.HasValue ?
+                new ObjectParameter("fAccept_LowerLimit", fAccept_LowerLimit) :
+                new ObjectParameter("fAccept_LowerLimit", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sAreaDescParameter = sAreaDesc != null ?
+                new ObjectParameter("sAreaDesc", sAreaDesc) :
+                new ObjectParameter("sAreaDesc", typeof(string));
+    
+            var sEquipIDParameter = sEquipID != null ?
+                new ObjectParameter("sEquipID", sEquipID) :
+                new ObjectParameter("sEquipID", typeof(string));
+    
+            var sEquipDescParameter = sEquipDesc != null ?
+                new ObjectParameter("sEquipDesc", sEquipDesc) :
+                new ObjectParameter("sEquipDesc", typeof(string));
+    
+            var sCreated_byParameter = sCreated_by != null ?
+                new ObjectParameter("sCreated_by", sCreated_by) :
+                new ObjectParameter("sCreated_by", typeof(string));
+    
+            var iID_ImportParameter = iID_Import.HasValue ?
+                new ObjectParameter("iID_Import", iID_Import) :
+                new ObjectParameter("iID_Import", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_ImportDate_202001142", sskuParameter, sDescriptionParameter, sSKUAreaParameter, iTestidParameter, sTestDescriptionParameter, fSpec_UpperLimitParameter, fSpec_LowerLimitParameter, fControl_UpperLimitParameter, fControl_LowerLimitParameter, fAccept_UpperLimitParameter, fAccept_LowerLimitParameter, fTargetParameter, sAreaIDParameter, sAreaDescParameter, sEquipIDParameter, sEquipDescParameter, sCreated_byParameter, iID_ImportParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_ImportDate_All2(string iProcessID)
+        {
+            var iProcessIDParameter = iProcessID != null ?
+                new ObjectParameter("iProcessID", iProcessID) :
+                new ObjectParameter("iProcessID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_ImportDate_All2", iProcessIDParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_QMSpec2(Nullable<int> testID, Nullable<double> fSpecUpper, Nullable<double> fSpecLower, Nullable<double> fControlUpper, Nullable<double> fControlLower, Nullable<double> fAcceptUpper, Nullable<double> fAcceptLower, Nullable<double> fTarget, string sCreatedBy)
+        {
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var fSpecUpperParameter = fSpecUpper.HasValue ?
+                new ObjectParameter("fSpecUpper", fSpecUpper) :
+                new ObjectParameter("fSpecUpper", typeof(double));
+    
+            var fSpecLowerParameter = fSpecLower.HasValue ?
+                new ObjectParameter("fSpecLower", fSpecLower) :
+                new ObjectParameter("fSpecLower", typeof(double));
+    
+            var fControlUpperParameter = fControlUpper.HasValue ?
+                new ObjectParameter("fControlUpper", fControlUpper) :
+                new ObjectParameter("fControlUpper", typeof(double));
+    
+            var fControlLowerParameter = fControlLower.HasValue ?
+                new ObjectParameter("fControlLower", fControlLower) :
+                new ObjectParameter("fControlLower", typeof(double));
+    
+            var fAcceptUpperParameter = fAcceptUpper.HasValue ?
+                new ObjectParameter("fAcceptUpper", fAcceptUpper) :
+                new ObjectParameter("fAcceptUpper", typeof(double));
+    
+            var fAcceptLowerParameter = fAcceptLower.HasValue ?
+                new ObjectParameter("fAcceptLower", fAcceptLower) :
+                new ObjectParameter("fAcceptLower", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_QMSpec2", testIDParameter, fSpecUpperParameter, fSpecLowerParameter, fControlUpperParameter, fControlLowerParameter, fAcceptUpperParameter, fAcceptLowerParameter, fTargetParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_Sample2(Nullable<int> iSample, string sDescription, string iEquipmentName, Nullable<int> iBatch, string sCreatedBy)
+        {
+            var iSampleParameter = iSample.HasValue ?
+                new ObjectParameter("iSample", iSample) :
+                new ObjectParameter("iSample", typeof(int));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var iEquipmentNameParameter = iEquipmentName != null ?
+                new ObjectParameter("iEquipmentName", iEquipmentName) :
+                new ObjectParameter("iEquipmentName", typeof(string));
+    
+            var iBatchParameter = iBatch.HasValue ?
+                new ObjectParameter("iBatch", iBatch) :
+                new ObjectParameter("iBatch", typeof(int));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Sample2", iSampleParameter, sDescriptionParameter, iEquipmentNameParameter, iBatchParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_Sample_Log2(string test, Nullable<int> sKU, Nullable<double> results, string @operator, string comment, string created_By, string sBatch, Nullable<System.DateTime> dtSample, string sArea, string sEquipament)
+        {
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            var resultsParameter = results.HasValue ?
+                new ObjectParameter("Results", results) :
+                new ObjectParameter("Results", typeof(double));
+    
+            var operatorParameter = @operator != null ?
+                new ObjectParameter("Operator", @operator) :
+                new ObjectParameter("Operator", typeof(string));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("Comment", comment) :
+                new ObjectParameter("Comment", typeof(string));
+    
+            var created_ByParameter = created_By != null ?
+                new ObjectParameter("Created_By", created_By) :
+                new ObjectParameter("Created_By", typeof(string));
+    
+            var sBatchParameter = sBatch != null ?
+                new ObjectParameter("sBatch", sBatch) :
+                new ObjectParameter("sBatch", typeof(string));
+    
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sEquipamentParameter = sEquipament != null ?
+                new ObjectParameter("sEquipament", sEquipament) :
+                new ObjectParameter("sEquipament", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Sample_Log2", testParameter, sKUParameter, resultsParameter, operatorParameter, commentParameter, created_ByParameter, sBatchParameter, dtSampleParameter, sAreaParameter, sEquipamentParameter);
+        }
+    
+        public virtual int SP_I_Sample_Log_SKUDesc2(string test, string sKU, Nullable<double> results, string @operator, string comment, string created_By, string sBatch, Nullable<System.DateTime> dtSample, string sArea, string sEquipament)
+        {
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var resultsParameter = results.HasValue ?
+                new ObjectParameter("Results", results) :
+                new ObjectParameter("Results", typeof(double));
+    
+            var operatorParameter = @operator != null ?
+                new ObjectParameter("Operator", @operator) :
+                new ObjectParameter("Operator", typeof(string));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("Comment", comment) :
+                new ObjectParameter("Comment", typeof(string));
+    
+            var created_ByParameter = created_By != null ?
+                new ObjectParameter("Created_By", created_By) :
+                new ObjectParameter("Created_By", typeof(string));
+    
+            var sBatchParameter = sBatch != null ?
+                new ObjectParameter("sBatch", sBatch) :
+                new ObjectParameter("sBatch", typeof(string));
+    
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sEquipamentParameter = sEquipament != null ?
+                new ObjectParameter("sEquipament", sEquipament) :
+                new ObjectParameter("sEquipament", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Sample_Log_SKUDesc2", testParameter, sKUParameter, resultsParameter, operatorParameter, commentParameter, created_ByParameter, sBatchParameter, dtSampleParameter, sAreaParameter, sEquipamentParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_SKU2(string sKU, string sDescription, string sArea, string sCreatedBy)
+        {
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_SKU2", sKUParameter, sDescriptionParameter, sAreaParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_Test2(string testDesc, Nullable<int> sKU, string sCreatedBy)
+        {
+            var testDescParameter = testDesc != null ?
+                new ObjectParameter("TestDesc", testDesc) :
+                new ObjectParameter("TestDesc", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_Test2", testDescParameter, sKUParameter, sCreatedByParameter);
+        }
+    
+        public virtual int sp_renamediagram2(string diagramname, Nullable<int> owner_id, string new_diagramname)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var new_diagramnameParameter = new_diagramname != null ?
+                new ObjectParameter("new_diagramname", new_diagramname) :
+                new ObjectParameter("new_diagramname", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_renamediagram2", diagramnameParameter, owner_idParameter, new_diagramnameParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_AllData2_Result> SP_S_AllData2()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_AllData2_Result>("SP_S_AllData2");
+        }
+    
+        public virtual ObjectResult<string> SP_S_ReportFilterArea2(string sKU)
+        {
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_S_ReportFilterArea2", sKUParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_S_ReportFilterEquip2(string area)
+        {
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_S_ReportFilterEquip2", areaParameter);
+        }
+    
+        public virtual int SP_S_ReportFilterTest2(string ssku)
+        {
+            var sskuParameter = ssku != null ?
+                new ObjectParameter("ssku", ssku) :
+                new ObjectParameter("ssku", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReportFilterTest2", sskuParameter);
+        }
+    
+        public virtual int SP_S_ReturnCPKValues2(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReturnCPKValues2", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_Equipment2_Result> SP_S_ReturnCPKValues_Equipment2(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_Equipment2_Result>("SP_S_ReturnCPKValues_Equipment2", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_Equipment_202005112_Result> SP_S_ReturnCPKValues_Equipment_202005112(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_Equipment_202005112_Result>("SP_S_ReturnCPKValues_Equipment_202005112", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_Equipment_202005272_Result> SP_S_ReturnCPKValues_Equipment_202005272(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_Equipment_202005272_Result>("SP_S_ReturnCPKValues_Equipment_202005272", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU2_Result> SP_S_ReturnCPKValues_SKU2(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU2_Result>("SP_S_ReturnCPKValues_SKU2", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_202005072_Result> SP_S_ReturnCPKValues_SKU_202005072(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_202005072_Result>("SP_S_ReturnCPKValues_SKU_202005072", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_202005082_Result> SP_S_ReturnCPKValues_SKU_202005082(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_202005082_Result>("SP_S_ReturnCPKValues_SKU_202005082", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_202005112_Result> SP_S_ReturnCPKValues_SKU_202005112(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_202005112_Result>("SP_S_ReturnCPKValues_SKU_202005112", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_20200511_022_Result> SP_S_ReturnCPKValues_SKU_20200511_022(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_20200511_022_Result>("SP_S_ReturnCPKValues_SKU_20200511_022", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_202005152_Result> SP_S_ReturnCPKValues_SKU_202005152(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_202005152_Result>("SP_S_ReturnCPKValues_SKU_202005152", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_202005272_Result> SP_S_ReturnCPKValues_SKU_202005272(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_202005272_Result>("SP_S_ReturnCPKValues_SKU_202005272", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual int SP_S_ReturnLossValues2(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReturnLossValues2", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnValues2_Result> SP_S_ReturnValues2(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area, string equipment, string batch)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            var equipmentParameter = equipment != null ?
+                new ObjectParameter("Equipment", equipment) :
+                new ObjectParameter("Equipment", typeof(string));
+    
+            var batchParameter = batch != null ?
+                new ObjectParameter("Batch", batch) :
+                new ObjectParameter("Batch", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnValues2_Result>("SP_S_ReturnValues2", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter, equipmentParameter, batchParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_SampleValues2_Result> SP_S_SampleValues2(Nullable<System.DateTime> dtSample)
+        {
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_SampleValues2_Result>("SP_S_SampleValues2", dtSampleParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_Specs2_Result> SP_S_Specs2()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_Specs2_Result>("SP_S_Specs2");
+        }
+    
+        public virtual ObjectResult<SP_S_TestSpec2_Result> SP_S_TestSpec2(string test, Nullable<int> sKU)
+        {
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_TestSpec2_Result>("SP_S_TestSpec2", testParameter, sKUParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Area2(Nullable<int> iD, string area, string sDescription, string sCreatedBy)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Area2", iDParameter, areaParameter, sDescriptionParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Equipment2(Nullable<int> iID, string sEquipment, string sDescription, string sAreaID, string sCreatedBy)
+        {
+            var iIDParameter = iID.HasValue ?
+                new ObjectParameter("iID", iID) :
+                new ObjectParameter("iID", typeof(int));
+    
+            var sEquipmentParameter = sEquipment != null ?
+                new ObjectParameter("sEquipment", sEquipment) :
+                new ObjectParameter("sEquipment", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Equipment2", iIDParameter, sEquipmentParameter, sDescriptionParameter, sAreaIDParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_QMSpec2(Nullable<int> testID, Nullable<double> fSpecUpper, Nullable<double> fSpecLower, Nullable<double> fControlUpper, Nullable<double> fControlLower, Nullable<double> fAcceptUpper, Nullable<double> fAcceptLower, Nullable<double> fTarget, string sCreatedBy)
+        {
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var fSpecUpperParameter = fSpecUpper.HasValue ?
+                new ObjectParameter("fSpecUpper", fSpecUpper) :
+                new ObjectParameter("fSpecUpper", typeof(double));
+    
+            var fSpecLowerParameter = fSpecLower.HasValue ?
+                new ObjectParameter("fSpecLower", fSpecLower) :
+                new ObjectParameter("fSpecLower", typeof(double));
+    
+            var fControlUpperParameter = fControlUpper.HasValue ?
+                new ObjectParameter("fControlUpper", fControlUpper) :
+                new ObjectParameter("fControlUpper", typeof(double));
+    
+            var fControlLowerParameter = fControlLower.HasValue ?
+                new ObjectParameter("fControlLower", fControlLower) :
+                new ObjectParameter("fControlLower", typeof(double));
+    
+            var fAcceptUpperParameter = fAcceptUpper.HasValue ?
+                new ObjectParameter("fAcceptUpper", fAcceptUpper) :
+                new ObjectParameter("fAcceptUpper", typeof(double));
+    
+            var fAcceptLowerParameter = fAcceptLower.HasValue ?
+                new ObjectParameter("fAcceptLower", fAcceptLower) :
+                new ObjectParameter("fAcceptLower", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_QMSpec2", testIDParameter, fSpecUpperParameter, fSpecLowerParameter, fControlUpperParameter, fControlLowerParameter, fAcceptUpperParameter, fAcceptLowerParameter, fTargetParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_U_Sample2(Nullable<int> iSampleID, Nullable<int> iBatch, string iEquipmentName, string sDescription, string sCreatedBy)
+        {
+            var iSampleIDParameter = iSampleID.HasValue ?
+                new ObjectParameter("iSampleID", iSampleID) :
+                new ObjectParameter("iSampleID", typeof(int));
+    
+            var iBatchParameter = iBatch.HasValue ?
+                new ObjectParameter("iBatch", iBatch) :
+                new ObjectParameter("iBatch", typeof(int));
+    
+            var iEquipmentNameParameter = iEquipmentName != null ?
+                new ObjectParameter("iEquipmentName", iEquipmentName) :
+                new ObjectParameter("iEquipmentName", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_U_Sample2", iSampleIDParameter, iBatchParameter, iEquipmentNameParameter, sDescriptionParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Sample_Log2(Nullable<int> sampleID, Nullable<int> testID, Nullable<double> fResult, string sArea, string sEquipment, Nullable<System.DateTime> dtSample, string sComments, string sBatchLote, string created_By)
+        {
+            var sampleIDParameter = sampleID.HasValue ?
+                new ObjectParameter("sampleID", sampleID) :
+                new ObjectParameter("sampleID", typeof(int));
+    
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var fResultParameter = fResult.HasValue ?
+                new ObjectParameter("fResult", fResult) :
+                new ObjectParameter("fResult", typeof(double));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sEquipmentParameter = sEquipment != null ?
+                new ObjectParameter("sEquipment", sEquipment) :
+                new ObjectParameter("sEquipment", typeof(string));
+    
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            var sCommentsParameter = sComments != null ?
+                new ObjectParameter("sComments", sComments) :
+                new ObjectParameter("sComments", typeof(string));
+    
+            var sBatchLoteParameter = sBatchLote != null ?
+                new ObjectParameter("sBatchLote", sBatchLote) :
+                new ObjectParameter("sBatchLote", typeof(string));
+    
+            var created_ByParameter = created_By != null ?
+                new ObjectParameter("Created_By", created_By) :
+                new ObjectParameter("Created_By", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Sample_Log2", sampleIDParameter, testIDParameter, fResultParameter, sAreaParameter, sEquipmentParameter, dtSampleParameter, sCommentsParameter, sBatchLoteParameter, created_ByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Sample_Log_AvoidSample2(Nullable<int> sampleID)
+        {
+            var sampleIDParameter = sampleID.HasValue ?
+                new ObjectParameter("sampleID", sampleID) :
+                new ObjectParameter("sampleID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Sample_Log_AvoidSample2", sampleIDParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_SKU2(Nullable<int> iD, string sKU, string sDescription, string sArea, string sCreatedBy)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_SKU2", iDParameter, sKUParameter, sDescriptionParameter, sAreaParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Test2(Nullable<int> testID, string testDesc, Nullable<int> sKU, string sCreatedBy)
+        {
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var testDescParameter = testDesc != null ?
+                new ObjectParameter("TestDesc", testDesc) :
+                new ObjectParameter("TestDesc", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Test2", testIDParameter, testDescParameter, sKUParameter, sCreatedByParameter);
+        }
+    
+        public virtual int sp_upgraddiagrams2()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams2");
+        }
+    
+        [DbFunction("ColgateSkeltaEntities", "ngsfr_fn_S_Split_List3")]
+        public virtual IQueryable<string> ngsfr_fn_S_Split_List3(string @string)
+        {
+            var stringParameter = @string != null ?
+                new ObjectParameter("string", @string) :
+                new ObjectParameter("string", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<string>("[ColgateSkeltaEntities].[ngsfr_fn_S_Split_List3](@string)", stringParameter);
+        }
+    
+        public virtual int sp_alterdiagram3(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_alterdiagram3", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int sp_creatediagram3(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_creatediagram3", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int SP_D_QMSpec3(string iQM)
+        {
+            var iQMParameter = iQM != null ?
+                new ObjectParameter("iQM", iQM) :
+                new ObjectParameter("iQM", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_D_QMSpec3", iQMParameter);
+        }
+    
+        public virtual int SP_D_Sample3(Nullable<int> iSample)
+        {
+            var iSampleParameter = iSample.HasValue ?
+                new ObjectParameter("iSample", iSample) :
+                new ObjectParameter("iSample", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_D_Sample3", iSampleParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_D_SKU3(string sKU, string sDescription)
+        {
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_D_SKU3", sKUParameter, sDescriptionParameter);
+        }
+    
+        public virtual int sp_dropdiagram3(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_dropdiagram3", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual int sp_helpdiagramdefinition3(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_helpdiagramdefinition3", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual int sp_helpdiagrams3(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_helpdiagrams3", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_Area3(string sArea, string sDescription, string sCreatedBy)
+        {
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_Area3", sAreaParameter, sDescriptionParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_Checklist3(Nullable<int> iID, string sDescription, string iSampleName, string sCreatedBy)
+        {
+            var iIDParameter = iID.HasValue ?
+                new ObjectParameter("iID", iID) :
+                new ObjectParameter("iID", typeof(int));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var iSampleNameParameter = iSampleName != null ?
+                new ObjectParameter("iSampleName", iSampleName) :
+                new ObjectParameter("iSampleName", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Checklist3", iIDParameter, sDescriptionParameter, iSampleNameParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_CommandImport3()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_CommandImport3");
+        }
+    
+        public virtual ObjectResult<string> SP_I_Equipment3(string sEquipment, string sDescription, string sAreaID, string sCreatedBy)
+        {
+            var sEquipmentParameter = sEquipment != null ?
+                new ObjectParameter("sEquipment", sEquipment) :
+                new ObjectParameter("sEquipment", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_Equipment3", sEquipmentParameter, sDescriptionParameter, sAreaIDParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_ImportDate3(string ssku, string sDescription, string sSKUArea, Nullable<int> iTestid, string sTestDescription, Nullable<double> fSpec_UpperLimit, Nullable<double> fSpec_LowerLimit, Nullable<double> fControl_UpperLimit, Nullable<double> fControl_LowerLimit, Nullable<double> fAccept_UpperLimit, Nullable<double> fAccept_LowerLimit, Nullable<double> fTarget, string sAreaID, string sAreaDesc, string sEquipID, string sEquipDesc, string sCreated_by, Nullable<int> iID_Import)
+        {
+            var sskuParameter = ssku != null ?
+                new ObjectParameter("ssku", ssku) :
+                new ObjectParameter("ssku", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sSKUAreaParameter = sSKUArea != null ?
+                new ObjectParameter("sSKUArea", sSKUArea) :
+                new ObjectParameter("sSKUArea", typeof(string));
+    
+            var iTestidParameter = iTestid.HasValue ?
+                new ObjectParameter("iTestid", iTestid) :
+                new ObjectParameter("iTestid", typeof(int));
+    
+            var sTestDescriptionParameter = sTestDescription != null ?
+                new ObjectParameter("sTestDescription", sTestDescription) :
+                new ObjectParameter("sTestDescription", typeof(string));
+    
+            var fSpec_UpperLimitParameter = fSpec_UpperLimit.HasValue ?
+                new ObjectParameter("fSpec_UpperLimit", fSpec_UpperLimit) :
+                new ObjectParameter("fSpec_UpperLimit", typeof(double));
+    
+            var fSpec_LowerLimitParameter = fSpec_LowerLimit.HasValue ?
+                new ObjectParameter("fSpec_LowerLimit", fSpec_LowerLimit) :
+                new ObjectParameter("fSpec_LowerLimit", typeof(double));
+    
+            var fControl_UpperLimitParameter = fControl_UpperLimit.HasValue ?
+                new ObjectParameter("fControl_UpperLimit", fControl_UpperLimit) :
+                new ObjectParameter("fControl_UpperLimit", typeof(double));
+    
+            var fControl_LowerLimitParameter = fControl_LowerLimit.HasValue ?
+                new ObjectParameter("fControl_LowerLimit", fControl_LowerLimit) :
+                new ObjectParameter("fControl_LowerLimit", typeof(double));
+    
+            var fAccept_UpperLimitParameter = fAccept_UpperLimit.HasValue ?
+                new ObjectParameter("fAccept_UpperLimit", fAccept_UpperLimit) :
+                new ObjectParameter("fAccept_UpperLimit", typeof(double));
+    
+            var fAccept_LowerLimitParameter = fAccept_LowerLimit.HasValue ?
+                new ObjectParameter("fAccept_LowerLimit", fAccept_LowerLimit) :
+                new ObjectParameter("fAccept_LowerLimit", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sAreaDescParameter = sAreaDesc != null ?
+                new ObjectParameter("sAreaDesc", sAreaDesc) :
+                new ObjectParameter("sAreaDesc", typeof(string));
+    
+            var sEquipIDParameter = sEquipID != null ?
+                new ObjectParameter("sEquipID", sEquipID) :
+                new ObjectParameter("sEquipID", typeof(string));
+    
+            var sEquipDescParameter = sEquipDesc != null ?
+                new ObjectParameter("sEquipDesc", sEquipDesc) :
+                new ObjectParameter("sEquipDesc", typeof(string));
+    
+            var sCreated_byParameter = sCreated_by != null ?
+                new ObjectParameter("sCreated_by", sCreated_by) :
+                new ObjectParameter("sCreated_by", typeof(string));
+    
+            var iID_ImportParameter = iID_Import.HasValue ?
+                new ObjectParameter("iID_Import", iID_Import) :
+                new ObjectParameter("iID_Import", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_ImportDate3", sskuParameter, sDescriptionParameter, sSKUAreaParameter, iTestidParameter, sTestDescriptionParameter, fSpec_UpperLimitParameter, fSpec_LowerLimitParameter, fControl_UpperLimitParameter, fControl_LowerLimitParameter, fAccept_UpperLimitParameter, fAccept_LowerLimitParameter, fTargetParameter, sAreaIDParameter, sAreaDescParameter, sEquipIDParameter, sEquipDescParameter, sCreated_byParameter, iID_ImportParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_ImportDate_202001143(string ssku, string sDescription, string sSKUArea, Nullable<int> iTestid, string sTestDescription, Nullable<double> fSpec_UpperLimit, Nullable<double> fSpec_LowerLimit, Nullable<double> fControl_UpperLimit, Nullable<double> fControl_LowerLimit, Nullable<double> fAccept_UpperLimit, Nullable<double> fAccept_LowerLimit, Nullable<double> fTarget, string sAreaID, string sAreaDesc, string sEquipID, string sEquipDesc, string sCreated_by, Nullable<int> iID_Import)
+        {
+            var sskuParameter = ssku != null ?
+                new ObjectParameter("ssku", ssku) :
+                new ObjectParameter("ssku", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sSKUAreaParameter = sSKUArea != null ?
+                new ObjectParameter("sSKUArea", sSKUArea) :
+                new ObjectParameter("sSKUArea", typeof(string));
+    
+            var iTestidParameter = iTestid.HasValue ?
+                new ObjectParameter("iTestid", iTestid) :
+                new ObjectParameter("iTestid", typeof(int));
+    
+            var sTestDescriptionParameter = sTestDescription != null ?
+                new ObjectParameter("sTestDescription", sTestDescription) :
+                new ObjectParameter("sTestDescription", typeof(string));
+    
+            var fSpec_UpperLimitParameter = fSpec_UpperLimit.HasValue ?
+                new ObjectParameter("fSpec_UpperLimit", fSpec_UpperLimit) :
+                new ObjectParameter("fSpec_UpperLimit", typeof(double));
+    
+            var fSpec_LowerLimitParameter = fSpec_LowerLimit.HasValue ?
+                new ObjectParameter("fSpec_LowerLimit", fSpec_LowerLimit) :
+                new ObjectParameter("fSpec_LowerLimit", typeof(double));
+    
+            var fControl_UpperLimitParameter = fControl_UpperLimit.HasValue ?
+                new ObjectParameter("fControl_UpperLimit", fControl_UpperLimit) :
+                new ObjectParameter("fControl_UpperLimit", typeof(double));
+    
+            var fControl_LowerLimitParameter = fControl_LowerLimit.HasValue ?
+                new ObjectParameter("fControl_LowerLimit", fControl_LowerLimit) :
+                new ObjectParameter("fControl_LowerLimit", typeof(double));
+    
+            var fAccept_UpperLimitParameter = fAccept_UpperLimit.HasValue ?
+                new ObjectParameter("fAccept_UpperLimit", fAccept_UpperLimit) :
+                new ObjectParameter("fAccept_UpperLimit", typeof(double));
+    
+            var fAccept_LowerLimitParameter = fAccept_LowerLimit.HasValue ?
+                new ObjectParameter("fAccept_LowerLimit", fAccept_LowerLimit) :
+                new ObjectParameter("fAccept_LowerLimit", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sAreaDescParameter = sAreaDesc != null ?
+                new ObjectParameter("sAreaDesc", sAreaDesc) :
+                new ObjectParameter("sAreaDesc", typeof(string));
+    
+            var sEquipIDParameter = sEquipID != null ?
+                new ObjectParameter("sEquipID", sEquipID) :
+                new ObjectParameter("sEquipID", typeof(string));
+    
+            var sEquipDescParameter = sEquipDesc != null ?
+                new ObjectParameter("sEquipDesc", sEquipDesc) :
+                new ObjectParameter("sEquipDesc", typeof(string));
+    
+            var sCreated_byParameter = sCreated_by != null ?
+                new ObjectParameter("sCreated_by", sCreated_by) :
+                new ObjectParameter("sCreated_by", typeof(string));
+    
+            var iID_ImportParameter = iID_Import.HasValue ?
+                new ObjectParameter("iID_Import", iID_Import) :
+                new ObjectParameter("iID_Import", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_ImportDate_202001143", sskuParameter, sDescriptionParameter, sSKUAreaParameter, iTestidParameter, sTestDescriptionParameter, fSpec_UpperLimitParameter, fSpec_LowerLimitParameter, fControl_UpperLimitParameter, fControl_LowerLimitParameter, fAccept_UpperLimitParameter, fAccept_LowerLimitParameter, fTargetParameter, sAreaIDParameter, sAreaDescParameter, sEquipIDParameter, sEquipDescParameter, sCreated_byParameter, iID_ImportParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_ImportDate_All3(string iProcessID)
+        {
+            var iProcessIDParameter = iProcessID != null ?
+                new ObjectParameter("iProcessID", iProcessID) :
+                new ObjectParameter("iProcessID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_ImportDate_All3", iProcessIDParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_QMSpec3(Nullable<int> testID, Nullable<double> fSpecUpper, Nullable<double> fSpecLower, Nullable<double> fControlUpper, Nullable<double> fControlLower, Nullable<double> fAcceptUpper, Nullable<double> fAcceptLower, Nullable<double> fTarget, string sCreatedBy)
+        {
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var fSpecUpperParameter = fSpecUpper.HasValue ?
+                new ObjectParameter("fSpecUpper", fSpecUpper) :
+                new ObjectParameter("fSpecUpper", typeof(double));
+    
+            var fSpecLowerParameter = fSpecLower.HasValue ?
+                new ObjectParameter("fSpecLower", fSpecLower) :
+                new ObjectParameter("fSpecLower", typeof(double));
+    
+            var fControlUpperParameter = fControlUpper.HasValue ?
+                new ObjectParameter("fControlUpper", fControlUpper) :
+                new ObjectParameter("fControlUpper", typeof(double));
+    
+            var fControlLowerParameter = fControlLower.HasValue ?
+                new ObjectParameter("fControlLower", fControlLower) :
+                new ObjectParameter("fControlLower", typeof(double));
+    
+            var fAcceptUpperParameter = fAcceptUpper.HasValue ?
+                new ObjectParameter("fAcceptUpper", fAcceptUpper) :
+                new ObjectParameter("fAcceptUpper", typeof(double));
+    
+            var fAcceptLowerParameter = fAcceptLower.HasValue ?
+                new ObjectParameter("fAcceptLower", fAcceptLower) :
+                new ObjectParameter("fAcceptLower", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_QMSpec3", testIDParameter, fSpecUpperParameter, fSpecLowerParameter, fControlUpperParameter, fControlLowerParameter, fAcceptUpperParameter, fAcceptLowerParameter, fTargetParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_Sample3(Nullable<int> iSample, string sDescription, string iEquipmentName, Nullable<int> iBatch, string sCreatedBy)
+        {
+            var iSampleParameter = iSample.HasValue ?
+                new ObjectParameter("iSample", iSample) :
+                new ObjectParameter("iSample", typeof(int));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var iEquipmentNameParameter = iEquipmentName != null ?
+                new ObjectParameter("iEquipmentName", iEquipmentName) :
+                new ObjectParameter("iEquipmentName", typeof(string));
+    
+            var iBatchParameter = iBatch.HasValue ?
+                new ObjectParameter("iBatch", iBatch) :
+                new ObjectParameter("iBatch", typeof(int));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Sample3", iSampleParameter, sDescriptionParameter, iEquipmentNameParameter, iBatchParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_Sample_Log3(string test, Nullable<int> sKU, Nullable<double> results, string @operator, string comment, string created_By, string sBatch, Nullable<System.DateTime> dtSample, string sArea, string sEquipament)
+        {
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            var resultsParameter = results.HasValue ?
+                new ObjectParameter("Results", results) :
+                new ObjectParameter("Results", typeof(double));
+    
+            var operatorParameter = @operator != null ?
+                new ObjectParameter("Operator", @operator) :
+                new ObjectParameter("Operator", typeof(string));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("Comment", comment) :
+                new ObjectParameter("Comment", typeof(string));
+    
+            var created_ByParameter = created_By != null ?
+                new ObjectParameter("Created_By", created_By) :
+                new ObjectParameter("Created_By", typeof(string));
+    
+            var sBatchParameter = sBatch != null ?
+                new ObjectParameter("sBatch", sBatch) :
+                new ObjectParameter("sBatch", typeof(string));
+    
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sEquipamentParameter = sEquipament != null ?
+                new ObjectParameter("sEquipament", sEquipament) :
+                new ObjectParameter("sEquipament", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Sample_Log3", testParameter, sKUParameter, resultsParameter, operatorParameter, commentParameter, created_ByParameter, sBatchParameter, dtSampleParameter, sAreaParameter, sEquipamentParameter);
+        }
+    
+        public virtual int SP_I_Sample_Log_SKUDesc3(string test, string sKU, Nullable<double> results, string @operator, string comment, string created_By, string sBatch, Nullable<System.DateTime> dtSample, string sArea, string sEquipament)
+        {
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var resultsParameter = results.HasValue ?
+                new ObjectParameter("Results", results) :
+                new ObjectParameter("Results", typeof(double));
+    
+            var operatorParameter = @operator != null ?
+                new ObjectParameter("Operator", @operator) :
+                new ObjectParameter("Operator", typeof(string));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("Comment", comment) :
+                new ObjectParameter("Comment", typeof(string));
+    
+            var created_ByParameter = created_By != null ?
+                new ObjectParameter("Created_By", created_By) :
+                new ObjectParameter("Created_By", typeof(string));
+    
+            var sBatchParameter = sBatch != null ?
+                new ObjectParameter("sBatch", sBatch) :
+                new ObjectParameter("sBatch", typeof(string));
+    
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sEquipamentParameter = sEquipament != null ?
+                new ObjectParameter("sEquipament", sEquipament) :
+                new ObjectParameter("sEquipament", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Sample_Log_SKUDesc3", testParameter, sKUParameter, resultsParameter, operatorParameter, commentParameter, created_ByParameter, sBatchParameter, dtSampleParameter, sAreaParameter, sEquipamentParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_SKU3(string sKU, string sDescription, string sArea, string sCreatedBy)
+        {
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_SKU3", sKUParameter, sDescriptionParameter, sAreaParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_Test3(string testDesc, Nullable<int> sKU, string sCreatedBy)
+        {
+            var testDescParameter = testDesc != null ?
+                new ObjectParameter("TestDesc", testDesc) :
+                new ObjectParameter("TestDesc", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_Test3", testDescParameter, sKUParameter, sCreatedByParameter);
+        }
+    
+        public virtual int sp_renamediagram3(string diagramname, Nullable<int> owner_id, string new_diagramname)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var new_diagramnameParameter = new_diagramname != null ?
+                new ObjectParameter("new_diagramname", new_diagramname) :
+                new ObjectParameter("new_diagramname", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_renamediagram3", diagramnameParameter, owner_idParameter, new_diagramnameParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_AllData3_Result> SP_S_AllData3()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_AllData3_Result>("SP_S_AllData3");
+        }
+    
+        public virtual ObjectResult<string> SP_S_ReportFilterArea3(string sKU)
+        {
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_S_ReportFilterArea3", sKUParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_S_ReportFilterEquip3(string area)
+        {
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_S_ReportFilterEquip3", areaParameter);
+        }
+    
+        public virtual int SP_S_ReportFilterTest3(string ssku)
+        {
+            var sskuParameter = ssku != null ?
+                new ObjectParameter("ssku", ssku) :
+                new ObjectParameter("ssku", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReportFilterTest3", sskuParameter);
+        }
+    
+        public virtual int SP_S_ReturnCPKValues3(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReturnCPKValues3", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_Equipment3_Result> SP_S_ReturnCPKValues_Equipment3(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_Equipment3_Result>("SP_S_ReturnCPKValues_Equipment3", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_Equipment_202005113_Result> SP_S_ReturnCPKValues_Equipment_202005113(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_Equipment_202005113_Result>("SP_S_ReturnCPKValues_Equipment_202005113", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_Equipment_202005273_Result> SP_S_ReturnCPKValues_Equipment_202005273(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_Equipment_202005273_Result>("SP_S_ReturnCPKValues_Equipment_202005273", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU3_Result> SP_S_ReturnCPKValues_SKU3(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU3_Result>("SP_S_ReturnCPKValues_SKU3", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_202005073_Result> SP_S_ReturnCPKValues_SKU_202005073(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_202005073_Result>("SP_S_ReturnCPKValues_SKU_202005073", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_202005083_Result> SP_S_ReturnCPKValues_SKU_202005083(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_202005083_Result>("SP_S_ReturnCPKValues_SKU_202005083", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_202005113_Result> SP_S_ReturnCPKValues_SKU_202005113(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_202005113_Result>("SP_S_ReturnCPKValues_SKU_202005113", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_20200511_023_Result> SP_S_ReturnCPKValues_SKU_20200511_023(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_20200511_023_Result>("SP_S_ReturnCPKValues_SKU_20200511_023", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_202005153_Result> SP_S_ReturnCPKValues_SKU_202005153(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_202005153_Result>("SP_S_ReturnCPKValues_SKU_202005153", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_202005273_Result> SP_S_ReturnCPKValues_SKU_202005273(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_202005273_Result>("SP_S_ReturnCPKValues_SKU_202005273", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual int SP_S_ReturnLossValues3(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReturnLossValues3", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnValues3_Result> SP_S_ReturnValues3(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area, string equipment, string batch)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            var equipmentParameter = equipment != null ?
+                new ObjectParameter("Equipment", equipment) :
+                new ObjectParameter("Equipment", typeof(string));
+    
+            var batchParameter = batch != null ?
+                new ObjectParameter("Batch", batch) :
+                new ObjectParameter("Batch", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnValues3_Result>("SP_S_ReturnValues3", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter, equipmentParameter, batchParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_SampleValues3_Result> SP_S_SampleValues3(Nullable<System.DateTime> dtSample)
+        {
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_SampleValues3_Result>("SP_S_SampleValues3", dtSampleParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_Specs3_Result> SP_S_Specs3()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_Specs3_Result>("SP_S_Specs3");
+        }
+    
+        public virtual ObjectResult<SP_S_TestSpec3_Result> SP_S_TestSpec3(string test, Nullable<int> sKU)
+        {
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_TestSpec3_Result>("SP_S_TestSpec3", testParameter, sKUParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Area3(Nullable<int> iD, string area, string sDescription, string sCreatedBy)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Area3", iDParameter, areaParameter, sDescriptionParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Equipment3(Nullable<int> iID, string sEquipment, string sDescription, string sAreaID, string sCreatedBy)
+        {
+            var iIDParameter = iID.HasValue ?
+                new ObjectParameter("iID", iID) :
+                new ObjectParameter("iID", typeof(int));
+    
+            var sEquipmentParameter = sEquipment != null ?
+                new ObjectParameter("sEquipment", sEquipment) :
+                new ObjectParameter("sEquipment", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Equipment3", iIDParameter, sEquipmentParameter, sDescriptionParameter, sAreaIDParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_QMSpec3(Nullable<int> testID, Nullable<double> fSpecUpper, Nullable<double> fSpecLower, Nullable<double> fControlUpper, Nullable<double> fControlLower, Nullable<double> fAcceptUpper, Nullable<double> fAcceptLower, Nullable<double> fTarget, string sCreatedBy)
+        {
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var fSpecUpperParameter = fSpecUpper.HasValue ?
+                new ObjectParameter("fSpecUpper", fSpecUpper) :
+                new ObjectParameter("fSpecUpper", typeof(double));
+    
+            var fSpecLowerParameter = fSpecLower.HasValue ?
+                new ObjectParameter("fSpecLower", fSpecLower) :
+                new ObjectParameter("fSpecLower", typeof(double));
+    
+            var fControlUpperParameter = fControlUpper.HasValue ?
+                new ObjectParameter("fControlUpper", fControlUpper) :
+                new ObjectParameter("fControlUpper", typeof(double));
+    
+            var fControlLowerParameter = fControlLower.HasValue ?
+                new ObjectParameter("fControlLower", fControlLower) :
+                new ObjectParameter("fControlLower", typeof(double));
+    
+            var fAcceptUpperParameter = fAcceptUpper.HasValue ?
+                new ObjectParameter("fAcceptUpper", fAcceptUpper) :
+                new ObjectParameter("fAcceptUpper", typeof(double));
+    
+            var fAcceptLowerParameter = fAcceptLower.HasValue ?
+                new ObjectParameter("fAcceptLower", fAcceptLower) :
+                new ObjectParameter("fAcceptLower", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_QMSpec3", testIDParameter, fSpecUpperParameter, fSpecLowerParameter, fControlUpperParameter, fControlLowerParameter, fAcceptUpperParameter, fAcceptLowerParameter, fTargetParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_U_Sample3(Nullable<int> iSampleID, Nullable<int> iBatch, string iEquipmentName, string sDescription, string sCreatedBy)
+        {
+            var iSampleIDParameter = iSampleID.HasValue ?
+                new ObjectParameter("iSampleID", iSampleID) :
+                new ObjectParameter("iSampleID", typeof(int));
+    
+            var iBatchParameter = iBatch.HasValue ?
+                new ObjectParameter("iBatch", iBatch) :
+                new ObjectParameter("iBatch", typeof(int));
+    
+            var iEquipmentNameParameter = iEquipmentName != null ?
+                new ObjectParameter("iEquipmentName", iEquipmentName) :
+                new ObjectParameter("iEquipmentName", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_U_Sample3", iSampleIDParameter, iBatchParameter, iEquipmentNameParameter, sDescriptionParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Sample_Log3(Nullable<int> sampleID, Nullable<int> testID, Nullable<double> fResult, string sArea, string sEquipment, Nullable<System.DateTime> dtSample, string sComments, string sBatchLote, string created_By)
+        {
+            var sampleIDParameter = sampleID.HasValue ?
+                new ObjectParameter("sampleID", sampleID) :
+                new ObjectParameter("sampleID", typeof(int));
+    
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var fResultParameter = fResult.HasValue ?
+                new ObjectParameter("fResult", fResult) :
+                new ObjectParameter("fResult", typeof(double));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sEquipmentParameter = sEquipment != null ?
+                new ObjectParameter("sEquipment", sEquipment) :
+                new ObjectParameter("sEquipment", typeof(string));
+    
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            var sCommentsParameter = sComments != null ?
+                new ObjectParameter("sComments", sComments) :
+                new ObjectParameter("sComments", typeof(string));
+    
+            var sBatchLoteParameter = sBatchLote != null ?
+                new ObjectParameter("sBatchLote", sBatchLote) :
+                new ObjectParameter("sBatchLote", typeof(string));
+    
+            var created_ByParameter = created_By != null ?
+                new ObjectParameter("Created_By", created_By) :
+                new ObjectParameter("Created_By", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Sample_Log3", sampleIDParameter, testIDParameter, fResultParameter, sAreaParameter, sEquipmentParameter, dtSampleParameter, sCommentsParameter, sBatchLoteParameter, created_ByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Sample_Log_AvoidSample3(Nullable<int> sampleID)
+        {
+            var sampleIDParameter = sampleID.HasValue ?
+                new ObjectParameter("sampleID", sampleID) :
+                new ObjectParameter("sampleID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Sample_Log_AvoidSample3", sampleIDParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_SKU3(Nullable<int> iD, string sKU, string sDescription, string sArea, string sCreatedBy)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_SKU3", iDParameter, sKUParameter, sDescriptionParameter, sAreaParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Test3(Nullable<int> testID, string testDesc, Nullable<int> sKU, string sCreatedBy)
+        {
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var testDescParameter = testDesc != null ?
+                new ObjectParameter("TestDesc", testDesc) :
+                new ObjectParameter("TestDesc", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Test3", testIDParameter, testDescParameter, sKUParameter, sCreatedByParameter);
+        }
+    
+        public virtual int sp_upgraddiagrams3()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams3");
+        }
+    
+        [DbFunction("ColgateSkeltaEntities", "ngsfr_fn_S_Split_List4")]
+        public virtual IQueryable<string> ngsfr_fn_S_Split_List4(string @string)
+        {
+            var stringParameter = @string != null ?
+                new ObjectParameter("string", @string) :
+                new ObjectParameter("string", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<string>("[ColgateSkeltaEntities].[ngsfr_fn_S_Split_List4](@string)", stringParameter);
+        }
+    
+        public virtual int sp_alterdiagram4(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_alterdiagram4", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int sp_creatediagram4(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_creatediagram4", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int SP_D_QMSpec4(string iQM)
+        {
+            var iQMParameter = iQM != null ?
+                new ObjectParameter("iQM", iQM) :
+                new ObjectParameter("iQM", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_D_QMSpec4", iQMParameter);
+        }
+    
+        public virtual int SP_D_Sample4(Nullable<int> iSample)
+        {
+            var iSampleParameter = iSample.HasValue ?
+                new ObjectParameter("iSample", iSample) :
+                new ObjectParameter("iSample", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_D_Sample4", iSampleParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_D_SKU4(string sKU, string sDescription)
+        {
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_D_SKU4", sKUParameter, sDescriptionParameter);
+        }
+    
+        public virtual int sp_dropdiagram4(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_dropdiagram4", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual int sp_helpdiagramdefinition4(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_helpdiagramdefinition4", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual int sp_helpdiagrams4(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_helpdiagrams4", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_Area4(string sArea, string sDescription, string sCreatedBy)
+        {
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_Area4", sAreaParameter, sDescriptionParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_Checklist4(Nullable<int> iID, string sDescription, string iSampleName, string sCreatedBy)
+        {
+            var iIDParameter = iID.HasValue ?
+                new ObjectParameter("iID", iID) :
+                new ObjectParameter("iID", typeof(int));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var iSampleNameParameter = iSampleName != null ?
+                new ObjectParameter("iSampleName", iSampleName) :
+                new ObjectParameter("iSampleName", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Checklist4", iIDParameter, sDescriptionParameter, iSampleNameParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_CommandImport4()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_CommandImport4");
+        }
+    
+        public virtual ObjectResult<string> SP_I_Equipment4(string sEquipment, string sDescription, string sAreaID, string sCreatedBy)
+        {
+            var sEquipmentParameter = sEquipment != null ?
+                new ObjectParameter("sEquipment", sEquipment) :
+                new ObjectParameter("sEquipment", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_Equipment4", sEquipmentParameter, sDescriptionParameter, sAreaIDParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_ImportDate4(string ssku, string sDescription, string sSKUArea, Nullable<int> iTestid, string sTestDescription, Nullable<double> fSpec_UpperLimit, Nullable<double> fSpec_LowerLimit, Nullable<double> fControl_UpperLimit, Nullable<double> fControl_LowerLimit, Nullable<double> fAccept_UpperLimit, Nullable<double> fAccept_LowerLimit, Nullable<double> fTarget, string sAreaID, string sAreaDesc, string sEquipID, string sEquipDesc, string sCreated_by, Nullable<int> iID_Import)
+        {
+            var sskuParameter = ssku != null ?
+                new ObjectParameter("ssku", ssku) :
+                new ObjectParameter("ssku", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sSKUAreaParameter = sSKUArea != null ?
+                new ObjectParameter("sSKUArea", sSKUArea) :
+                new ObjectParameter("sSKUArea", typeof(string));
+    
+            var iTestidParameter = iTestid.HasValue ?
+                new ObjectParameter("iTestid", iTestid) :
+                new ObjectParameter("iTestid", typeof(int));
+    
+            var sTestDescriptionParameter = sTestDescription != null ?
+                new ObjectParameter("sTestDescription", sTestDescription) :
+                new ObjectParameter("sTestDescription", typeof(string));
+    
+            var fSpec_UpperLimitParameter = fSpec_UpperLimit.HasValue ?
+                new ObjectParameter("fSpec_UpperLimit", fSpec_UpperLimit) :
+                new ObjectParameter("fSpec_UpperLimit", typeof(double));
+    
+            var fSpec_LowerLimitParameter = fSpec_LowerLimit.HasValue ?
+                new ObjectParameter("fSpec_LowerLimit", fSpec_LowerLimit) :
+                new ObjectParameter("fSpec_LowerLimit", typeof(double));
+    
+            var fControl_UpperLimitParameter = fControl_UpperLimit.HasValue ?
+                new ObjectParameter("fControl_UpperLimit", fControl_UpperLimit) :
+                new ObjectParameter("fControl_UpperLimit", typeof(double));
+    
+            var fControl_LowerLimitParameter = fControl_LowerLimit.HasValue ?
+                new ObjectParameter("fControl_LowerLimit", fControl_LowerLimit) :
+                new ObjectParameter("fControl_LowerLimit", typeof(double));
+    
+            var fAccept_UpperLimitParameter = fAccept_UpperLimit.HasValue ?
+                new ObjectParameter("fAccept_UpperLimit", fAccept_UpperLimit) :
+                new ObjectParameter("fAccept_UpperLimit", typeof(double));
+    
+            var fAccept_LowerLimitParameter = fAccept_LowerLimit.HasValue ?
+                new ObjectParameter("fAccept_LowerLimit", fAccept_LowerLimit) :
+                new ObjectParameter("fAccept_LowerLimit", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sAreaDescParameter = sAreaDesc != null ?
+                new ObjectParameter("sAreaDesc", sAreaDesc) :
+                new ObjectParameter("sAreaDesc", typeof(string));
+    
+            var sEquipIDParameter = sEquipID != null ?
+                new ObjectParameter("sEquipID", sEquipID) :
+                new ObjectParameter("sEquipID", typeof(string));
+    
+            var sEquipDescParameter = sEquipDesc != null ?
+                new ObjectParameter("sEquipDesc", sEquipDesc) :
+                new ObjectParameter("sEquipDesc", typeof(string));
+    
+            var sCreated_byParameter = sCreated_by != null ?
+                new ObjectParameter("sCreated_by", sCreated_by) :
+                new ObjectParameter("sCreated_by", typeof(string));
+    
+            var iID_ImportParameter = iID_Import.HasValue ?
+                new ObjectParameter("iID_Import", iID_Import) :
+                new ObjectParameter("iID_Import", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_ImportDate4", sskuParameter, sDescriptionParameter, sSKUAreaParameter, iTestidParameter, sTestDescriptionParameter, fSpec_UpperLimitParameter, fSpec_LowerLimitParameter, fControl_UpperLimitParameter, fControl_LowerLimitParameter, fAccept_UpperLimitParameter, fAccept_LowerLimitParameter, fTargetParameter, sAreaIDParameter, sAreaDescParameter, sEquipIDParameter, sEquipDescParameter, sCreated_byParameter, iID_ImportParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_ImportDate_202001144(string ssku, string sDescription, string sSKUArea, Nullable<int> iTestid, string sTestDescription, Nullable<double> fSpec_UpperLimit, Nullable<double> fSpec_LowerLimit, Nullable<double> fControl_UpperLimit, Nullable<double> fControl_LowerLimit, Nullable<double> fAccept_UpperLimit, Nullable<double> fAccept_LowerLimit, Nullable<double> fTarget, string sAreaID, string sAreaDesc, string sEquipID, string sEquipDesc, string sCreated_by, Nullable<int> iID_Import)
+        {
+            var sskuParameter = ssku != null ?
+                new ObjectParameter("ssku", ssku) :
+                new ObjectParameter("ssku", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sSKUAreaParameter = sSKUArea != null ?
+                new ObjectParameter("sSKUArea", sSKUArea) :
+                new ObjectParameter("sSKUArea", typeof(string));
+    
+            var iTestidParameter = iTestid.HasValue ?
+                new ObjectParameter("iTestid", iTestid) :
+                new ObjectParameter("iTestid", typeof(int));
+    
+            var sTestDescriptionParameter = sTestDescription != null ?
+                new ObjectParameter("sTestDescription", sTestDescription) :
+                new ObjectParameter("sTestDescription", typeof(string));
+    
+            var fSpec_UpperLimitParameter = fSpec_UpperLimit.HasValue ?
+                new ObjectParameter("fSpec_UpperLimit", fSpec_UpperLimit) :
+                new ObjectParameter("fSpec_UpperLimit", typeof(double));
+    
+            var fSpec_LowerLimitParameter = fSpec_LowerLimit.HasValue ?
+                new ObjectParameter("fSpec_LowerLimit", fSpec_LowerLimit) :
+                new ObjectParameter("fSpec_LowerLimit", typeof(double));
+    
+            var fControl_UpperLimitParameter = fControl_UpperLimit.HasValue ?
+                new ObjectParameter("fControl_UpperLimit", fControl_UpperLimit) :
+                new ObjectParameter("fControl_UpperLimit", typeof(double));
+    
+            var fControl_LowerLimitParameter = fControl_LowerLimit.HasValue ?
+                new ObjectParameter("fControl_LowerLimit", fControl_LowerLimit) :
+                new ObjectParameter("fControl_LowerLimit", typeof(double));
+    
+            var fAccept_UpperLimitParameter = fAccept_UpperLimit.HasValue ?
+                new ObjectParameter("fAccept_UpperLimit", fAccept_UpperLimit) :
+                new ObjectParameter("fAccept_UpperLimit", typeof(double));
+    
+            var fAccept_LowerLimitParameter = fAccept_LowerLimit.HasValue ?
+                new ObjectParameter("fAccept_LowerLimit", fAccept_LowerLimit) :
+                new ObjectParameter("fAccept_LowerLimit", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sAreaDescParameter = sAreaDesc != null ?
+                new ObjectParameter("sAreaDesc", sAreaDesc) :
+                new ObjectParameter("sAreaDesc", typeof(string));
+    
+            var sEquipIDParameter = sEquipID != null ?
+                new ObjectParameter("sEquipID", sEquipID) :
+                new ObjectParameter("sEquipID", typeof(string));
+    
+            var sEquipDescParameter = sEquipDesc != null ?
+                new ObjectParameter("sEquipDesc", sEquipDesc) :
+                new ObjectParameter("sEquipDesc", typeof(string));
+    
+            var sCreated_byParameter = sCreated_by != null ?
+                new ObjectParameter("sCreated_by", sCreated_by) :
+                new ObjectParameter("sCreated_by", typeof(string));
+    
+            var iID_ImportParameter = iID_Import.HasValue ?
+                new ObjectParameter("iID_Import", iID_Import) :
+                new ObjectParameter("iID_Import", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_ImportDate_202001144", sskuParameter, sDescriptionParameter, sSKUAreaParameter, iTestidParameter, sTestDescriptionParameter, fSpec_UpperLimitParameter, fSpec_LowerLimitParameter, fControl_UpperLimitParameter, fControl_LowerLimitParameter, fAccept_UpperLimitParameter, fAccept_LowerLimitParameter, fTargetParameter, sAreaIDParameter, sAreaDescParameter, sEquipIDParameter, sEquipDescParameter, sCreated_byParameter, iID_ImportParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_ImportDate_All4(string iProcessID)
+        {
+            var iProcessIDParameter = iProcessID != null ?
+                new ObjectParameter("iProcessID", iProcessID) :
+                new ObjectParameter("iProcessID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_ImportDate_All4", iProcessIDParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_QMSpec4(Nullable<int> testID, Nullable<double> fSpecUpper, Nullable<double> fSpecLower, Nullable<double> fControlUpper, Nullable<double> fControlLower, Nullable<double> fAcceptUpper, Nullable<double> fAcceptLower, Nullable<double> fTarget, string sCreatedBy)
+        {
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var fSpecUpperParameter = fSpecUpper.HasValue ?
+                new ObjectParameter("fSpecUpper", fSpecUpper) :
+                new ObjectParameter("fSpecUpper", typeof(double));
+    
+            var fSpecLowerParameter = fSpecLower.HasValue ?
+                new ObjectParameter("fSpecLower", fSpecLower) :
+                new ObjectParameter("fSpecLower", typeof(double));
+    
+            var fControlUpperParameter = fControlUpper.HasValue ?
+                new ObjectParameter("fControlUpper", fControlUpper) :
+                new ObjectParameter("fControlUpper", typeof(double));
+    
+            var fControlLowerParameter = fControlLower.HasValue ?
+                new ObjectParameter("fControlLower", fControlLower) :
+                new ObjectParameter("fControlLower", typeof(double));
+    
+            var fAcceptUpperParameter = fAcceptUpper.HasValue ?
+                new ObjectParameter("fAcceptUpper", fAcceptUpper) :
+                new ObjectParameter("fAcceptUpper", typeof(double));
+    
+            var fAcceptLowerParameter = fAcceptLower.HasValue ?
+                new ObjectParameter("fAcceptLower", fAcceptLower) :
+                new ObjectParameter("fAcceptLower", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_QMSpec4", testIDParameter, fSpecUpperParameter, fSpecLowerParameter, fControlUpperParameter, fControlLowerParameter, fAcceptUpperParameter, fAcceptLowerParameter, fTargetParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_Sample4(Nullable<int> iSample, string sDescription, string iEquipmentName, Nullable<int> iBatch, string sCreatedBy)
+        {
+            var iSampleParameter = iSample.HasValue ?
+                new ObjectParameter("iSample", iSample) :
+                new ObjectParameter("iSample", typeof(int));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var iEquipmentNameParameter = iEquipmentName != null ?
+                new ObjectParameter("iEquipmentName", iEquipmentName) :
+                new ObjectParameter("iEquipmentName", typeof(string));
+    
+            var iBatchParameter = iBatch.HasValue ?
+                new ObjectParameter("iBatch", iBatch) :
+                new ObjectParameter("iBatch", typeof(int));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Sample4", iSampleParameter, sDescriptionParameter, iEquipmentNameParameter, iBatchParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_Sample_Log4(string test, Nullable<int> sKU, Nullable<double> results, string @operator, string comment, string created_By, string sBatch, Nullable<System.DateTime> dtSample, string sArea, string sEquipament)
+        {
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            var resultsParameter = results.HasValue ?
+                new ObjectParameter("Results", results) :
+                new ObjectParameter("Results", typeof(double));
+    
+            var operatorParameter = @operator != null ?
+                new ObjectParameter("Operator", @operator) :
+                new ObjectParameter("Operator", typeof(string));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("Comment", comment) :
+                new ObjectParameter("Comment", typeof(string));
+    
+            var created_ByParameter = created_By != null ?
+                new ObjectParameter("Created_By", created_By) :
+                new ObjectParameter("Created_By", typeof(string));
+    
+            var sBatchParameter = sBatch != null ?
+                new ObjectParameter("sBatch", sBatch) :
+                new ObjectParameter("sBatch", typeof(string));
+    
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sEquipamentParameter = sEquipament != null ?
+                new ObjectParameter("sEquipament", sEquipament) :
+                new ObjectParameter("sEquipament", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Sample_Log4", testParameter, sKUParameter, resultsParameter, operatorParameter, commentParameter, created_ByParameter, sBatchParameter, dtSampleParameter, sAreaParameter, sEquipamentParameter);
+        }
+    
+        public virtual int SP_I_Sample_Log_SKUDesc4(string test, string sKU, Nullable<double> results, string @operator, string comment, string created_By, string sBatch, Nullable<System.DateTime> dtSample, string sArea, string sEquipament)
+        {
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var resultsParameter = results.HasValue ?
+                new ObjectParameter("Results", results) :
+                new ObjectParameter("Results", typeof(double));
+    
+            var operatorParameter = @operator != null ?
+                new ObjectParameter("Operator", @operator) :
+                new ObjectParameter("Operator", typeof(string));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("Comment", comment) :
+                new ObjectParameter("Comment", typeof(string));
+    
+            var created_ByParameter = created_By != null ?
+                new ObjectParameter("Created_By", created_By) :
+                new ObjectParameter("Created_By", typeof(string));
+    
+            var sBatchParameter = sBatch != null ?
+                new ObjectParameter("sBatch", sBatch) :
+                new ObjectParameter("sBatch", typeof(string));
+    
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sEquipamentParameter = sEquipament != null ?
+                new ObjectParameter("sEquipament", sEquipament) :
+                new ObjectParameter("sEquipament", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Sample_Log_SKUDesc4", testParameter, sKUParameter, resultsParameter, operatorParameter, commentParameter, created_ByParameter, sBatchParameter, dtSampleParameter, sAreaParameter, sEquipamentParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_SKU4(string sKU, string sDescription, string sArea, string sCreatedBy)
+        {
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_SKU4", sKUParameter, sDescriptionParameter, sAreaParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_Test4(string testDesc, Nullable<int> sKU, string sCreatedBy)
+        {
+            var testDescParameter = testDesc != null ?
+                new ObjectParameter("TestDesc", testDesc) :
+                new ObjectParameter("TestDesc", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_Test4", testDescParameter, sKUParameter, sCreatedByParameter);
+        }
+    
+        public virtual int sp_renamediagram4(string diagramname, Nullable<int> owner_id, string new_diagramname)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var new_diagramnameParameter = new_diagramname != null ?
+                new ObjectParameter("new_diagramname", new_diagramname) :
+                new ObjectParameter("new_diagramname", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_renamediagram4", diagramnameParameter, owner_idParameter, new_diagramnameParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_AllData4_Result> SP_S_AllData4()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_AllData4_Result>("SP_S_AllData4");
+        }
+    
+        public virtual ObjectResult<string> SP_S_ReportFilterArea4(string sKU)
+        {
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_S_ReportFilterArea4", sKUParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_S_ReportFilterEquip4(string area)
+        {
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_S_ReportFilterEquip4", areaParameter);
+        }
+    
+        public virtual int SP_S_ReportFilterTest4(string ssku)
+        {
+            var sskuParameter = ssku != null ?
+                new ObjectParameter("ssku", ssku) :
+                new ObjectParameter("ssku", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReportFilterTest4", sskuParameter);
+        }
+    
+        public virtual int SP_S_ReturnCPKValues4(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReturnCPKValues4", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_Equipment4_Result> SP_S_ReturnCPKValues_Equipment4(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_Equipment4_Result>("SP_S_ReturnCPKValues_Equipment4", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_Equipment_202005114_Result> SP_S_ReturnCPKValues_Equipment_202005114(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_Equipment_202005114_Result>("SP_S_ReturnCPKValues_Equipment_202005114", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_Equipment_202005274_Result> SP_S_ReturnCPKValues_Equipment_202005274(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_Equipment_202005274_Result>("SP_S_ReturnCPKValues_Equipment_202005274", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU4_Result> SP_S_ReturnCPKValues_SKU4(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU4_Result>("SP_S_ReturnCPKValues_SKU4", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_202005074_Result> SP_S_ReturnCPKValues_SKU_202005074(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_202005074_Result>("SP_S_ReturnCPKValues_SKU_202005074", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_202005084_Result> SP_S_ReturnCPKValues_SKU_202005084(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_202005084_Result>("SP_S_ReturnCPKValues_SKU_202005084", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_202005114_Result> SP_S_ReturnCPKValues_SKU_202005114(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_202005114_Result>("SP_S_ReturnCPKValues_SKU_202005114", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_20200511_024_Result> SP_S_ReturnCPKValues_SKU_20200511_024(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_20200511_024_Result>("SP_S_ReturnCPKValues_SKU_20200511_024", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_202005154_Result> SP_S_ReturnCPKValues_SKU_202005154(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_202005154_Result>("SP_S_ReturnCPKValues_SKU_202005154", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_202005274_Result> SP_S_ReturnCPKValues_SKU_202005274(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_202005274_Result>("SP_S_ReturnCPKValues_SKU_202005274", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual int SP_S_ReturnLossValues4(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReturnLossValues4", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnValues4_Result> SP_S_ReturnValues4(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area, string equipment, string batch)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            var equipmentParameter = equipment != null ?
+                new ObjectParameter("Equipment", equipment) :
+                new ObjectParameter("Equipment", typeof(string));
+    
+            var batchParameter = batch != null ?
+                new ObjectParameter("Batch", batch) :
+                new ObjectParameter("Batch", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnValues4_Result>("SP_S_ReturnValues4", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter, equipmentParameter, batchParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_SampleValues4_Result> SP_S_SampleValues4(Nullable<System.DateTime> dtSample)
+        {
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_SampleValues4_Result>("SP_S_SampleValues4", dtSampleParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_Specs4_Result> SP_S_Specs4()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_Specs4_Result>("SP_S_Specs4");
+        }
+    
+        public virtual ObjectResult<SP_S_TestSpec4_Result> SP_S_TestSpec4(string test, Nullable<int> sKU)
+        {
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_TestSpec4_Result>("SP_S_TestSpec4", testParameter, sKUParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Area4(Nullable<int> iD, string area, string sDescription, string sCreatedBy)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Area4", iDParameter, areaParameter, sDescriptionParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Equipment4(Nullable<int> iID, string sEquipment, string sDescription, string sAreaID, string sCreatedBy)
+        {
+            var iIDParameter = iID.HasValue ?
+                new ObjectParameter("iID", iID) :
+                new ObjectParameter("iID", typeof(int));
+    
+            var sEquipmentParameter = sEquipment != null ?
+                new ObjectParameter("sEquipment", sEquipment) :
+                new ObjectParameter("sEquipment", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Equipment4", iIDParameter, sEquipmentParameter, sDescriptionParameter, sAreaIDParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_QMSpec4(Nullable<int> testID, Nullable<double> fSpecUpper, Nullable<double> fSpecLower, Nullable<double> fControlUpper, Nullable<double> fControlLower, Nullable<double> fAcceptUpper, Nullable<double> fAcceptLower, Nullable<double> fTarget, string sCreatedBy)
+        {
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var fSpecUpperParameter = fSpecUpper.HasValue ?
+                new ObjectParameter("fSpecUpper", fSpecUpper) :
+                new ObjectParameter("fSpecUpper", typeof(double));
+    
+            var fSpecLowerParameter = fSpecLower.HasValue ?
+                new ObjectParameter("fSpecLower", fSpecLower) :
+                new ObjectParameter("fSpecLower", typeof(double));
+    
+            var fControlUpperParameter = fControlUpper.HasValue ?
+                new ObjectParameter("fControlUpper", fControlUpper) :
+                new ObjectParameter("fControlUpper", typeof(double));
+    
+            var fControlLowerParameter = fControlLower.HasValue ?
+                new ObjectParameter("fControlLower", fControlLower) :
+                new ObjectParameter("fControlLower", typeof(double));
+    
+            var fAcceptUpperParameter = fAcceptUpper.HasValue ?
+                new ObjectParameter("fAcceptUpper", fAcceptUpper) :
+                new ObjectParameter("fAcceptUpper", typeof(double));
+    
+            var fAcceptLowerParameter = fAcceptLower.HasValue ?
+                new ObjectParameter("fAcceptLower", fAcceptLower) :
+                new ObjectParameter("fAcceptLower", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_QMSpec4", testIDParameter, fSpecUpperParameter, fSpecLowerParameter, fControlUpperParameter, fControlLowerParameter, fAcceptUpperParameter, fAcceptLowerParameter, fTargetParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_U_Sample4(Nullable<int> iSampleID, Nullable<int> iBatch, string iEquipmentName, string sDescription, string sCreatedBy)
+        {
+            var iSampleIDParameter = iSampleID.HasValue ?
+                new ObjectParameter("iSampleID", iSampleID) :
+                new ObjectParameter("iSampleID", typeof(int));
+    
+            var iBatchParameter = iBatch.HasValue ?
+                new ObjectParameter("iBatch", iBatch) :
+                new ObjectParameter("iBatch", typeof(int));
+    
+            var iEquipmentNameParameter = iEquipmentName != null ?
+                new ObjectParameter("iEquipmentName", iEquipmentName) :
+                new ObjectParameter("iEquipmentName", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_U_Sample4", iSampleIDParameter, iBatchParameter, iEquipmentNameParameter, sDescriptionParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Sample_Log4(Nullable<int> sampleID, Nullable<int> testID, Nullable<double> fResult, string sArea, string sEquipment, Nullable<System.DateTime> dtSample, string sComments, string sBatchLote, string created_By)
+        {
+            var sampleIDParameter = sampleID.HasValue ?
+                new ObjectParameter("sampleID", sampleID) :
+                new ObjectParameter("sampleID", typeof(int));
+    
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var fResultParameter = fResult.HasValue ?
+                new ObjectParameter("fResult", fResult) :
+                new ObjectParameter("fResult", typeof(double));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sEquipmentParameter = sEquipment != null ?
+                new ObjectParameter("sEquipment", sEquipment) :
+                new ObjectParameter("sEquipment", typeof(string));
+    
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            var sCommentsParameter = sComments != null ?
+                new ObjectParameter("sComments", sComments) :
+                new ObjectParameter("sComments", typeof(string));
+    
+            var sBatchLoteParameter = sBatchLote != null ?
+                new ObjectParameter("sBatchLote", sBatchLote) :
+                new ObjectParameter("sBatchLote", typeof(string));
+    
+            var created_ByParameter = created_By != null ?
+                new ObjectParameter("Created_By", created_By) :
+                new ObjectParameter("Created_By", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Sample_Log4", sampleIDParameter, testIDParameter, fResultParameter, sAreaParameter, sEquipmentParameter, dtSampleParameter, sCommentsParameter, sBatchLoteParameter, created_ByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Sample_Log_AvoidSample4(Nullable<int> sampleID)
+        {
+            var sampleIDParameter = sampleID.HasValue ?
+                new ObjectParameter("sampleID", sampleID) :
+                new ObjectParameter("sampleID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Sample_Log_AvoidSample4", sampleIDParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_SKU4(Nullable<int> iD, string sKU, string sDescription, string sArea, string sCreatedBy)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_SKU4", iDParameter, sKUParameter, sDescriptionParameter, sAreaParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Test4(Nullable<int> testID, string testDesc, Nullable<int> sKU, string sCreatedBy)
+        {
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var testDescParameter = testDesc != null ?
+                new ObjectParameter("TestDesc", testDesc) :
+                new ObjectParameter("TestDesc", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Test4", testIDParameter, testDescParameter, sKUParameter, sCreatedByParameter);
+        }
+    
+        public virtual int sp_upgraddiagrams4()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams4");
+        }
+    
+        [DbFunction("ColgateSkeltaEntities", "ngsfr_fn_S_Split_List5")]
+        public virtual IQueryable<string> ngsfr_fn_S_Split_List5(string @string)
+        {
+            var stringParameter = @string != null ?
+                new ObjectParameter("string", @string) :
+                new ObjectParameter("string", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<string>("[ColgateSkeltaEntities].[ngsfr_fn_S_Split_List5](@string)", stringParameter);
+        }
+    
+        public virtual int sp_alterdiagram5(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_alterdiagram5", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int sp_creatediagram5(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_creatediagram5", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int SP_D_QMSpec5(string iQM)
+        {
+            var iQMParameter = iQM != null ?
+                new ObjectParameter("iQM", iQM) :
+                new ObjectParameter("iQM", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_D_QMSpec5", iQMParameter);
+        }
+    
+        public virtual int SP_D_Sample5(Nullable<int> iSample)
+        {
+            var iSampleParameter = iSample.HasValue ?
+                new ObjectParameter("iSample", iSample) :
+                new ObjectParameter("iSample", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_D_Sample5", iSampleParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_D_SKU5(string sKU, string sDescription)
+        {
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_D_SKU5", sKUParameter, sDescriptionParameter);
+        }
+    
+        public virtual int sp_dropdiagram5(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_dropdiagram5", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual int sp_helpdiagramdefinition5(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_helpdiagramdefinition5", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual int sp_helpdiagrams5(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_helpdiagrams5", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_Area5(string sArea, string sDescription, string sCreatedBy)
+        {
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_Area5", sAreaParameter, sDescriptionParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_Checklist5(Nullable<int> iID, string sDescription, string iSampleName, string sCreatedBy)
+        {
+            var iIDParameter = iID.HasValue ?
+                new ObjectParameter("iID", iID) :
+                new ObjectParameter("iID", typeof(int));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var iSampleNameParameter = iSampleName != null ?
+                new ObjectParameter("iSampleName", iSampleName) :
+                new ObjectParameter("iSampleName", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Checklist5", iIDParameter, sDescriptionParameter, iSampleNameParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_CommandImport5()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_CommandImport5");
+        }
+    
+        public virtual ObjectResult<string> SP_I_Equipment5(string sEquipment, string sDescription, string sAreaID, string sCreatedBy)
+        {
+            var sEquipmentParameter = sEquipment != null ?
+                new ObjectParameter("sEquipment", sEquipment) :
+                new ObjectParameter("sEquipment", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_Equipment5", sEquipmentParameter, sDescriptionParameter, sAreaIDParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_ImportDate5(string ssku, string sDescription, string sSKUArea, Nullable<int> iTestid, string sTestDescription, Nullable<double> fSpec_UpperLimit, Nullable<double> fSpec_LowerLimit, Nullable<double> fControl_UpperLimit, Nullable<double> fControl_LowerLimit, Nullable<double> fAccept_UpperLimit, Nullable<double> fAccept_LowerLimit, Nullable<double> fTarget, string sAreaID, string sAreaDesc, string sEquipID, string sEquipDesc, string sCreated_by, Nullable<int> iID_Import)
+        {
+            var sskuParameter = ssku != null ?
+                new ObjectParameter("ssku", ssku) :
+                new ObjectParameter("ssku", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sSKUAreaParameter = sSKUArea != null ?
+                new ObjectParameter("sSKUArea", sSKUArea) :
+                new ObjectParameter("sSKUArea", typeof(string));
+    
+            var iTestidParameter = iTestid.HasValue ?
+                new ObjectParameter("iTestid", iTestid) :
+                new ObjectParameter("iTestid", typeof(int));
+    
+            var sTestDescriptionParameter = sTestDescription != null ?
+                new ObjectParameter("sTestDescription", sTestDescription) :
+                new ObjectParameter("sTestDescription", typeof(string));
+    
+            var fSpec_UpperLimitParameter = fSpec_UpperLimit.HasValue ?
+                new ObjectParameter("fSpec_UpperLimit", fSpec_UpperLimit) :
+                new ObjectParameter("fSpec_UpperLimit", typeof(double));
+    
+            var fSpec_LowerLimitParameter = fSpec_LowerLimit.HasValue ?
+                new ObjectParameter("fSpec_LowerLimit", fSpec_LowerLimit) :
+                new ObjectParameter("fSpec_LowerLimit", typeof(double));
+    
+            var fControl_UpperLimitParameter = fControl_UpperLimit.HasValue ?
+                new ObjectParameter("fControl_UpperLimit", fControl_UpperLimit) :
+                new ObjectParameter("fControl_UpperLimit", typeof(double));
+    
+            var fControl_LowerLimitParameter = fControl_LowerLimit.HasValue ?
+                new ObjectParameter("fControl_LowerLimit", fControl_LowerLimit) :
+                new ObjectParameter("fControl_LowerLimit", typeof(double));
+    
+            var fAccept_UpperLimitParameter = fAccept_UpperLimit.HasValue ?
+                new ObjectParameter("fAccept_UpperLimit", fAccept_UpperLimit) :
+                new ObjectParameter("fAccept_UpperLimit", typeof(double));
+    
+            var fAccept_LowerLimitParameter = fAccept_LowerLimit.HasValue ?
+                new ObjectParameter("fAccept_LowerLimit", fAccept_LowerLimit) :
+                new ObjectParameter("fAccept_LowerLimit", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sAreaDescParameter = sAreaDesc != null ?
+                new ObjectParameter("sAreaDesc", sAreaDesc) :
+                new ObjectParameter("sAreaDesc", typeof(string));
+    
+            var sEquipIDParameter = sEquipID != null ?
+                new ObjectParameter("sEquipID", sEquipID) :
+                new ObjectParameter("sEquipID", typeof(string));
+    
+            var sEquipDescParameter = sEquipDesc != null ?
+                new ObjectParameter("sEquipDesc", sEquipDesc) :
+                new ObjectParameter("sEquipDesc", typeof(string));
+    
+            var sCreated_byParameter = sCreated_by != null ?
+                new ObjectParameter("sCreated_by", sCreated_by) :
+                new ObjectParameter("sCreated_by", typeof(string));
+    
+            var iID_ImportParameter = iID_Import.HasValue ?
+                new ObjectParameter("iID_Import", iID_Import) :
+                new ObjectParameter("iID_Import", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_ImportDate5", sskuParameter, sDescriptionParameter, sSKUAreaParameter, iTestidParameter, sTestDescriptionParameter, fSpec_UpperLimitParameter, fSpec_LowerLimitParameter, fControl_UpperLimitParameter, fControl_LowerLimitParameter, fAccept_UpperLimitParameter, fAccept_LowerLimitParameter, fTargetParameter, sAreaIDParameter, sAreaDescParameter, sEquipIDParameter, sEquipDescParameter, sCreated_byParameter, iID_ImportParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_ImportDate_202001145(string ssku, string sDescription, string sSKUArea, Nullable<int> iTestid, string sTestDescription, Nullable<double> fSpec_UpperLimit, Nullable<double> fSpec_LowerLimit, Nullable<double> fControl_UpperLimit, Nullable<double> fControl_LowerLimit, Nullable<double> fAccept_UpperLimit, Nullable<double> fAccept_LowerLimit, Nullable<double> fTarget, string sAreaID, string sAreaDesc, string sEquipID, string sEquipDesc, string sCreated_by, Nullable<int> iID_Import)
+        {
+            var sskuParameter = ssku != null ?
+                new ObjectParameter("ssku", ssku) :
+                new ObjectParameter("ssku", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sSKUAreaParameter = sSKUArea != null ?
+                new ObjectParameter("sSKUArea", sSKUArea) :
+                new ObjectParameter("sSKUArea", typeof(string));
+    
+            var iTestidParameter = iTestid.HasValue ?
+                new ObjectParameter("iTestid", iTestid) :
+                new ObjectParameter("iTestid", typeof(int));
+    
+            var sTestDescriptionParameter = sTestDescription != null ?
+                new ObjectParameter("sTestDescription", sTestDescription) :
+                new ObjectParameter("sTestDescription", typeof(string));
+    
+            var fSpec_UpperLimitParameter = fSpec_UpperLimit.HasValue ?
+                new ObjectParameter("fSpec_UpperLimit", fSpec_UpperLimit) :
+                new ObjectParameter("fSpec_UpperLimit", typeof(double));
+    
+            var fSpec_LowerLimitParameter = fSpec_LowerLimit.HasValue ?
+                new ObjectParameter("fSpec_LowerLimit", fSpec_LowerLimit) :
+                new ObjectParameter("fSpec_LowerLimit", typeof(double));
+    
+            var fControl_UpperLimitParameter = fControl_UpperLimit.HasValue ?
+                new ObjectParameter("fControl_UpperLimit", fControl_UpperLimit) :
+                new ObjectParameter("fControl_UpperLimit", typeof(double));
+    
+            var fControl_LowerLimitParameter = fControl_LowerLimit.HasValue ?
+                new ObjectParameter("fControl_LowerLimit", fControl_LowerLimit) :
+                new ObjectParameter("fControl_LowerLimit", typeof(double));
+    
+            var fAccept_UpperLimitParameter = fAccept_UpperLimit.HasValue ?
+                new ObjectParameter("fAccept_UpperLimit", fAccept_UpperLimit) :
+                new ObjectParameter("fAccept_UpperLimit", typeof(double));
+    
+            var fAccept_LowerLimitParameter = fAccept_LowerLimit.HasValue ?
+                new ObjectParameter("fAccept_LowerLimit", fAccept_LowerLimit) :
+                new ObjectParameter("fAccept_LowerLimit", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sAreaDescParameter = sAreaDesc != null ?
+                new ObjectParameter("sAreaDesc", sAreaDesc) :
+                new ObjectParameter("sAreaDesc", typeof(string));
+    
+            var sEquipIDParameter = sEquipID != null ?
+                new ObjectParameter("sEquipID", sEquipID) :
+                new ObjectParameter("sEquipID", typeof(string));
+    
+            var sEquipDescParameter = sEquipDesc != null ?
+                new ObjectParameter("sEquipDesc", sEquipDesc) :
+                new ObjectParameter("sEquipDesc", typeof(string));
+    
+            var sCreated_byParameter = sCreated_by != null ?
+                new ObjectParameter("sCreated_by", sCreated_by) :
+                new ObjectParameter("sCreated_by", typeof(string));
+    
+            var iID_ImportParameter = iID_Import.HasValue ?
+                new ObjectParameter("iID_Import", iID_Import) :
+                new ObjectParameter("iID_Import", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_ImportDate_202001145", sskuParameter, sDescriptionParameter, sSKUAreaParameter, iTestidParameter, sTestDescriptionParameter, fSpec_UpperLimitParameter, fSpec_LowerLimitParameter, fControl_UpperLimitParameter, fControl_LowerLimitParameter, fAccept_UpperLimitParameter, fAccept_LowerLimitParameter, fTargetParameter, sAreaIDParameter, sAreaDescParameter, sEquipIDParameter, sEquipDescParameter, sCreated_byParameter, iID_ImportParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_ImportDate_All5(string iProcessID)
+        {
+            var iProcessIDParameter = iProcessID != null ?
+                new ObjectParameter("iProcessID", iProcessID) :
+                new ObjectParameter("iProcessID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_ImportDate_All5", iProcessIDParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_QMSpec5(Nullable<int> testID, Nullable<double> fSpecUpper, Nullable<double> fSpecLower, Nullable<double> fControlUpper, Nullable<double> fControlLower, Nullable<double> fAcceptUpper, Nullable<double> fAcceptLower, Nullable<double> fTarget, string sCreatedBy)
+        {
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var fSpecUpperParameter = fSpecUpper.HasValue ?
+                new ObjectParameter("fSpecUpper", fSpecUpper) :
+                new ObjectParameter("fSpecUpper", typeof(double));
+    
+            var fSpecLowerParameter = fSpecLower.HasValue ?
+                new ObjectParameter("fSpecLower", fSpecLower) :
+                new ObjectParameter("fSpecLower", typeof(double));
+    
+            var fControlUpperParameter = fControlUpper.HasValue ?
+                new ObjectParameter("fControlUpper", fControlUpper) :
+                new ObjectParameter("fControlUpper", typeof(double));
+    
+            var fControlLowerParameter = fControlLower.HasValue ?
+                new ObjectParameter("fControlLower", fControlLower) :
+                new ObjectParameter("fControlLower", typeof(double));
+    
+            var fAcceptUpperParameter = fAcceptUpper.HasValue ?
+                new ObjectParameter("fAcceptUpper", fAcceptUpper) :
+                new ObjectParameter("fAcceptUpper", typeof(double));
+    
+            var fAcceptLowerParameter = fAcceptLower.HasValue ?
+                new ObjectParameter("fAcceptLower", fAcceptLower) :
+                new ObjectParameter("fAcceptLower", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_QMSpec5", testIDParameter, fSpecUpperParameter, fSpecLowerParameter, fControlUpperParameter, fControlLowerParameter, fAcceptUpperParameter, fAcceptLowerParameter, fTargetParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_Sample5(Nullable<int> iSample, string sDescription, string iEquipmentName, Nullable<int> iBatch, string sCreatedBy)
+        {
+            var iSampleParameter = iSample.HasValue ?
+                new ObjectParameter("iSample", iSample) :
+                new ObjectParameter("iSample", typeof(int));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var iEquipmentNameParameter = iEquipmentName != null ?
+                new ObjectParameter("iEquipmentName", iEquipmentName) :
+                new ObjectParameter("iEquipmentName", typeof(string));
+    
+            var iBatchParameter = iBatch.HasValue ?
+                new ObjectParameter("iBatch", iBatch) :
+                new ObjectParameter("iBatch", typeof(int));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Sample5", iSampleParameter, sDescriptionParameter, iEquipmentNameParameter, iBatchParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_Sample_Log5(string test, Nullable<int> sKU, Nullable<double> results, string @operator, string comment, string created_By, string sBatch, Nullable<System.DateTime> dtSample, string sArea, string sEquipament)
+        {
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            var resultsParameter = results.HasValue ?
+                new ObjectParameter("Results", results) :
+                new ObjectParameter("Results", typeof(double));
+    
+            var operatorParameter = @operator != null ?
+                new ObjectParameter("Operator", @operator) :
+                new ObjectParameter("Operator", typeof(string));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("Comment", comment) :
+                new ObjectParameter("Comment", typeof(string));
+    
+            var created_ByParameter = created_By != null ?
+                new ObjectParameter("Created_By", created_By) :
+                new ObjectParameter("Created_By", typeof(string));
+    
+            var sBatchParameter = sBatch != null ?
+                new ObjectParameter("sBatch", sBatch) :
+                new ObjectParameter("sBatch", typeof(string));
+    
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sEquipamentParameter = sEquipament != null ?
+                new ObjectParameter("sEquipament", sEquipament) :
+                new ObjectParameter("sEquipament", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Sample_Log5", testParameter, sKUParameter, resultsParameter, operatorParameter, commentParameter, created_ByParameter, sBatchParameter, dtSampleParameter, sAreaParameter, sEquipamentParameter);
+        }
+    
+        public virtual int SP_I_Sample_Log_SKUDesc5(string test, string sKU, Nullable<double> results, string @operator, string comment, string created_By, string sBatch, Nullable<System.DateTime> dtSample, string sArea, string sEquipament)
+        {
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var resultsParameter = results.HasValue ?
+                new ObjectParameter("Results", results) :
+                new ObjectParameter("Results", typeof(double));
+    
+            var operatorParameter = @operator != null ?
+                new ObjectParameter("Operator", @operator) :
+                new ObjectParameter("Operator", typeof(string));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("Comment", comment) :
+                new ObjectParameter("Comment", typeof(string));
+    
+            var created_ByParameter = created_By != null ?
+                new ObjectParameter("Created_By", created_By) :
+                new ObjectParameter("Created_By", typeof(string));
+    
+            var sBatchParameter = sBatch != null ?
+                new ObjectParameter("sBatch", sBatch) :
+                new ObjectParameter("sBatch", typeof(string));
+    
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sEquipamentParameter = sEquipament != null ?
+                new ObjectParameter("sEquipament", sEquipament) :
+                new ObjectParameter("sEquipament", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Sample_Log_SKUDesc5", testParameter, sKUParameter, resultsParameter, operatorParameter, commentParameter, created_ByParameter, sBatchParameter, dtSampleParameter, sAreaParameter, sEquipamentParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_SKU5(string sKU, string sDescription, string sArea, string sCreatedBy)
+        {
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_SKU5", sKUParameter, sDescriptionParameter, sAreaParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_Test5(string testDesc, Nullable<int> sKU, string sCreatedBy)
+        {
+            var testDescParameter = testDesc != null ?
+                new ObjectParameter("TestDesc", testDesc) :
+                new ObjectParameter("TestDesc", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_Test5", testDescParameter, sKUParameter, sCreatedByParameter);
+        }
+    
+        public virtual int sp_renamediagram5(string diagramname, Nullable<int> owner_id, string new_diagramname)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var new_diagramnameParameter = new_diagramname != null ?
+                new ObjectParameter("new_diagramname", new_diagramname) :
+                new ObjectParameter("new_diagramname", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_renamediagram5", diagramnameParameter, owner_idParameter, new_diagramnameParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_AllData5_Result> SP_S_AllData5()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_AllData5_Result>("SP_S_AllData5");
+        }
+    
+        public virtual ObjectResult<string> SP_S_ReportFilterArea5(string sKU)
+        {
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_S_ReportFilterArea5", sKUParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_S_ReportFilterEquip5(string area)
+        {
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_S_ReportFilterEquip5", areaParameter);
+        }
+    
+        public virtual int SP_S_ReportFilterTest5(string ssku)
+        {
+            var sskuParameter = ssku != null ?
+                new ObjectParameter("ssku", ssku) :
+                new ObjectParameter("ssku", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReportFilterTest5", sskuParameter);
+        }
+    
+        public virtual int SP_S_ReturnCPKValues5(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReturnCPKValues5", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_Equipment5_Result> SP_S_ReturnCPKValues_Equipment5(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_Equipment5_Result>("SP_S_ReturnCPKValues_Equipment5", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_Equipment_202005115_Result> SP_S_ReturnCPKValues_Equipment_202005115(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_Equipment_202005115_Result>("SP_S_ReturnCPKValues_Equipment_202005115", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_Equipment_202005275_Result> SP_S_ReturnCPKValues_Equipment_202005275(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_Equipment_202005275_Result>("SP_S_ReturnCPKValues_Equipment_202005275", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU5_Result> SP_S_ReturnCPKValues_SKU5(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU5_Result>("SP_S_ReturnCPKValues_SKU5", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_202005075_Result> SP_S_ReturnCPKValues_SKU_202005075(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_202005075_Result>("SP_S_ReturnCPKValues_SKU_202005075", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_202005085_Result> SP_S_ReturnCPKValues_SKU_202005085(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_202005085_Result>("SP_S_ReturnCPKValues_SKU_202005085", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_202005115_Result> SP_S_ReturnCPKValues_SKU_202005115(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_202005115_Result>("SP_S_ReturnCPKValues_SKU_202005115", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_20200511_025_Result> SP_S_ReturnCPKValues_SKU_20200511_025(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_20200511_025_Result>("SP_S_ReturnCPKValues_SKU_20200511_025", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_202005155_Result> SP_S_ReturnCPKValues_SKU_202005155(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_202005155_Result>("SP_S_ReturnCPKValues_SKU_202005155", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_202005275_Result> SP_S_ReturnCPKValues_SKU_202005275(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_202005275_Result>("SP_S_ReturnCPKValues_SKU_202005275", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual int SP_S_ReturnLossValues5(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReturnLossValues5", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnValues5_Result> SP_S_ReturnValues5(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area, string equipment, string batch)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            var equipmentParameter = equipment != null ?
+                new ObjectParameter("Equipment", equipment) :
+                new ObjectParameter("Equipment", typeof(string));
+    
+            var batchParameter = batch != null ?
+                new ObjectParameter("Batch", batch) :
+                new ObjectParameter("Batch", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnValues5_Result>("SP_S_ReturnValues5", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter, equipmentParameter, batchParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_SampleValues5_Result> SP_S_SampleValues5(Nullable<System.DateTime> dtSample)
+        {
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_SampleValues5_Result>("SP_S_SampleValues5", dtSampleParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_Specs5_Result> SP_S_Specs5()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_Specs5_Result>("SP_S_Specs5");
+        }
+    
+        public virtual ObjectResult<SP_S_TestSpec5_Result> SP_S_TestSpec5(string test, Nullable<int> sKU)
+        {
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_TestSpec5_Result>("SP_S_TestSpec5", testParameter, sKUParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Area5(Nullable<int> iD, string area, string sDescription, string sCreatedBy)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Area5", iDParameter, areaParameter, sDescriptionParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Equipment5(Nullable<int> iID, string sEquipment, string sDescription, string sAreaID, string sCreatedBy)
+        {
+            var iIDParameter = iID.HasValue ?
+                new ObjectParameter("iID", iID) :
+                new ObjectParameter("iID", typeof(int));
+    
+            var sEquipmentParameter = sEquipment != null ?
+                new ObjectParameter("sEquipment", sEquipment) :
+                new ObjectParameter("sEquipment", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Equipment5", iIDParameter, sEquipmentParameter, sDescriptionParameter, sAreaIDParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_QMSpec5(Nullable<int> testID, Nullable<double> fSpecUpper, Nullable<double> fSpecLower, Nullable<double> fControlUpper, Nullable<double> fControlLower, Nullable<double> fAcceptUpper, Nullable<double> fAcceptLower, Nullable<double> fTarget, string sCreatedBy)
+        {
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var fSpecUpperParameter = fSpecUpper.HasValue ?
+                new ObjectParameter("fSpecUpper", fSpecUpper) :
+                new ObjectParameter("fSpecUpper", typeof(double));
+    
+            var fSpecLowerParameter = fSpecLower.HasValue ?
+                new ObjectParameter("fSpecLower", fSpecLower) :
+                new ObjectParameter("fSpecLower", typeof(double));
+    
+            var fControlUpperParameter = fControlUpper.HasValue ?
+                new ObjectParameter("fControlUpper", fControlUpper) :
+                new ObjectParameter("fControlUpper", typeof(double));
+    
+            var fControlLowerParameter = fControlLower.HasValue ?
+                new ObjectParameter("fControlLower", fControlLower) :
+                new ObjectParameter("fControlLower", typeof(double));
+    
+            var fAcceptUpperParameter = fAcceptUpper.HasValue ?
+                new ObjectParameter("fAcceptUpper", fAcceptUpper) :
+                new ObjectParameter("fAcceptUpper", typeof(double));
+    
+            var fAcceptLowerParameter = fAcceptLower.HasValue ?
+                new ObjectParameter("fAcceptLower", fAcceptLower) :
+                new ObjectParameter("fAcceptLower", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_QMSpec5", testIDParameter, fSpecUpperParameter, fSpecLowerParameter, fControlUpperParameter, fControlLowerParameter, fAcceptUpperParameter, fAcceptLowerParameter, fTargetParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_U_Sample5(Nullable<int> iSampleID, Nullable<int> iBatch, string iEquipmentName, string sDescription, string sCreatedBy)
+        {
+            var iSampleIDParameter = iSampleID.HasValue ?
+                new ObjectParameter("iSampleID", iSampleID) :
+                new ObjectParameter("iSampleID", typeof(int));
+    
+            var iBatchParameter = iBatch.HasValue ?
+                new ObjectParameter("iBatch", iBatch) :
+                new ObjectParameter("iBatch", typeof(int));
+    
+            var iEquipmentNameParameter = iEquipmentName != null ?
+                new ObjectParameter("iEquipmentName", iEquipmentName) :
+                new ObjectParameter("iEquipmentName", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_U_Sample5", iSampleIDParameter, iBatchParameter, iEquipmentNameParameter, sDescriptionParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Sample_Log5(Nullable<int> sampleID, Nullable<int> testID, Nullable<double> fResult, string sArea, string sEquipment, Nullable<System.DateTime> dtSample, string sComments, string sBatchLote, string created_By)
+        {
+            var sampleIDParameter = sampleID.HasValue ?
+                new ObjectParameter("sampleID", sampleID) :
+                new ObjectParameter("sampleID", typeof(int));
+    
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var fResultParameter = fResult.HasValue ?
+                new ObjectParameter("fResult", fResult) :
+                new ObjectParameter("fResult", typeof(double));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sEquipmentParameter = sEquipment != null ?
+                new ObjectParameter("sEquipment", sEquipment) :
+                new ObjectParameter("sEquipment", typeof(string));
+    
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            var sCommentsParameter = sComments != null ?
+                new ObjectParameter("sComments", sComments) :
+                new ObjectParameter("sComments", typeof(string));
+    
+            var sBatchLoteParameter = sBatchLote != null ?
+                new ObjectParameter("sBatchLote", sBatchLote) :
+                new ObjectParameter("sBatchLote", typeof(string));
+    
+            var created_ByParameter = created_By != null ?
+                new ObjectParameter("Created_By", created_By) :
+                new ObjectParameter("Created_By", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Sample_Log5", sampleIDParameter, testIDParameter, fResultParameter, sAreaParameter, sEquipmentParameter, dtSampleParameter, sCommentsParameter, sBatchLoteParameter, created_ByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Sample_Log_AvoidSample5(Nullable<int> sampleID)
+        {
+            var sampleIDParameter = sampleID.HasValue ?
+                new ObjectParameter("sampleID", sampleID) :
+                new ObjectParameter("sampleID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Sample_Log_AvoidSample5", sampleIDParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_SKU5(Nullable<int> iD, string sKU, string sDescription, string sArea, string sCreatedBy)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_SKU5", iDParameter, sKUParameter, sDescriptionParameter, sAreaParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Test5(Nullable<int> testID, string testDesc, Nullable<int> sKU, string sCreatedBy)
+        {
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var testDescParameter = testDesc != null ?
+                new ObjectParameter("TestDesc", testDesc) :
+                new ObjectParameter("TestDesc", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Test5", testIDParameter, testDescParameter, sKUParameter, sCreatedByParameter);
+        }
+    
+        public virtual int sp_upgraddiagrams5()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams5");
+        }
+    
+        [DbFunction("ColgateSkeltaEntities", "ngsfr_fn_S_Split_List6")]
+        public virtual IQueryable<string> ngsfr_fn_S_Split_List6(string @string)
+        {
+            var stringParameter = @string != null ?
+                new ObjectParameter("string", @string) :
+                new ObjectParameter("string", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<string>("[ColgateSkeltaEntities].[ngsfr_fn_S_Split_List6](@string)", stringParameter);
+        }
+    
+        public virtual int sp_alterdiagram6(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_alterdiagram6", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int sp_creatediagram6(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_creatediagram6", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int SP_D_QMSpec6(string iQM)
+        {
+            var iQMParameter = iQM != null ?
+                new ObjectParameter("iQM", iQM) :
+                new ObjectParameter("iQM", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_D_QMSpec6", iQMParameter);
+        }
+    
+        public virtual int SP_D_Sample6(Nullable<int> iSample)
+        {
+            var iSampleParameter = iSample.HasValue ?
+                new ObjectParameter("iSample", iSample) :
+                new ObjectParameter("iSample", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_D_Sample6", iSampleParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_D_SKU6(string sKU, string sDescription)
+        {
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_D_SKU6", sKUParameter, sDescriptionParameter);
+        }
+    
+        public virtual int sp_dropdiagram6(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_dropdiagram6", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual int sp_helpdiagramdefinition6(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_helpdiagramdefinition6", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual int sp_helpdiagrams6(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_helpdiagrams6", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_Area6(string sArea, string sDescription, string sCreatedBy)
+        {
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_Area6", sAreaParameter, sDescriptionParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_Checklist6(Nullable<int> iID, string sDescription, string iSampleName, string sCreatedBy)
+        {
+            var iIDParameter = iID.HasValue ?
+                new ObjectParameter("iID", iID) :
+                new ObjectParameter("iID", typeof(int));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var iSampleNameParameter = iSampleName != null ?
+                new ObjectParameter("iSampleName", iSampleName) :
+                new ObjectParameter("iSampleName", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Checklist6", iIDParameter, sDescriptionParameter, iSampleNameParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_CommandImport6()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_CommandImport6");
+        }
+    
+        public virtual ObjectResult<string> SP_I_Equipment6(string sEquipment, string sDescription, string sAreaID, string sCreatedBy)
+        {
+            var sEquipmentParameter = sEquipment != null ?
+                new ObjectParameter("sEquipment", sEquipment) :
+                new ObjectParameter("sEquipment", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_Equipment6", sEquipmentParameter, sDescriptionParameter, sAreaIDParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_ImportDate6(string ssku, string sDescription, string sSKUArea, Nullable<int> iTestid, string sTestDescription, Nullable<double> fSpec_UpperLimit, Nullable<double> fSpec_LowerLimit, Nullable<double> fControl_UpperLimit, Nullable<double> fControl_LowerLimit, Nullable<double> fAccept_UpperLimit, Nullable<double> fAccept_LowerLimit, Nullable<double> fTarget, string sAreaID, string sAreaDesc, string sEquipID, string sEquipDesc, string sCreated_by, Nullable<int> iID_Import)
+        {
+            var sskuParameter = ssku != null ?
+                new ObjectParameter("ssku", ssku) :
+                new ObjectParameter("ssku", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sSKUAreaParameter = sSKUArea != null ?
+                new ObjectParameter("sSKUArea", sSKUArea) :
+                new ObjectParameter("sSKUArea", typeof(string));
+    
+            var iTestidParameter = iTestid.HasValue ?
+                new ObjectParameter("iTestid", iTestid) :
+                new ObjectParameter("iTestid", typeof(int));
+    
+            var sTestDescriptionParameter = sTestDescription != null ?
+                new ObjectParameter("sTestDescription", sTestDescription) :
+                new ObjectParameter("sTestDescription", typeof(string));
+    
+            var fSpec_UpperLimitParameter = fSpec_UpperLimit.HasValue ?
+                new ObjectParameter("fSpec_UpperLimit", fSpec_UpperLimit) :
+                new ObjectParameter("fSpec_UpperLimit", typeof(double));
+    
+            var fSpec_LowerLimitParameter = fSpec_LowerLimit.HasValue ?
+                new ObjectParameter("fSpec_LowerLimit", fSpec_LowerLimit) :
+                new ObjectParameter("fSpec_LowerLimit", typeof(double));
+    
+            var fControl_UpperLimitParameter = fControl_UpperLimit.HasValue ?
+                new ObjectParameter("fControl_UpperLimit", fControl_UpperLimit) :
+                new ObjectParameter("fControl_UpperLimit", typeof(double));
+    
+            var fControl_LowerLimitParameter = fControl_LowerLimit.HasValue ?
+                new ObjectParameter("fControl_LowerLimit", fControl_LowerLimit) :
+                new ObjectParameter("fControl_LowerLimit", typeof(double));
+    
+            var fAccept_UpperLimitParameter = fAccept_UpperLimit.HasValue ?
+                new ObjectParameter("fAccept_UpperLimit", fAccept_UpperLimit) :
+                new ObjectParameter("fAccept_UpperLimit", typeof(double));
+    
+            var fAccept_LowerLimitParameter = fAccept_LowerLimit.HasValue ?
+                new ObjectParameter("fAccept_LowerLimit", fAccept_LowerLimit) :
+                new ObjectParameter("fAccept_LowerLimit", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sAreaDescParameter = sAreaDesc != null ?
+                new ObjectParameter("sAreaDesc", sAreaDesc) :
+                new ObjectParameter("sAreaDesc", typeof(string));
+    
+            var sEquipIDParameter = sEquipID != null ?
+                new ObjectParameter("sEquipID", sEquipID) :
+                new ObjectParameter("sEquipID", typeof(string));
+    
+            var sEquipDescParameter = sEquipDesc != null ?
+                new ObjectParameter("sEquipDesc", sEquipDesc) :
+                new ObjectParameter("sEquipDesc", typeof(string));
+    
+            var sCreated_byParameter = sCreated_by != null ?
+                new ObjectParameter("sCreated_by", sCreated_by) :
+                new ObjectParameter("sCreated_by", typeof(string));
+    
+            var iID_ImportParameter = iID_Import.HasValue ?
+                new ObjectParameter("iID_Import", iID_Import) :
+                new ObjectParameter("iID_Import", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_ImportDate6", sskuParameter, sDescriptionParameter, sSKUAreaParameter, iTestidParameter, sTestDescriptionParameter, fSpec_UpperLimitParameter, fSpec_LowerLimitParameter, fControl_UpperLimitParameter, fControl_LowerLimitParameter, fAccept_UpperLimitParameter, fAccept_LowerLimitParameter, fTargetParameter, sAreaIDParameter, sAreaDescParameter, sEquipIDParameter, sEquipDescParameter, sCreated_byParameter, iID_ImportParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_ImportDate_202001146(string ssku, string sDescription, string sSKUArea, Nullable<int> iTestid, string sTestDescription, Nullable<double> fSpec_UpperLimit, Nullable<double> fSpec_LowerLimit, Nullable<double> fControl_UpperLimit, Nullable<double> fControl_LowerLimit, Nullable<double> fAccept_UpperLimit, Nullable<double> fAccept_LowerLimit, Nullable<double> fTarget, string sAreaID, string sAreaDesc, string sEquipID, string sEquipDesc, string sCreated_by, Nullable<int> iID_Import)
+        {
+            var sskuParameter = ssku != null ?
+                new ObjectParameter("ssku", ssku) :
+                new ObjectParameter("ssku", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sSKUAreaParameter = sSKUArea != null ?
+                new ObjectParameter("sSKUArea", sSKUArea) :
+                new ObjectParameter("sSKUArea", typeof(string));
+    
+            var iTestidParameter = iTestid.HasValue ?
+                new ObjectParameter("iTestid", iTestid) :
+                new ObjectParameter("iTestid", typeof(int));
+    
+            var sTestDescriptionParameter = sTestDescription != null ?
+                new ObjectParameter("sTestDescription", sTestDescription) :
+                new ObjectParameter("sTestDescription", typeof(string));
+    
+            var fSpec_UpperLimitParameter = fSpec_UpperLimit.HasValue ?
+                new ObjectParameter("fSpec_UpperLimit", fSpec_UpperLimit) :
+                new ObjectParameter("fSpec_UpperLimit", typeof(double));
+    
+            var fSpec_LowerLimitParameter = fSpec_LowerLimit.HasValue ?
+                new ObjectParameter("fSpec_LowerLimit", fSpec_LowerLimit) :
+                new ObjectParameter("fSpec_LowerLimit", typeof(double));
+    
+            var fControl_UpperLimitParameter = fControl_UpperLimit.HasValue ?
+                new ObjectParameter("fControl_UpperLimit", fControl_UpperLimit) :
+                new ObjectParameter("fControl_UpperLimit", typeof(double));
+    
+            var fControl_LowerLimitParameter = fControl_LowerLimit.HasValue ?
+                new ObjectParameter("fControl_LowerLimit", fControl_LowerLimit) :
+                new ObjectParameter("fControl_LowerLimit", typeof(double));
+    
+            var fAccept_UpperLimitParameter = fAccept_UpperLimit.HasValue ?
+                new ObjectParameter("fAccept_UpperLimit", fAccept_UpperLimit) :
+                new ObjectParameter("fAccept_UpperLimit", typeof(double));
+    
+            var fAccept_LowerLimitParameter = fAccept_LowerLimit.HasValue ?
+                new ObjectParameter("fAccept_LowerLimit", fAccept_LowerLimit) :
+                new ObjectParameter("fAccept_LowerLimit", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sAreaDescParameter = sAreaDesc != null ?
+                new ObjectParameter("sAreaDesc", sAreaDesc) :
+                new ObjectParameter("sAreaDesc", typeof(string));
+    
+            var sEquipIDParameter = sEquipID != null ?
+                new ObjectParameter("sEquipID", sEquipID) :
+                new ObjectParameter("sEquipID", typeof(string));
+    
+            var sEquipDescParameter = sEquipDesc != null ?
+                new ObjectParameter("sEquipDesc", sEquipDesc) :
+                new ObjectParameter("sEquipDesc", typeof(string));
+    
+            var sCreated_byParameter = sCreated_by != null ?
+                new ObjectParameter("sCreated_by", sCreated_by) :
+                new ObjectParameter("sCreated_by", typeof(string));
+    
+            var iID_ImportParameter = iID_Import.HasValue ?
+                new ObjectParameter("iID_Import", iID_Import) :
+                new ObjectParameter("iID_Import", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_ImportDate_202001146", sskuParameter, sDescriptionParameter, sSKUAreaParameter, iTestidParameter, sTestDescriptionParameter, fSpec_UpperLimitParameter, fSpec_LowerLimitParameter, fControl_UpperLimitParameter, fControl_LowerLimitParameter, fAccept_UpperLimitParameter, fAccept_LowerLimitParameter, fTargetParameter, sAreaIDParameter, sAreaDescParameter, sEquipIDParameter, sEquipDescParameter, sCreated_byParameter, iID_ImportParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_ImportDate_All6(string iProcessID)
+        {
+            var iProcessIDParameter = iProcessID != null ?
+                new ObjectParameter("iProcessID", iProcessID) :
+                new ObjectParameter("iProcessID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_ImportDate_All6", iProcessIDParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_QMSpec6(Nullable<int> testID, Nullable<double> fSpecUpper, Nullable<double> fSpecLower, Nullable<double> fControlUpper, Nullable<double> fControlLower, Nullable<double> fAcceptUpper, Nullable<double> fAcceptLower, Nullable<double> fTarget, string sCreatedBy)
+        {
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var fSpecUpperParameter = fSpecUpper.HasValue ?
+                new ObjectParameter("fSpecUpper", fSpecUpper) :
+                new ObjectParameter("fSpecUpper", typeof(double));
+    
+            var fSpecLowerParameter = fSpecLower.HasValue ?
+                new ObjectParameter("fSpecLower", fSpecLower) :
+                new ObjectParameter("fSpecLower", typeof(double));
+    
+            var fControlUpperParameter = fControlUpper.HasValue ?
+                new ObjectParameter("fControlUpper", fControlUpper) :
+                new ObjectParameter("fControlUpper", typeof(double));
+    
+            var fControlLowerParameter = fControlLower.HasValue ?
+                new ObjectParameter("fControlLower", fControlLower) :
+                new ObjectParameter("fControlLower", typeof(double));
+    
+            var fAcceptUpperParameter = fAcceptUpper.HasValue ?
+                new ObjectParameter("fAcceptUpper", fAcceptUpper) :
+                new ObjectParameter("fAcceptUpper", typeof(double));
+    
+            var fAcceptLowerParameter = fAcceptLower.HasValue ?
+                new ObjectParameter("fAcceptLower", fAcceptLower) :
+                new ObjectParameter("fAcceptLower", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_QMSpec6", testIDParameter, fSpecUpperParameter, fSpecLowerParameter, fControlUpperParameter, fControlLowerParameter, fAcceptUpperParameter, fAcceptLowerParameter, fTargetParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_Sample6(Nullable<int> iSample, string sDescription, string iEquipmentName, Nullable<int> iBatch, string sCreatedBy)
+        {
+            var iSampleParameter = iSample.HasValue ?
+                new ObjectParameter("iSample", iSample) :
+                new ObjectParameter("iSample", typeof(int));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var iEquipmentNameParameter = iEquipmentName != null ?
+                new ObjectParameter("iEquipmentName", iEquipmentName) :
+                new ObjectParameter("iEquipmentName", typeof(string));
+    
+            var iBatchParameter = iBatch.HasValue ?
+                new ObjectParameter("iBatch", iBatch) :
+                new ObjectParameter("iBatch", typeof(int));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Sample6", iSampleParameter, sDescriptionParameter, iEquipmentNameParameter, iBatchParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_Sample_Log6(string test, Nullable<int> sKU, Nullable<double> results, string @operator, string comment, string created_By, string sBatch, Nullable<System.DateTime> dtSample, string sArea, string sEquipament)
+        {
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            var resultsParameter = results.HasValue ?
+                new ObjectParameter("Results", results) :
+                new ObjectParameter("Results", typeof(double));
+    
+            var operatorParameter = @operator != null ?
+                new ObjectParameter("Operator", @operator) :
+                new ObjectParameter("Operator", typeof(string));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("Comment", comment) :
+                new ObjectParameter("Comment", typeof(string));
+    
+            var created_ByParameter = created_By != null ?
+                new ObjectParameter("Created_By", created_By) :
+                new ObjectParameter("Created_By", typeof(string));
+    
+            var sBatchParameter = sBatch != null ?
+                new ObjectParameter("sBatch", sBatch) :
+                new ObjectParameter("sBatch", typeof(string));
+    
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sEquipamentParameter = sEquipament != null ?
+                new ObjectParameter("sEquipament", sEquipament) :
+                new ObjectParameter("sEquipament", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Sample_Log6", testParameter, sKUParameter, resultsParameter, operatorParameter, commentParameter, created_ByParameter, sBatchParameter, dtSampleParameter, sAreaParameter, sEquipamentParameter);
+        }
+    
+        public virtual int SP_I_Sample_Log_SKUDesc6(string test, string sKU, Nullable<double> results, string @operator, string comment, string created_By, string sBatch, Nullable<System.DateTime> dtSample, string sArea, string sEquipament)
+        {
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var resultsParameter = results.HasValue ?
+                new ObjectParameter("Results", results) :
+                new ObjectParameter("Results", typeof(double));
+    
+            var operatorParameter = @operator != null ?
+                new ObjectParameter("Operator", @operator) :
+                new ObjectParameter("Operator", typeof(string));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("Comment", comment) :
+                new ObjectParameter("Comment", typeof(string));
+    
+            var created_ByParameter = created_By != null ?
+                new ObjectParameter("Created_By", created_By) :
+                new ObjectParameter("Created_By", typeof(string));
+    
+            var sBatchParameter = sBatch != null ?
+                new ObjectParameter("sBatch", sBatch) :
+                new ObjectParameter("sBatch", typeof(string));
+    
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sEquipamentParameter = sEquipament != null ?
+                new ObjectParameter("sEquipament", sEquipament) :
+                new ObjectParameter("sEquipament", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Sample_Log_SKUDesc6", testParameter, sKUParameter, resultsParameter, operatorParameter, commentParameter, created_ByParameter, sBatchParameter, dtSampleParameter, sAreaParameter, sEquipamentParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_SKU6(string sKU, string sDescription, string sArea, string sCreatedBy)
+        {
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_SKU6", sKUParameter, sDescriptionParameter, sAreaParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_Test6(string testDesc, Nullable<int> sKU, string sCreatedBy)
+        {
+            var testDescParameter = testDesc != null ?
+                new ObjectParameter("TestDesc", testDesc) :
+                new ObjectParameter("TestDesc", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_Test6", testDescParameter, sKUParameter, sCreatedByParameter);
+        }
+    
+        public virtual int sp_renamediagram6(string diagramname, Nullable<int> owner_id, string new_diagramname)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var new_diagramnameParameter = new_diagramname != null ?
+                new ObjectParameter("new_diagramname", new_diagramname) :
+                new ObjectParameter("new_diagramname", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_renamediagram6", diagramnameParameter, owner_idParameter, new_diagramnameParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_AllData6_Result> SP_S_AllData6()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_AllData6_Result>("SP_S_AllData6");
+        }
+    
+        public virtual ObjectResult<string> SP_S_ReportFilterArea6(string sKU)
+        {
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_S_ReportFilterArea6", sKUParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_S_ReportFilterEquip6(string area)
+        {
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_S_ReportFilterEquip6", areaParameter);
+        }
+    
+        public virtual int SP_S_ReportFilterTest6(string ssku)
+        {
+            var sskuParameter = ssku != null ?
+                new ObjectParameter("ssku", ssku) :
+                new ObjectParameter("ssku", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReportFilterTest6", sskuParameter);
+        }
+    
+        public virtual int SP_S_ReturnCPKValues6(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReturnCPKValues6", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_Equipment6_Result> SP_S_ReturnCPKValues_Equipment6(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_Equipment6_Result>("SP_S_ReturnCPKValues_Equipment6", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_Equipment_202005116_Result> SP_S_ReturnCPKValues_Equipment_202005116(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_Equipment_202005116_Result>("SP_S_ReturnCPKValues_Equipment_202005116", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_Equipment_202005276_Result> SP_S_ReturnCPKValues_Equipment_202005276(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_Equipment_202005276_Result>("SP_S_ReturnCPKValues_Equipment_202005276", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU6_Result> SP_S_ReturnCPKValues_SKU6(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU6_Result>("SP_S_ReturnCPKValues_SKU6", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_202005076_Result> SP_S_ReturnCPKValues_SKU_202005076(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_202005076_Result>("SP_S_ReturnCPKValues_SKU_202005076", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_202005086_Result> SP_S_ReturnCPKValues_SKU_202005086(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_202005086_Result>("SP_S_ReturnCPKValues_SKU_202005086", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_202005116_Result> SP_S_ReturnCPKValues_SKU_202005116(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_202005116_Result>("SP_S_ReturnCPKValues_SKU_202005116", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_20200511_026_Result> SP_S_ReturnCPKValues_SKU_20200511_026(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_20200511_026_Result>("SP_S_ReturnCPKValues_SKU_20200511_026", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_202005156_Result> SP_S_ReturnCPKValues_SKU_202005156(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_202005156_Result>("SP_S_ReturnCPKValues_SKU_202005156", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_202005276_Result> SP_S_ReturnCPKValues_SKU_202005276(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_202005276_Result>("SP_S_ReturnCPKValues_SKU_202005276", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual int SP_S_ReturnLossValues6(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReturnLossValues6", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnValues6_Result> SP_S_ReturnValues6(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area, string equipment, string batch)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            var equipmentParameter = equipment != null ?
+                new ObjectParameter("Equipment", equipment) :
+                new ObjectParameter("Equipment", typeof(string));
+    
+            var batchParameter = batch != null ?
+                new ObjectParameter("Batch", batch) :
+                new ObjectParameter("Batch", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnValues6_Result>("SP_S_ReturnValues6", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter, equipmentParameter, batchParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_SampleValues6_Result> SP_S_SampleValues6(Nullable<System.DateTime> dtSample)
+        {
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_SampleValues6_Result>("SP_S_SampleValues6", dtSampleParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_Specs6_Result> SP_S_Specs6()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_Specs6_Result>("SP_S_Specs6");
+        }
+    
+        public virtual ObjectResult<SP_S_TestSpec6_Result> SP_S_TestSpec6(string test, Nullable<int> sKU)
+        {
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_TestSpec6_Result>("SP_S_TestSpec6", testParameter, sKUParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Area6(Nullable<int> iD, string area, string sDescription, string sCreatedBy)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Area6", iDParameter, areaParameter, sDescriptionParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Equipment6(Nullable<int> iID, string sEquipment, string sDescription, string sAreaID, string sCreatedBy)
+        {
+            var iIDParameter = iID.HasValue ?
+                new ObjectParameter("iID", iID) :
+                new ObjectParameter("iID", typeof(int));
+    
+            var sEquipmentParameter = sEquipment != null ?
+                new ObjectParameter("sEquipment", sEquipment) :
+                new ObjectParameter("sEquipment", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Equipment6", iIDParameter, sEquipmentParameter, sDescriptionParameter, sAreaIDParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_QMSpec6(Nullable<int> testID, Nullable<double> fSpecUpper, Nullable<double> fSpecLower, Nullable<double> fControlUpper, Nullable<double> fControlLower, Nullable<double> fAcceptUpper, Nullable<double> fAcceptLower, Nullable<double> fTarget, string sCreatedBy)
+        {
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var fSpecUpperParameter = fSpecUpper.HasValue ?
+                new ObjectParameter("fSpecUpper", fSpecUpper) :
+                new ObjectParameter("fSpecUpper", typeof(double));
+    
+            var fSpecLowerParameter = fSpecLower.HasValue ?
+                new ObjectParameter("fSpecLower", fSpecLower) :
+                new ObjectParameter("fSpecLower", typeof(double));
+    
+            var fControlUpperParameter = fControlUpper.HasValue ?
+                new ObjectParameter("fControlUpper", fControlUpper) :
+                new ObjectParameter("fControlUpper", typeof(double));
+    
+            var fControlLowerParameter = fControlLower.HasValue ?
+                new ObjectParameter("fControlLower", fControlLower) :
+                new ObjectParameter("fControlLower", typeof(double));
+    
+            var fAcceptUpperParameter = fAcceptUpper.HasValue ?
+                new ObjectParameter("fAcceptUpper", fAcceptUpper) :
+                new ObjectParameter("fAcceptUpper", typeof(double));
+    
+            var fAcceptLowerParameter = fAcceptLower.HasValue ?
+                new ObjectParameter("fAcceptLower", fAcceptLower) :
+                new ObjectParameter("fAcceptLower", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_QMSpec6", testIDParameter, fSpecUpperParameter, fSpecLowerParameter, fControlUpperParameter, fControlLowerParameter, fAcceptUpperParameter, fAcceptLowerParameter, fTargetParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_U_Sample6(Nullable<int> iSampleID, Nullable<int> iBatch, string iEquipmentName, string sDescription, string sCreatedBy)
+        {
+            var iSampleIDParameter = iSampleID.HasValue ?
+                new ObjectParameter("iSampleID", iSampleID) :
+                new ObjectParameter("iSampleID", typeof(int));
+    
+            var iBatchParameter = iBatch.HasValue ?
+                new ObjectParameter("iBatch", iBatch) :
+                new ObjectParameter("iBatch", typeof(int));
+    
+            var iEquipmentNameParameter = iEquipmentName != null ?
+                new ObjectParameter("iEquipmentName", iEquipmentName) :
+                new ObjectParameter("iEquipmentName", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_U_Sample6", iSampleIDParameter, iBatchParameter, iEquipmentNameParameter, sDescriptionParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Sample_Log6(Nullable<int> sampleID, Nullable<int> testID, Nullable<double> fResult, string sArea, string sEquipment, Nullable<System.DateTime> dtSample, string sComments, string sBatchLote, string created_By)
+        {
+            var sampleIDParameter = sampleID.HasValue ?
+                new ObjectParameter("sampleID", sampleID) :
+                new ObjectParameter("sampleID", typeof(int));
+    
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var fResultParameter = fResult.HasValue ?
+                new ObjectParameter("fResult", fResult) :
+                new ObjectParameter("fResult", typeof(double));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sEquipmentParameter = sEquipment != null ?
+                new ObjectParameter("sEquipment", sEquipment) :
+                new ObjectParameter("sEquipment", typeof(string));
+    
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            var sCommentsParameter = sComments != null ?
+                new ObjectParameter("sComments", sComments) :
+                new ObjectParameter("sComments", typeof(string));
+    
+            var sBatchLoteParameter = sBatchLote != null ?
+                new ObjectParameter("sBatchLote", sBatchLote) :
+                new ObjectParameter("sBatchLote", typeof(string));
+    
+            var created_ByParameter = created_By != null ?
+                new ObjectParameter("Created_By", created_By) :
+                new ObjectParameter("Created_By", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Sample_Log6", sampleIDParameter, testIDParameter, fResultParameter, sAreaParameter, sEquipmentParameter, dtSampleParameter, sCommentsParameter, sBatchLoteParameter, created_ByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Sample_Log_AvoidSample6(Nullable<int> sampleID)
+        {
+            var sampleIDParameter = sampleID.HasValue ?
+                new ObjectParameter("sampleID", sampleID) :
+                new ObjectParameter("sampleID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Sample_Log_AvoidSample6", sampleIDParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_SKU6(Nullable<int> iD, string sKU, string sDescription, string sArea, string sCreatedBy)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_SKU6", iDParameter, sKUParameter, sDescriptionParameter, sAreaParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Test6(Nullable<int> testID, string testDesc, Nullable<int> sKU, string sCreatedBy)
+        {
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var testDescParameter = testDesc != null ?
+                new ObjectParameter("TestDesc", testDesc) :
+                new ObjectParameter("TestDesc", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Test6", testIDParameter, testDescParameter, sKUParameter, sCreatedByParameter);
+        }
+    
+        public virtual int sp_upgraddiagrams6()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams6");
+        }
+    
+        [DbFunction("ColgateSkeltaEntities", "ngsfr_fn_S_Split_List7")]
+        public virtual IQueryable<string> ngsfr_fn_S_Split_List7(string @string)
+        {
+            var stringParameter = @string != null ?
+                new ObjectParameter("string", @string) :
+                new ObjectParameter("string", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<string>("[ColgateSkeltaEntities].[ngsfr_fn_S_Split_List7](@string)", stringParameter);
+        }
+    
+        public virtual int sp_alterdiagram7(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_alterdiagram7", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int sp_creatediagram7(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_creatediagram7", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int SP_D_QMSpec7(string iQM)
+        {
+            var iQMParameter = iQM != null ?
+                new ObjectParameter("iQM", iQM) :
+                new ObjectParameter("iQM", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_D_QMSpec7", iQMParameter);
+        }
+    
+        public virtual int SP_D_Sample7(Nullable<int> iSample)
+        {
+            var iSampleParameter = iSample.HasValue ?
+                new ObjectParameter("iSample", iSample) :
+                new ObjectParameter("iSample", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_D_Sample7", iSampleParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_D_SKU7(string sKU, string sDescription)
+        {
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_D_SKU7", sKUParameter, sDescriptionParameter);
+        }
+    
+        public virtual int sp_dropdiagram7(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_dropdiagram7", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual int sp_helpdiagramdefinition7(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_helpdiagramdefinition7", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual int sp_helpdiagrams7(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_helpdiagrams7", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_Area7(string sArea, string sDescription, string sCreatedBy)
+        {
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_Area7", sAreaParameter, sDescriptionParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_Checklist7(Nullable<int> iID, string sDescription, string iSampleName, string sCreatedBy)
+        {
+            var iIDParameter = iID.HasValue ?
+                new ObjectParameter("iID", iID) :
+                new ObjectParameter("iID", typeof(int));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var iSampleNameParameter = iSampleName != null ?
+                new ObjectParameter("iSampleName", iSampleName) :
+                new ObjectParameter("iSampleName", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Checklist7", iIDParameter, sDescriptionParameter, iSampleNameParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_CommandImport7()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_CommandImport7");
+        }
+    
+        public virtual ObjectResult<string> SP_I_Equipment7(string sEquipment, string sDescription, string sAreaID, string sCreatedBy)
+        {
+            var sEquipmentParameter = sEquipment != null ?
+                new ObjectParameter("sEquipment", sEquipment) :
+                new ObjectParameter("sEquipment", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_Equipment7", sEquipmentParameter, sDescriptionParameter, sAreaIDParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_ImportDate7(string ssku, string sDescription, string sSKUArea, Nullable<int> iTestid, string sTestDescription, Nullable<double> fSpec_UpperLimit, Nullable<double> fSpec_LowerLimit, Nullable<double> fControl_UpperLimit, Nullable<double> fControl_LowerLimit, Nullable<double> fAccept_UpperLimit, Nullable<double> fAccept_LowerLimit, Nullable<double> fTarget, string sAreaID, string sAreaDesc, string sEquipID, string sEquipDesc, string sCreated_by, Nullable<int> iID_Import)
+        {
+            var sskuParameter = ssku != null ?
+                new ObjectParameter("ssku", ssku) :
+                new ObjectParameter("ssku", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sSKUAreaParameter = sSKUArea != null ?
+                new ObjectParameter("sSKUArea", sSKUArea) :
+                new ObjectParameter("sSKUArea", typeof(string));
+    
+            var iTestidParameter = iTestid.HasValue ?
+                new ObjectParameter("iTestid", iTestid) :
+                new ObjectParameter("iTestid", typeof(int));
+    
+            var sTestDescriptionParameter = sTestDescription != null ?
+                new ObjectParameter("sTestDescription", sTestDescription) :
+                new ObjectParameter("sTestDescription", typeof(string));
+    
+            var fSpec_UpperLimitParameter = fSpec_UpperLimit.HasValue ?
+                new ObjectParameter("fSpec_UpperLimit", fSpec_UpperLimit) :
+                new ObjectParameter("fSpec_UpperLimit", typeof(double));
+    
+            var fSpec_LowerLimitParameter = fSpec_LowerLimit.HasValue ?
+                new ObjectParameter("fSpec_LowerLimit", fSpec_LowerLimit) :
+                new ObjectParameter("fSpec_LowerLimit", typeof(double));
+    
+            var fControl_UpperLimitParameter = fControl_UpperLimit.HasValue ?
+                new ObjectParameter("fControl_UpperLimit", fControl_UpperLimit) :
+                new ObjectParameter("fControl_UpperLimit", typeof(double));
+    
+            var fControl_LowerLimitParameter = fControl_LowerLimit.HasValue ?
+                new ObjectParameter("fControl_LowerLimit", fControl_LowerLimit) :
+                new ObjectParameter("fControl_LowerLimit", typeof(double));
+    
+            var fAccept_UpperLimitParameter = fAccept_UpperLimit.HasValue ?
+                new ObjectParameter("fAccept_UpperLimit", fAccept_UpperLimit) :
+                new ObjectParameter("fAccept_UpperLimit", typeof(double));
+    
+            var fAccept_LowerLimitParameter = fAccept_LowerLimit.HasValue ?
+                new ObjectParameter("fAccept_LowerLimit", fAccept_LowerLimit) :
+                new ObjectParameter("fAccept_LowerLimit", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sAreaDescParameter = sAreaDesc != null ?
+                new ObjectParameter("sAreaDesc", sAreaDesc) :
+                new ObjectParameter("sAreaDesc", typeof(string));
+    
+            var sEquipIDParameter = sEquipID != null ?
+                new ObjectParameter("sEquipID", sEquipID) :
+                new ObjectParameter("sEquipID", typeof(string));
+    
+            var sEquipDescParameter = sEquipDesc != null ?
+                new ObjectParameter("sEquipDesc", sEquipDesc) :
+                new ObjectParameter("sEquipDesc", typeof(string));
+    
+            var sCreated_byParameter = sCreated_by != null ?
+                new ObjectParameter("sCreated_by", sCreated_by) :
+                new ObjectParameter("sCreated_by", typeof(string));
+    
+            var iID_ImportParameter = iID_Import.HasValue ?
+                new ObjectParameter("iID_Import", iID_Import) :
+                new ObjectParameter("iID_Import", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_ImportDate7", sskuParameter, sDescriptionParameter, sSKUAreaParameter, iTestidParameter, sTestDescriptionParameter, fSpec_UpperLimitParameter, fSpec_LowerLimitParameter, fControl_UpperLimitParameter, fControl_LowerLimitParameter, fAccept_UpperLimitParameter, fAccept_LowerLimitParameter, fTargetParameter, sAreaIDParameter, sAreaDescParameter, sEquipIDParameter, sEquipDescParameter, sCreated_byParameter, iID_ImportParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_ImportDate_202001147(string ssku, string sDescription, string sSKUArea, Nullable<int> iTestid, string sTestDescription, Nullable<double> fSpec_UpperLimit, Nullable<double> fSpec_LowerLimit, Nullable<double> fControl_UpperLimit, Nullable<double> fControl_LowerLimit, Nullable<double> fAccept_UpperLimit, Nullable<double> fAccept_LowerLimit, Nullable<double> fTarget, string sAreaID, string sAreaDesc, string sEquipID, string sEquipDesc, string sCreated_by, Nullable<int> iID_Import)
+        {
+            var sskuParameter = ssku != null ?
+                new ObjectParameter("ssku", ssku) :
+                new ObjectParameter("ssku", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sSKUAreaParameter = sSKUArea != null ?
+                new ObjectParameter("sSKUArea", sSKUArea) :
+                new ObjectParameter("sSKUArea", typeof(string));
+    
+            var iTestidParameter = iTestid.HasValue ?
+                new ObjectParameter("iTestid", iTestid) :
+                new ObjectParameter("iTestid", typeof(int));
+    
+            var sTestDescriptionParameter = sTestDescription != null ?
+                new ObjectParameter("sTestDescription", sTestDescription) :
+                new ObjectParameter("sTestDescription", typeof(string));
+    
+            var fSpec_UpperLimitParameter = fSpec_UpperLimit.HasValue ?
+                new ObjectParameter("fSpec_UpperLimit", fSpec_UpperLimit) :
+                new ObjectParameter("fSpec_UpperLimit", typeof(double));
+    
+            var fSpec_LowerLimitParameter = fSpec_LowerLimit.HasValue ?
+                new ObjectParameter("fSpec_LowerLimit", fSpec_LowerLimit) :
+                new ObjectParameter("fSpec_LowerLimit", typeof(double));
+    
+            var fControl_UpperLimitParameter = fControl_UpperLimit.HasValue ?
+                new ObjectParameter("fControl_UpperLimit", fControl_UpperLimit) :
+                new ObjectParameter("fControl_UpperLimit", typeof(double));
+    
+            var fControl_LowerLimitParameter = fControl_LowerLimit.HasValue ?
+                new ObjectParameter("fControl_LowerLimit", fControl_LowerLimit) :
+                new ObjectParameter("fControl_LowerLimit", typeof(double));
+    
+            var fAccept_UpperLimitParameter = fAccept_UpperLimit.HasValue ?
+                new ObjectParameter("fAccept_UpperLimit", fAccept_UpperLimit) :
+                new ObjectParameter("fAccept_UpperLimit", typeof(double));
+    
+            var fAccept_LowerLimitParameter = fAccept_LowerLimit.HasValue ?
+                new ObjectParameter("fAccept_LowerLimit", fAccept_LowerLimit) :
+                new ObjectParameter("fAccept_LowerLimit", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sAreaDescParameter = sAreaDesc != null ?
+                new ObjectParameter("sAreaDesc", sAreaDesc) :
+                new ObjectParameter("sAreaDesc", typeof(string));
+    
+            var sEquipIDParameter = sEquipID != null ?
+                new ObjectParameter("sEquipID", sEquipID) :
+                new ObjectParameter("sEquipID", typeof(string));
+    
+            var sEquipDescParameter = sEquipDesc != null ?
+                new ObjectParameter("sEquipDesc", sEquipDesc) :
+                new ObjectParameter("sEquipDesc", typeof(string));
+    
+            var sCreated_byParameter = sCreated_by != null ?
+                new ObjectParameter("sCreated_by", sCreated_by) :
+                new ObjectParameter("sCreated_by", typeof(string));
+    
+            var iID_ImportParameter = iID_Import.HasValue ?
+                new ObjectParameter("iID_Import", iID_Import) :
+                new ObjectParameter("iID_Import", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_ImportDate_202001147", sskuParameter, sDescriptionParameter, sSKUAreaParameter, iTestidParameter, sTestDescriptionParameter, fSpec_UpperLimitParameter, fSpec_LowerLimitParameter, fControl_UpperLimitParameter, fControl_LowerLimitParameter, fAccept_UpperLimitParameter, fAccept_LowerLimitParameter, fTargetParameter, sAreaIDParameter, sAreaDescParameter, sEquipIDParameter, sEquipDescParameter, sCreated_byParameter, iID_ImportParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_ImportDate_All7(string iProcessID)
+        {
+            var iProcessIDParameter = iProcessID != null ?
+                new ObjectParameter("iProcessID", iProcessID) :
+                new ObjectParameter("iProcessID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_ImportDate_All7", iProcessIDParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_QMSpec7(Nullable<int> testID, Nullable<double> fSpecUpper, Nullable<double> fSpecLower, Nullable<double> fControlUpper, Nullable<double> fControlLower, Nullable<double> fAcceptUpper, Nullable<double> fAcceptLower, Nullable<double> fTarget, string sCreatedBy)
+        {
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var fSpecUpperParameter = fSpecUpper.HasValue ?
+                new ObjectParameter("fSpecUpper", fSpecUpper) :
+                new ObjectParameter("fSpecUpper", typeof(double));
+    
+            var fSpecLowerParameter = fSpecLower.HasValue ?
+                new ObjectParameter("fSpecLower", fSpecLower) :
+                new ObjectParameter("fSpecLower", typeof(double));
+    
+            var fControlUpperParameter = fControlUpper.HasValue ?
+                new ObjectParameter("fControlUpper", fControlUpper) :
+                new ObjectParameter("fControlUpper", typeof(double));
+    
+            var fControlLowerParameter = fControlLower.HasValue ?
+                new ObjectParameter("fControlLower", fControlLower) :
+                new ObjectParameter("fControlLower", typeof(double));
+    
+            var fAcceptUpperParameter = fAcceptUpper.HasValue ?
+                new ObjectParameter("fAcceptUpper", fAcceptUpper) :
+                new ObjectParameter("fAcceptUpper", typeof(double));
+    
+            var fAcceptLowerParameter = fAcceptLower.HasValue ?
+                new ObjectParameter("fAcceptLower", fAcceptLower) :
+                new ObjectParameter("fAcceptLower", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_QMSpec7", testIDParameter, fSpecUpperParameter, fSpecLowerParameter, fControlUpperParameter, fControlLowerParameter, fAcceptUpperParameter, fAcceptLowerParameter, fTargetParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_Sample7(Nullable<int> iSample, string sDescription, string iEquipmentName, Nullable<int> iBatch, string sCreatedBy)
+        {
+            var iSampleParameter = iSample.HasValue ?
+                new ObjectParameter("iSample", iSample) :
+                new ObjectParameter("iSample", typeof(int));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var iEquipmentNameParameter = iEquipmentName != null ?
+                new ObjectParameter("iEquipmentName", iEquipmentName) :
+                new ObjectParameter("iEquipmentName", typeof(string));
+    
+            var iBatchParameter = iBatch.HasValue ?
+                new ObjectParameter("iBatch", iBatch) :
+                new ObjectParameter("iBatch", typeof(int));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Sample7", iSampleParameter, sDescriptionParameter, iEquipmentNameParameter, iBatchParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_Sample_Log7(string test, Nullable<int> sKU, Nullable<double> results, string @operator, string comment, string created_By, string sBatch, Nullable<System.DateTime> dtSample, string sArea, string sEquipament)
+        {
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            var resultsParameter = results.HasValue ?
+                new ObjectParameter("Results", results) :
+                new ObjectParameter("Results", typeof(double));
+    
+            var operatorParameter = @operator != null ?
+                new ObjectParameter("Operator", @operator) :
+                new ObjectParameter("Operator", typeof(string));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("Comment", comment) :
+                new ObjectParameter("Comment", typeof(string));
+    
+            var created_ByParameter = created_By != null ?
+                new ObjectParameter("Created_By", created_By) :
+                new ObjectParameter("Created_By", typeof(string));
+    
+            var sBatchParameter = sBatch != null ?
+                new ObjectParameter("sBatch", sBatch) :
+                new ObjectParameter("sBatch", typeof(string));
+    
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sEquipamentParameter = sEquipament != null ?
+                new ObjectParameter("sEquipament", sEquipament) :
+                new ObjectParameter("sEquipament", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Sample_Log7", testParameter, sKUParameter, resultsParameter, operatorParameter, commentParameter, created_ByParameter, sBatchParameter, dtSampleParameter, sAreaParameter, sEquipamentParameter);
+        }
+    
+        public virtual int SP_I_Sample_Log_SKUDesc7(string test, string sKU, Nullable<double> results, string @operator, string comment, string created_By, string sBatch, Nullable<System.DateTime> dtSample, string sArea, string sEquipament)
+        {
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var resultsParameter = results.HasValue ?
+                new ObjectParameter("Results", results) :
+                new ObjectParameter("Results", typeof(double));
+    
+            var operatorParameter = @operator != null ?
+                new ObjectParameter("Operator", @operator) :
+                new ObjectParameter("Operator", typeof(string));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("Comment", comment) :
+                new ObjectParameter("Comment", typeof(string));
+    
+            var created_ByParameter = created_By != null ?
+                new ObjectParameter("Created_By", created_By) :
+                new ObjectParameter("Created_By", typeof(string));
+    
+            var sBatchParameter = sBatch != null ?
+                new ObjectParameter("sBatch", sBatch) :
+                new ObjectParameter("sBatch", typeof(string));
+    
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sEquipamentParameter = sEquipament != null ?
+                new ObjectParameter("sEquipament", sEquipament) :
+                new ObjectParameter("sEquipament", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Sample_Log_SKUDesc7", testParameter, sKUParameter, resultsParameter, operatorParameter, commentParameter, created_ByParameter, sBatchParameter, dtSampleParameter, sAreaParameter, sEquipamentParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_SKU7(string sKU, string sDescription, string sArea, string sCreatedBy)
+        {
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_SKU7", sKUParameter, sDescriptionParameter, sAreaParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_Test7(string testDesc, Nullable<int> sKU, string sCreatedBy)
+        {
+            var testDescParameter = testDesc != null ?
+                new ObjectParameter("TestDesc", testDesc) :
+                new ObjectParameter("TestDesc", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_Test7", testDescParameter, sKUParameter, sCreatedByParameter);
+        }
+    
+        public virtual int sp_renamediagram7(string diagramname, Nullable<int> owner_id, string new_diagramname)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var new_diagramnameParameter = new_diagramname != null ?
+                new ObjectParameter("new_diagramname", new_diagramname) :
+                new ObjectParameter("new_diagramname", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_renamediagram7", diagramnameParameter, owner_idParameter, new_diagramnameParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_AllData7_Result> SP_S_AllData7()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_AllData7_Result>("SP_S_AllData7");
+        }
+    
+        public virtual ObjectResult<string> SP_S_ReportFilterArea7(string sKU)
+        {
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_S_ReportFilterArea7", sKUParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_S_ReportFilterEquip7(string area)
+        {
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_S_ReportFilterEquip7", areaParameter);
+        }
+    
+        public virtual int SP_S_ReportFilterTest7(string ssku)
+        {
+            var sskuParameter = ssku != null ?
+                new ObjectParameter("ssku", ssku) :
+                new ObjectParameter("ssku", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReportFilterTest7", sskuParameter);
+        }
+    
+        public virtual int SP_S_ReturnCPKValues7(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReturnCPKValues7", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_Equipment7_Result> SP_S_ReturnCPKValues_Equipment7(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_Equipment7_Result>("SP_S_ReturnCPKValues_Equipment7", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_Equipment_202005117_Result> SP_S_ReturnCPKValues_Equipment_202005117(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_Equipment_202005117_Result>("SP_S_ReturnCPKValues_Equipment_202005117", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_Equipment_202005277_Result> SP_S_ReturnCPKValues_Equipment_202005277(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_Equipment_202005277_Result>("SP_S_ReturnCPKValues_Equipment_202005277", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU7_Result> SP_S_ReturnCPKValues_SKU7(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU7_Result>("SP_S_ReturnCPKValues_SKU7", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_202005077_Result> SP_S_ReturnCPKValues_SKU_202005077(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_202005077_Result>("SP_S_ReturnCPKValues_SKU_202005077", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_202005087_Result> SP_S_ReturnCPKValues_SKU_202005087(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_202005087_Result>("SP_S_ReturnCPKValues_SKU_202005087", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_202005117_Result> SP_S_ReturnCPKValues_SKU_202005117(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_202005117_Result>("SP_S_ReturnCPKValues_SKU_202005117", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_20200511_027_Result> SP_S_ReturnCPKValues_SKU_20200511_027(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_20200511_027_Result>("SP_S_ReturnCPKValues_SKU_20200511_027", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_202005157_Result> SP_S_ReturnCPKValues_SKU_202005157(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_202005157_Result>("SP_S_ReturnCPKValues_SKU_202005157", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_202005277_Result> SP_S_ReturnCPKValues_SKU_202005277(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_202005277_Result>("SP_S_ReturnCPKValues_SKU_202005277", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual int SP_S_ReturnLossValues7(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReturnLossValues7", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnValues7_Result> SP_S_ReturnValues7(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area, string equipment, string batch)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            var equipmentParameter = equipment != null ?
+                new ObjectParameter("Equipment", equipment) :
+                new ObjectParameter("Equipment", typeof(string));
+    
+            var batchParameter = batch != null ?
+                new ObjectParameter("Batch", batch) :
+                new ObjectParameter("Batch", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnValues7_Result>("SP_S_ReturnValues7", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter, equipmentParameter, batchParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_SampleValues7_Result> SP_S_SampleValues7(Nullable<System.DateTime> dtSample)
+        {
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_SampleValues7_Result>("SP_S_SampleValues7", dtSampleParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_Specs7_Result> SP_S_Specs7()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_Specs7_Result>("SP_S_Specs7");
+        }
+    
+        public virtual ObjectResult<SP_S_TestSpec7_Result> SP_S_TestSpec7(string test, Nullable<int> sKU)
+        {
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_TestSpec7_Result>("SP_S_TestSpec7", testParameter, sKUParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Area7(Nullable<int> iD, string area, string sDescription, string sCreatedBy)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Area7", iDParameter, areaParameter, sDescriptionParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Equipment7(Nullable<int> iID, string sEquipment, string sDescription, string sAreaID, string sCreatedBy)
+        {
+            var iIDParameter = iID.HasValue ?
+                new ObjectParameter("iID", iID) :
+                new ObjectParameter("iID", typeof(int));
+    
+            var sEquipmentParameter = sEquipment != null ?
+                new ObjectParameter("sEquipment", sEquipment) :
+                new ObjectParameter("sEquipment", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Equipment7", iIDParameter, sEquipmentParameter, sDescriptionParameter, sAreaIDParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_QMSpec7(Nullable<int> testID, Nullable<double> fSpecUpper, Nullable<double> fSpecLower, Nullable<double> fControlUpper, Nullable<double> fControlLower, Nullable<double> fAcceptUpper, Nullable<double> fAcceptLower, Nullable<double> fTarget, string sCreatedBy)
+        {
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var fSpecUpperParameter = fSpecUpper.HasValue ?
+                new ObjectParameter("fSpecUpper", fSpecUpper) :
+                new ObjectParameter("fSpecUpper", typeof(double));
+    
+            var fSpecLowerParameter = fSpecLower.HasValue ?
+                new ObjectParameter("fSpecLower", fSpecLower) :
+                new ObjectParameter("fSpecLower", typeof(double));
+    
+            var fControlUpperParameter = fControlUpper.HasValue ?
+                new ObjectParameter("fControlUpper", fControlUpper) :
+                new ObjectParameter("fControlUpper", typeof(double));
+    
+            var fControlLowerParameter = fControlLower.HasValue ?
+                new ObjectParameter("fControlLower", fControlLower) :
+                new ObjectParameter("fControlLower", typeof(double));
+    
+            var fAcceptUpperParameter = fAcceptUpper.HasValue ?
+                new ObjectParameter("fAcceptUpper", fAcceptUpper) :
+                new ObjectParameter("fAcceptUpper", typeof(double));
+    
+            var fAcceptLowerParameter = fAcceptLower.HasValue ?
+                new ObjectParameter("fAcceptLower", fAcceptLower) :
+                new ObjectParameter("fAcceptLower", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_QMSpec7", testIDParameter, fSpecUpperParameter, fSpecLowerParameter, fControlUpperParameter, fControlLowerParameter, fAcceptUpperParameter, fAcceptLowerParameter, fTargetParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_U_Sample7(Nullable<int> iSampleID, Nullable<int> iBatch, string iEquipmentName, string sDescription, string sCreatedBy)
+        {
+            var iSampleIDParameter = iSampleID.HasValue ?
+                new ObjectParameter("iSampleID", iSampleID) :
+                new ObjectParameter("iSampleID", typeof(int));
+    
+            var iBatchParameter = iBatch.HasValue ?
+                new ObjectParameter("iBatch", iBatch) :
+                new ObjectParameter("iBatch", typeof(int));
+    
+            var iEquipmentNameParameter = iEquipmentName != null ?
+                new ObjectParameter("iEquipmentName", iEquipmentName) :
+                new ObjectParameter("iEquipmentName", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_U_Sample7", iSampleIDParameter, iBatchParameter, iEquipmentNameParameter, sDescriptionParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Sample_Log7(Nullable<int> sampleID, Nullable<int> testID, Nullable<double> fResult, string sArea, string sEquipment, Nullable<System.DateTime> dtSample, string sComments, string sBatchLote, string created_By)
+        {
+            var sampleIDParameter = sampleID.HasValue ?
+                new ObjectParameter("sampleID", sampleID) :
+                new ObjectParameter("sampleID", typeof(int));
+    
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var fResultParameter = fResult.HasValue ?
+                new ObjectParameter("fResult", fResult) :
+                new ObjectParameter("fResult", typeof(double));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sEquipmentParameter = sEquipment != null ?
+                new ObjectParameter("sEquipment", sEquipment) :
+                new ObjectParameter("sEquipment", typeof(string));
+    
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            var sCommentsParameter = sComments != null ?
+                new ObjectParameter("sComments", sComments) :
+                new ObjectParameter("sComments", typeof(string));
+    
+            var sBatchLoteParameter = sBatchLote != null ?
+                new ObjectParameter("sBatchLote", sBatchLote) :
+                new ObjectParameter("sBatchLote", typeof(string));
+    
+            var created_ByParameter = created_By != null ?
+                new ObjectParameter("Created_By", created_By) :
+                new ObjectParameter("Created_By", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Sample_Log7", sampleIDParameter, testIDParameter, fResultParameter, sAreaParameter, sEquipmentParameter, dtSampleParameter, sCommentsParameter, sBatchLoteParameter, created_ByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Sample_Log_AvoidSample7(Nullable<int> sampleID)
+        {
+            var sampleIDParameter = sampleID.HasValue ?
+                new ObjectParameter("sampleID", sampleID) :
+                new ObjectParameter("sampleID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Sample_Log_AvoidSample7", sampleIDParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_SKU7(Nullable<int> iD, string sKU, string sDescription, string sArea, string sCreatedBy)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_SKU7", iDParameter, sKUParameter, sDescriptionParameter, sAreaParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Test7(Nullable<int> testID, string testDesc, Nullable<int> sKU, string sCreatedBy)
+        {
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var testDescParameter = testDesc != null ?
+                new ObjectParameter("TestDesc", testDesc) :
+                new ObjectParameter("TestDesc", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Test7", testIDParameter, testDescParameter, sKUParameter, sCreatedByParameter);
+        }
+    
+        public virtual int sp_upgraddiagrams7()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams7");
+        }
+    
+        [DbFunction("ColgateSkeltaEntities", "ngsfr_fn_S_Split_List8")]
+        public virtual IQueryable<string> ngsfr_fn_S_Split_List8(string @string)
+        {
+            var stringParameter = @string != null ?
+                new ObjectParameter("string", @string) :
+                new ObjectParameter("string", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<string>("[ColgateSkeltaEntities].[ngsfr_fn_S_Split_List8](@string)", stringParameter);
+        }
+    
+        public virtual int sp_alterdiagram8(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_alterdiagram8", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int sp_creatediagram8(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_creatediagram8", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int SP_D_QMSpec8(string iQM)
+        {
+            var iQMParameter = iQM != null ?
+                new ObjectParameter("iQM", iQM) :
+                new ObjectParameter("iQM", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_D_QMSpec8", iQMParameter);
+        }
+    
+        public virtual int SP_D_Sample8(Nullable<int> iSample)
+        {
+            var iSampleParameter = iSample.HasValue ?
+                new ObjectParameter("iSample", iSample) :
+                new ObjectParameter("iSample", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_D_Sample8", iSampleParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_D_SKU8(string sKU, string sDescription)
+        {
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_D_SKU8", sKUParameter, sDescriptionParameter);
+        }
+    
+        public virtual int sp_dropdiagram8(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_dropdiagram8", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual int sp_helpdiagramdefinition8(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_helpdiagramdefinition8", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual int sp_helpdiagrams8(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_helpdiagrams8", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_Area8(string sArea, string sDescription, string sCreatedBy)
+        {
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_Area8", sAreaParameter, sDescriptionParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_Checklist8(Nullable<int> iID, string sDescription, string iSampleName, string sCreatedBy)
+        {
+            var iIDParameter = iID.HasValue ?
+                new ObjectParameter("iID", iID) :
+                new ObjectParameter("iID", typeof(int));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var iSampleNameParameter = iSampleName != null ?
+                new ObjectParameter("iSampleName", iSampleName) :
+                new ObjectParameter("iSampleName", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Checklist8", iIDParameter, sDescriptionParameter, iSampleNameParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_CommandImport8()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_CommandImport8");
+        }
+    
+        public virtual ObjectResult<string> SP_I_Equipment8(string sEquipment, string sDescription, string sAreaID, string sCreatedBy)
+        {
+            var sEquipmentParameter = sEquipment != null ?
+                new ObjectParameter("sEquipment", sEquipment) :
+                new ObjectParameter("sEquipment", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_Equipment8", sEquipmentParameter, sDescriptionParameter, sAreaIDParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_ImportDate8(string ssku, string sDescription, string sSKUArea, Nullable<int> iTestid, string sTestDescription, Nullable<double> fSpec_UpperLimit, Nullable<double> fSpec_LowerLimit, Nullable<double> fControl_UpperLimit, Nullable<double> fControl_LowerLimit, Nullable<double> fAccept_UpperLimit, Nullable<double> fAccept_LowerLimit, Nullable<double> fTarget, string sAreaID, string sAreaDesc, string sEquipID, string sEquipDesc, string sCreated_by, Nullable<int> iID_Import)
+        {
+            var sskuParameter = ssku != null ?
+                new ObjectParameter("ssku", ssku) :
+                new ObjectParameter("ssku", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sSKUAreaParameter = sSKUArea != null ?
+                new ObjectParameter("sSKUArea", sSKUArea) :
+                new ObjectParameter("sSKUArea", typeof(string));
+    
+            var iTestidParameter = iTestid.HasValue ?
+                new ObjectParameter("iTestid", iTestid) :
+                new ObjectParameter("iTestid", typeof(int));
+    
+            var sTestDescriptionParameter = sTestDescription != null ?
+                new ObjectParameter("sTestDescription", sTestDescription) :
+                new ObjectParameter("sTestDescription", typeof(string));
+    
+            var fSpec_UpperLimitParameter = fSpec_UpperLimit.HasValue ?
+                new ObjectParameter("fSpec_UpperLimit", fSpec_UpperLimit) :
+                new ObjectParameter("fSpec_UpperLimit", typeof(double));
+    
+            var fSpec_LowerLimitParameter = fSpec_LowerLimit.HasValue ?
+                new ObjectParameter("fSpec_LowerLimit", fSpec_LowerLimit) :
+                new ObjectParameter("fSpec_LowerLimit", typeof(double));
+    
+            var fControl_UpperLimitParameter = fControl_UpperLimit.HasValue ?
+                new ObjectParameter("fControl_UpperLimit", fControl_UpperLimit) :
+                new ObjectParameter("fControl_UpperLimit", typeof(double));
+    
+            var fControl_LowerLimitParameter = fControl_LowerLimit.HasValue ?
+                new ObjectParameter("fControl_LowerLimit", fControl_LowerLimit) :
+                new ObjectParameter("fControl_LowerLimit", typeof(double));
+    
+            var fAccept_UpperLimitParameter = fAccept_UpperLimit.HasValue ?
+                new ObjectParameter("fAccept_UpperLimit", fAccept_UpperLimit) :
+                new ObjectParameter("fAccept_UpperLimit", typeof(double));
+    
+            var fAccept_LowerLimitParameter = fAccept_LowerLimit.HasValue ?
+                new ObjectParameter("fAccept_LowerLimit", fAccept_LowerLimit) :
+                new ObjectParameter("fAccept_LowerLimit", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sAreaDescParameter = sAreaDesc != null ?
+                new ObjectParameter("sAreaDesc", sAreaDesc) :
+                new ObjectParameter("sAreaDesc", typeof(string));
+    
+            var sEquipIDParameter = sEquipID != null ?
+                new ObjectParameter("sEquipID", sEquipID) :
+                new ObjectParameter("sEquipID", typeof(string));
+    
+            var sEquipDescParameter = sEquipDesc != null ?
+                new ObjectParameter("sEquipDesc", sEquipDesc) :
+                new ObjectParameter("sEquipDesc", typeof(string));
+    
+            var sCreated_byParameter = sCreated_by != null ?
+                new ObjectParameter("sCreated_by", sCreated_by) :
+                new ObjectParameter("sCreated_by", typeof(string));
+    
+            var iID_ImportParameter = iID_Import.HasValue ?
+                new ObjectParameter("iID_Import", iID_Import) :
+                new ObjectParameter("iID_Import", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_ImportDate8", sskuParameter, sDescriptionParameter, sSKUAreaParameter, iTestidParameter, sTestDescriptionParameter, fSpec_UpperLimitParameter, fSpec_LowerLimitParameter, fControl_UpperLimitParameter, fControl_LowerLimitParameter, fAccept_UpperLimitParameter, fAccept_LowerLimitParameter, fTargetParameter, sAreaIDParameter, sAreaDescParameter, sEquipIDParameter, sEquipDescParameter, sCreated_byParameter, iID_ImportParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_ImportDate_202001148(string ssku, string sDescription, string sSKUArea, Nullable<int> iTestid, string sTestDescription, Nullable<double> fSpec_UpperLimit, Nullable<double> fSpec_LowerLimit, Nullable<double> fControl_UpperLimit, Nullable<double> fControl_LowerLimit, Nullable<double> fAccept_UpperLimit, Nullable<double> fAccept_LowerLimit, Nullable<double> fTarget, string sAreaID, string sAreaDesc, string sEquipID, string sEquipDesc, string sCreated_by, Nullable<int> iID_Import)
+        {
+            var sskuParameter = ssku != null ?
+                new ObjectParameter("ssku", ssku) :
+                new ObjectParameter("ssku", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sSKUAreaParameter = sSKUArea != null ?
+                new ObjectParameter("sSKUArea", sSKUArea) :
+                new ObjectParameter("sSKUArea", typeof(string));
+    
+            var iTestidParameter = iTestid.HasValue ?
+                new ObjectParameter("iTestid", iTestid) :
+                new ObjectParameter("iTestid", typeof(int));
+    
+            var sTestDescriptionParameter = sTestDescription != null ?
+                new ObjectParameter("sTestDescription", sTestDescription) :
+                new ObjectParameter("sTestDescription", typeof(string));
+    
+            var fSpec_UpperLimitParameter = fSpec_UpperLimit.HasValue ?
+                new ObjectParameter("fSpec_UpperLimit", fSpec_UpperLimit) :
+                new ObjectParameter("fSpec_UpperLimit", typeof(double));
+    
+            var fSpec_LowerLimitParameter = fSpec_LowerLimit.HasValue ?
+                new ObjectParameter("fSpec_LowerLimit", fSpec_LowerLimit) :
+                new ObjectParameter("fSpec_LowerLimit", typeof(double));
+    
+            var fControl_UpperLimitParameter = fControl_UpperLimit.HasValue ?
+                new ObjectParameter("fControl_UpperLimit", fControl_UpperLimit) :
+                new ObjectParameter("fControl_UpperLimit", typeof(double));
+    
+            var fControl_LowerLimitParameter = fControl_LowerLimit.HasValue ?
+                new ObjectParameter("fControl_LowerLimit", fControl_LowerLimit) :
+                new ObjectParameter("fControl_LowerLimit", typeof(double));
+    
+            var fAccept_UpperLimitParameter = fAccept_UpperLimit.HasValue ?
+                new ObjectParameter("fAccept_UpperLimit", fAccept_UpperLimit) :
+                new ObjectParameter("fAccept_UpperLimit", typeof(double));
+    
+            var fAccept_LowerLimitParameter = fAccept_LowerLimit.HasValue ?
+                new ObjectParameter("fAccept_LowerLimit", fAccept_LowerLimit) :
+                new ObjectParameter("fAccept_LowerLimit", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sAreaDescParameter = sAreaDesc != null ?
+                new ObjectParameter("sAreaDesc", sAreaDesc) :
+                new ObjectParameter("sAreaDesc", typeof(string));
+    
+            var sEquipIDParameter = sEquipID != null ?
+                new ObjectParameter("sEquipID", sEquipID) :
+                new ObjectParameter("sEquipID", typeof(string));
+    
+            var sEquipDescParameter = sEquipDesc != null ?
+                new ObjectParameter("sEquipDesc", sEquipDesc) :
+                new ObjectParameter("sEquipDesc", typeof(string));
+    
+            var sCreated_byParameter = sCreated_by != null ?
+                new ObjectParameter("sCreated_by", sCreated_by) :
+                new ObjectParameter("sCreated_by", typeof(string));
+    
+            var iID_ImportParameter = iID_Import.HasValue ?
+                new ObjectParameter("iID_Import", iID_Import) :
+                new ObjectParameter("iID_Import", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_ImportDate_202001148", sskuParameter, sDescriptionParameter, sSKUAreaParameter, iTestidParameter, sTestDescriptionParameter, fSpec_UpperLimitParameter, fSpec_LowerLimitParameter, fControl_UpperLimitParameter, fControl_LowerLimitParameter, fAccept_UpperLimitParameter, fAccept_LowerLimitParameter, fTargetParameter, sAreaIDParameter, sAreaDescParameter, sEquipIDParameter, sEquipDescParameter, sCreated_byParameter, iID_ImportParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_ImportDate_All8(string iProcessID)
+        {
+            var iProcessIDParameter = iProcessID != null ?
+                new ObjectParameter("iProcessID", iProcessID) :
+                new ObjectParameter("iProcessID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_ImportDate_All8", iProcessIDParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_QMSpec8(Nullable<int> testID, Nullable<double> fSpecUpper, Nullable<double> fSpecLower, Nullable<double> fControlUpper, Nullable<double> fControlLower, Nullable<double> fAcceptUpper, Nullable<double> fAcceptLower, Nullable<double> fTarget, string sCreatedBy)
+        {
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var fSpecUpperParameter = fSpecUpper.HasValue ?
+                new ObjectParameter("fSpecUpper", fSpecUpper) :
+                new ObjectParameter("fSpecUpper", typeof(double));
+    
+            var fSpecLowerParameter = fSpecLower.HasValue ?
+                new ObjectParameter("fSpecLower", fSpecLower) :
+                new ObjectParameter("fSpecLower", typeof(double));
+    
+            var fControlUpperParameter = fControlUpper.HasValue ?
+                new ObjectParameter("fControlUpper", fControlUpper) :
+                new ObjectParameter("fControlUpper", typeof(double));
+    
+            var fControlLowerParameter = fControlLower.HasValue ?
+                new ObjectParameter("fControlLower", fControlLower) :
+                new ObjectParameter("fControlLower", typeof(double));
+    
+            var fAcceptUpperParameter = fAcceptUpper.HasValue ?
+                new ObjectParameter("fAcceptUpper", fAcceptUpper) :
+                new ObjectParameter("fAcceptUpper", typeof(double));
+    
+            var fAcceptLowerParameter = fAcceptLower.HasValue ?
+                new ObjectParameter("fAcceptLower", fAcceptLower) :
+                new ObjectParameter("fAcceptLower", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_QMSpec8", testIDParameter, fSpecUpperParameter, fSpecLowerParameter, fControlUpperParameter, fControlLowerParameter, fAcceptUpperParameter, fAcceptLowerParameter, fTargetParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_Sample8(Nullable<int> iSample, string sDescription, string iEquipmentName, Nullable<int> iBatch, string sCreatedBy)
+        {
+            var iSampleParameter = iSample.HasValue ?
+                new ObjectParameter("iSample", iSample) :
+                new ObjectParameter("iSample", typeof(int));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var iEquipmentNameParameter = iEquipmentName != null ?
+                new ObjectParameter("iEquipmentName", iEquipmentName) :
+                new ObjectParameter("iEquipmentName", typeof(string));
+    
+            var iBatchParameter = iBatch.HasValue ?
+                new ObjectParameter("iBatch", iBatch) :
+                new ObjectParameter("iBatch", typeof(int));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Sample8", iSampleParameter, sDescriptionParameter, iEquipmentNameParameter, iBatchParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_Sample_Log8(string test, Nullable<int> sKU, Nullable<double> results, string @operator, string comment, string created_By, string sBatch, Nullable<System.DateTime> dtSample, string sArea, string sEquipament)
+        {
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            var resultsParameter = results.HasValue ?
+                new ObjectParameter("Results", results) :
+                new ObjectParameter("Results", typeof(double));
+    
+            var operatorParameter = @operator != null ?
+                new ObjectParameter("Operator", @operator) :
+                new ObjectParameter("Operator", typeof(string));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("Comment", comment) :
+                new ObjectParameter("Comment", typeof(string));
+    
+            var created_ByParameter = created_By != null ?
+                new ObjectParameter("Created_By", created_By) :
+                new ObjectParameter("Created_By", typeof(string));
+    
+            var sBatchParameter = sBatch != null ?
+                new ObjectParameter("sBatch", sBatch) :
+                new ObjectParameter("sBatch", typeof(string));
+    
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sEquipamentParameter = sEquipament != null ?
+                new ObjectParameter("sEquipament", sEquipament) :
+                new ObjectParameter("sEquipament", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Sample_Log8", testParameter, sKUParameter, resultsParameter, operatorParameter, commentParameter, created_ByParameter, sBatchParameter, dtSampleParameter, sAreaParameter, sEquipamentParameter);
+        }
+    
+        public virtual int SP_I_Sample_Log_SKUDesc8(string test, string sKU, Nullable<double> results, string @operator, string comment, string created_By, string sBatch, Nullable<System.DateTime> dtSample, string sArea, string sEquipament)
+        {
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var resultsParameter = results.HasValue ?
+                new ObjectParameter("Results", results) :
+                new ObjectParameter("Results", typeof(double));
+    
+            var operatorParameter = @operator != null ?
+                new ObjectParameter("Operator", @operator) :
+                new ObjectParameter("Operator", typeof(string));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("Comment", comment) :
+                new ObjectParameter("Comment", typeof(string));
+    
+            var created_ByParameter = created_By != null ?
+                new ObjectParameter("Created_By", created_By) :
+                new ObjectParameter("Created_By", typeof(string));
+    
+            var sBatchParameter = sBatch != null ?
+                new ObjectParameter("sBatch", sBatch) :
+                new ObjectParameter("sBatch", typeof(string));
+    
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sEquipamentParameter = sEquipament != null ?
+                new ObjectParameter("sEquipament", sEquipament) :
+                new ObjectParameter("sEquipament", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Sample_Log_SKUDesc8", testParameter, sKUParameter, resultsParameter, operatorParameter, commentParameter, created_ByParameter, sBatchParameter, dtSampleParameter, sAreaParameter, sEquipamentParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_SKU8(string sKU, string sDescription, string sArea, string sCreatedBy)
+        {
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_SKU8", sKUParameter, sDescriptionParameter, sAreaParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_Test8(string testDesc, Nullable<int> sKU, string sCreatedBy)
+        {
+            var testDescParameter = testDesc != null ?
+                new ObjectParameter("TestDesc", testDesc) :
+                new ObjectParameter("TestDesc", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_Test8", testDescParameter, sKUParameter, sCreatedByParameter);
+        }
+    
+        public virtual int sp_renamediagram8(string diagramname, Nullable<int> owner_id, string new_diagramname)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var new_diagramnameParameter = new_diagramname != null ?
+                new ObjectParameter("new_diagramname", new_diagramname) :
+                new ObjectParameter("new_diagramname", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_renamediagram8", diagramnameParameter, owner_idParameter, new_diagramnameParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_AllData8_Result> SP_S_AllData8()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_AllData8_Result>("SP_S_AllData8");
+        }
+    
+        public virtual ObjectResult<string> SP_S_ReportFilterArea8(string sKU)
+        {
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_S_ReportFilterArea8", sKUParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_S_ReportFilterEquip8(string area)
+        {
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_S_ReportFilterEquip8", areaParameter);
+        }
+    
+        public virtual int SP_S_ReportFilterTest8(string ssku)
+        {
+            var sskuParameter = ssku != null ?
+                new ObjectParameter("ssku", ssku) :
+                new ObjectParameter("ssku", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReportFilterTest8", sskuParameter);
+        }
+    
+        public virtual int SP_S_ReturnCPKValues8(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReturnCPKValues8", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_Equipment8_Result> SP_S_ReturnCPKValues_Equipment8(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_Equipment8_Result>("SP_S_ReturnCPKValues_Equipment8", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_Equipment_202005118_Result> SP_S_ReturnCPKValues_Equipment_202005118(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_Equipment_202005118_Result>("SP_S_ReturnCPKValues_Equipment_202005118", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_Equipment_202005278_Result> SP_S_ReturnCPKValues_Equipment_202005278(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_Equipment_202005278_Result>("SP_S_ReturnCPKValues_Equipment_202005278", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU8_Result> SP_S_ReturnCPKValues_SKU8(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU8_Result>("SP_S_ReturnCPKValues_SKU8", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_202005078_Result> SP_S_ReturnCPKValues_SKU_202005078(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_202005078_Result>("SP_S_ReturnCPKValues_SKU_202005078", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_202005088_Result> SP_S_ReturnCPKValues_SKU_202005088(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_202005088_Result>("SP_S_ReturnCPKValues_SKU_202005088", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_202005118_Result> SP_S_ReturnCPKValues_SKU_202005118(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_202005118_Result>("SP_S_ReturnCPKValues_SKU_202005118", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_20200511_028_Result> SP_S_ReturnCPKValues_SKU_20200511_028(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_20200511_028_Result>("SP_S_ReturnCPKValues_SKU_20200511_028", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_202005158_Result> SP_S_ReturnCPKValues_SKU_202005158(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_202005158_Result>("SP_S_ReturnCPKValues_SKU_202005158", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_202005278_Result> SP_S_ReturnCPKValues_SKU_202005278(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_202005278_Result>("SP_S_ReturnCPKValues_SKU_202005278", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual int SP_S_ReturnLossValues8(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReturnLossValues8", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnValues8_Result> SP_S_ReturnValues8(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area, string equipment, string batch)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            var equipmentParameter = equipment != null ?
+                new ObjectParameter("Equipment", equipment) :
+                new ObjectParameter("Equipment", typeof(string));
+    
+            var batchParameter = batch != null ?
+                new ObjectParameter("Batch", batch) :
+                new ObjectParameter("Batch", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnValues8_Result>("SP_S_ReturnValues8", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter, equipmentParameter, batchParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_SampleValues8_Result> SP_S_SampleValues8(Nullable<System.DateTime> dtSample)
+        {
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_SampleValues8_Result>("SP_S_SampleValues8", dtSampleParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_Specs8_Result> SP_S_Specs8()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_Specs8_Result>("SP_S_Specs8");
+        }
+    
+        public virtual ObjectResult<SP_S_TestSpec8_Result> SP_S_TestSpec8(string test, Nullable<int> sKU)
+        {
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_TestSpec8_Result>("SP_S_TestSpec8", testParameter, sKUParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Area8(Nullable<int> iD, string area, string sDescription, string sCreatedBy)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Area8", iDParameter, areaParameter, sDescriptionParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Equipment8(Nullable<int> iID, string sEquipment, string sDescription, string sAreaID, string sCreatedBy)
+        {
+            var iIDParameter = iID.HasValue ?
+                new ObjectParameter("iID", iID) :
+                new ObjectParameter("iID", typeof(int));
+    
+            var sEquipmentParameter = sEquipment != null ?
+                new ObjectParameter("sEquipment", sEquipment) :
+                new ObjectParameter("sEquipment", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Equipment8", iIDParameter, sEquipmentParameter, sDescriptionParameter, sAreaIDParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_QMSpec8(Nullable<int> testID, Nullable<double> fSpecUpper, Nullable<double> fSpecLower, Nullable<double> fControlUpper, Nullable<double> fControlLower, Nullable<double> fAcceptUpper, Nullable<double> fAcceptLower, Nullable<double> fTarget, string sCreatedBy)
+        {
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var fSpecUpperParameter = fSpecUpper.HasValue ?
+                new ObjectParameter("fSpecUpper", fSpecUpper) :
+                new ObjectParameter("fSpecUpper", typeof(double));
+    
+            var fSpecLowerParameter = fSpecLower.HasValue ?
+                new ObjectParameter("fSpecLower", fSpecLower) :
+                new ObjectParameter("fSpecLower", typeof(double));
+    
+            var fControlUpperParameter = fControlUpper.HasValue ?
+                new ObjectParameter("fControlUpper", fControlUpper) :
+                new ObjectParameter("fControlUpper", typeof(double));
+    
+            var fControlLowerParameter = fControlLower.HasValue ?
+                new ObjectParameter("fControlLower", fControlLower) :
+                new ObjectParameter("fControlLower", typeof(double));
+    
+            var fAcceptUpperParameter = fAcceptUpper.HasValue ?
+                new ObjectParameter("fAcceptUpper", fAcceptUpper) :
+                new ObjectParameter("fAcceptUpper", typeof(double));
+    
+            var fAcceptLowerParameter = fAcceptLower.HasValue ?
+                new ObjectParameter("fAcceptLower", fAcceptLower) :
+                new ObjectParameter("fAcceptLower", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_QMSpec8", testIDParameter, fSpecUpperParameter, fSpecLowerParameter, fControlUpperParameter, fControlLowerParameter, fAcceptUpperParameter, fAcceptLowerParameter, fTargetParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_U_Sample8(Nullable<int> iSampleID, Nullable<int> iBatch, string iEquipmentName, string sDescription, string sCreatedBy)
+        {
+            var iSampleIDParameter = iSampleID.HasValue ?
+                new ObjectParameter("iSampleID", iSampleID) :
+                new ObjectParameter("iSampleID", typeof(int));
+    
+            var iBatchParameter = iBatch.HasValue ?
+                new ObjectParameter("iBatch", iBatch) :
+                new ObjectParameter("iBatch", typeof(int));
+    
+            var iEquipmentNameParameter = iEquipmentName != null ?
+                new ObjectParameter("iEquipmentName", iEquipmentName) :
+                new ObjectParameter("iEquipmentName", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_U_Sample8", iSampleIDParameter, iBatchParameter, iEquipmentNameParameter, sDescriptionParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Sample_Log8(Nullable<int> sampleID, Nullable<int> testID, Nullable<double> fResult, string sArea, string sEquipment, Nullable<System.DateTime> dtSample, string sComments, string sBatchLote, string created_By)
+        {
+            var sampleIDParameter = sampleID.HasValue ?
+                new ObjectParameter("sampleID", sampleID) :
+                new ObjectParameter("sampleID", typeof(int));
+    
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var fResultParameter = fResult.HasValue ?
+                new ObjectParameter("fResult", fResult) :
+                new ObjectParameter("fResult", typeof(double));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sEquipmentParameter = sEquipment != null ?
+                new ObjectParameter("sEquipment", sEquipment) :
+                new ObjectParameter("sEquipment", typeof(string));
+    
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            var sCommentsParameter = sComments != null ?
+                new ObjectParameter("sComments", sComments) :
+                new ObjectParameter("sComments", typeof(string));
+    
+            var sBatchLoteParameter = sBatchLote != null ?
+                new ObjectParameter("sBatchLote", sBatchLote) :
+                new ObjectParameter("sBatchLote", typeof(string));
+    
+            var created_ByParameter = created_By != null ?
+                new ObjectParameter("Created_By", created_By) :
+                new ObjectParameter("Created_By", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Sample_Log8", sampleIDParameter, testIDParameter, fResultParameter, sAreaParameter, sEquipmentParameter, dtSampleParameter, sCommentsParameter, sBatchLoteParameter, created_ByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Sample_Log_AvoidSample8(Nullable<int> sampleID)
+        {
+            var sampleIDParameter = sampleID.HasValue ?
+                new ObjectParameter("sampleID", sampleID) :
+                new ObjectParameter("sampleID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Sample_Log_AvoidSample8", sampleIDParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_SKU8(Nullable<int> iD, string sKU, string sDescription, string sArea, string sCreatedBy)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_SKU8", iDParameter, sKUParameter, sDescriptionParameter, sAreaParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Test8(Nullable<int> testID, string testDesc, Nullable<int> sKU, string sCreatedBy)
+        {
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var testDescParameter = testDesc != null ?
+                new ObjectParameter("TestDesc", testDesc) :
+                new ObjectParameter("TestDesc", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Test8", testIDParameter, testDescParameter, sKUParameter, sCreatedByParameter);
+        }
+    
+        public virtual int sp_upgraddiagrams8()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams8");
+        }
+    
+        [DbFunction("ColgateSkeltaEntities", "ngsfr_fn_S_Split_List9")]
+        public virtual IQueryable<string> ngsfr_fn_S_Split_List9(string @string)
+        {
+            var stringParameter = @string != null ?
+                new ObjectParameter("string", @string) :
+                new ObjectParameter("string", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<string>("[ColgateSkeltaEntities].[ngsfr_fn_S_Split_List9](@string)", stringParameter);
+        }
+    
+        public virtual int sp_alterdiagram9(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_alterdiagram9", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int sp_creatediagram9(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_creatediagram9", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int SP_D_QMSpec9(string iQM)
+        {
+            var iQMParameter = iQM != null ?
+                new ObjectParameter("iQM", iQM) :
+                new ObjectParameter("iQM", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_D_QMSpec9", iQMParameter);
+        }
+    
+        public virtual int SP_D_Sample9(Nullable<int> iSample)
+        {
+            var iSampleParameter = iSample.HasValue ?
+                new ObjectParameter("iSample", iSample) :
+                new ObjectParameter("iSample", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_D_Sample9", iSampleParameter);
+        }
+    
+        public virtual int SP_D_SKU9(string sKU, string sDescription)
+        {
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_D_SKU9", sKUParameter, sDescriptionParameter);
+        }
+    
+        public virtual int sp_dropdiagram9(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_dropdiagram9", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual int sp_helpdiagramdefinition9(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_helpdiagramdefinition9", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual int sp_helpdiagrams9(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_helpdiagrams9", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual int SP_I_Area9(string sArea, string sDescription, string sCreatedBy)
+        {
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Area9", sAreaParameter, sDescriptionParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_Checklist9(Nullable<int> iID, string sDescription, string iSampleName, string sCreatedBy)
+        {
+            var iIDParameter = iID.HasValue ?
+                new ObjectParameter("iID", iID) :
+                new ObjectParameter("iID", typeof(int));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var iSampleNameParameter = iSampleName != null ?
+                new ObjectParameter("iSampleName", iSampleName) :
+                new ObjectParameter("iSampleName", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Checklist9", iIDParameter, sDescriptionParameter, iSampleNameParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_CommandImport9()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_CommandImport9");
+        }
+    
+        public virtual int SP_I_Equipment9(string sEquipment, string sDescription, string sAreaID, string sCreatedBy)
+        {
+            var sEquipmentParameter = sEquipment != null ?
+                new ObjectParameter("sEquipment", sEquipment) :
+                new ObjectParameter("sEquipment", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Equipment9", sEquipmentParameter, sDescriptionParameter, sAreaIDParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_ImportDate9(string ssku, string sDescription, string sSKUArea, Nullable<int> iTestid, string sTestDescription, Nullable<double> fSpec_UpperLimit, Nullable<double> fSpec_LowerLimit, Nullable<double> fControl_UpperLimit, Nullable<double> fControl_LowerLimit, Nullable<double> fAccept_UpperLimit, Nullable<double> fAccept_LowerLimit, Nullable<double> fTarget, string sAreaID, string sAreaDesc, string sEquipID, string sEquipDesc, string sCreated_by, Nullable<int> iID_Import)
+        {
+            var sskuParameter = ssku != null ?
+                new ObjectParameter("ssku", ssku) :
+                new ObjectParameter("ssku", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sSKUAreaParameter = sSKUArea != null ?
+                new ObjectParameter("sSKUArea", sSKUArea) :
+                new ObjectParameter("sSKUArea", typeof(string));
+    
+            var iTestidParameter = iTestid.HasValue ?
+                new ObjectParameter("iTestid", iTestid) :
+                new ObjectParameter("iTestid", typeof(int));
+    
+            var sTestDescriptionParameter = sTestDescription != null ?
+                new ObjectParameter("sTestDescription", sTestDescription) :
+                new ObjectParameter("sTestDescription", typeof(string));
+    
+            var fSpec_UpperLimitParameter = fSpec_UpperLimit.HasValue ?
+                new ObjectParameter("fSpec_UpperLimit", fSpec_UpperLimit) :
+                new ObjectParameter("fSpec_UpperLimit", typeof(double));
+    
+            var fSpec_LowerLimitParameter = fSpec_LowerLimit.HasValue ?
+                new ObjectParameter("fSpec_LowerLimit", fSpec_LowerLimit) :
+                new ObjectParameter("fSpec_LowerLimit", typeof(double));
+    
+            var fControl_UpperLimitParameter = fControl_UpperLimit.HasValue ?
+                new ObjectParameter("fControl_UpperLimit", fControl_UpperLimit) :
+                new ObjectParameter("fControl_UpperLimit", typeof(double));
+    
+            var fControl_LowerLimitParameter = fControl_LowerLimit.HasValue ?
+                new ObjectParameter("fControl_LowerLimit", fControl_LowerLimit) :
+                new ObjectParameter("fControl_LowerLimit", typeof(double));
+    
+            var fAccept_UpperLimitParameter = fAccept_UpperLimit.HasValue ?
+                new ObjectParameter("fAccept_UpperLimit", fAccept_UpperLimit) :
+                new ObjectParameter("fAccept_UpperLimit", typeof(double));
+    
+            var fAccept_LowerLimitParameter = fAccept_LowerLimit.HasValue ?
+                new ObjectParameter("fAccept_LowerLimit", fAccept_LowerLimit) :
+                new ObjectParameter("fAccept_LowerLimit", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sAreaDescParameter = sAreaDesc != null ?
+                new ObjectParameter("sAreaDesc", sAreaDesc) :
+                new ObjectParameter("sAreaDesc", typeof(string));
+    
+            var sEquipIDParameter = sEquipID != null ?
+                new ObjectParameter("sEquipID", sEquipID) :
+                new ObjectParameter("sEquipID", typeof(string));
+    
+            var sEquipDescParameter = sEquipDesc != null ?
+                new ObjectParameter("sEquipDesc", sEquipDesc) :
+                new ObjectParameter("sEquipDesc", typeof(string));
+    
+            var sCreated_byParameter = sCreated_by != null ?
+                new ObjectParameter("sCreated_by", sCreated_by) :
+                new ObjectParameter("sCreated_by", typeof(string));
+    
+            var iID_ImportParameter = iID_Import.HasValue ?
+                new ObjectParameter("iID_Import", iID_Import) :
+                new ObjectParameter("iID_Import", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_ImportDate9", sskuParameter, sDescriptionParameter, sSKUAreaParameter, iTestidParameter, sTestDescriptionParameter, fSpec_UpperLimitParameter, fSpec_LowerLimitParameter, fControl_UpperLimitParameter, fControl_LowerLimitParameter, fAccept_UpperLimitParameter, fAccept_LowerLimitParameter, fTargetParameter, sAreaIDParameter, sAreaDescParameter, sEquipIDParameter, sEquipDescParameter, sCreated_byParameter, iID_ImportParameter);
+        }
+    
+        public virtual int SP_I_ImportDate_202001149(string ssku, string sDescription, string sSKUArea, Nullable<int> iTestid, string sTestDescription, Nullable<double> fSpec_UpperLimit, Nullable<double> fSpec_LowerLimit, Nullable<double> fControl_UpperLimit, Nullable<double> fControl_LowerLimit, Nullable<double> fAccept_UpperLimit, Nullable<double> fAccept_LowerLimit, Nullable<double> fTarget, string sAreaID, string sAreaDesc, string sEquipID, string sEquipDesc, string sCreated_by, Nullable<int> iID_Import)
+        {
+            var sskuParameter = ssku != null ?
+                new ObjectParameter("ssku", ssku) :
+                new ObjectParameter("ssku", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sSKUAreaParameter = sSKUArea != null ?
+                new ObjectParameter("sSKUArea", sSKUArea) :
+                new ObjectParameter("sSKUArea", typeof(string));
+    
+            var iTestidParameter = iTestid.HasValue ?
+                new ObjectParameter("iTestid", iTestid) :
+                new ObjectParameter("iTestid", typeof(int));
+    
+            var sTestDescriptionParameter = sTestDescription != null ?
+                new ObjectParameter("sTestDescription", sTestDescription) :
+                new ObjectParameter("sTestDescription", typeof(string));
+    
+            var fSpec_UpperLimitParameter = fSpec_UpperLimit.HasValue ?
+                new ObjectParameter("fSpec_UpperLimit", fSpec_UpperLimit) :
+                new ObjectParameter("fSpec_UpperLimit", typeof(double));
+    
+            var fSpec_LowerLimitParameter = fSpec_LowerLimit.HasValue ?
+                new ObjectParameter("fSpec_LowerLimit", fSpec_LowerLimit) :
+                new ObjectParameter("fSpec_LowerLimit", typeof(double));
+    
+            var fControl_UpperLimitParameter = fControl_UpperLimit.HasValue ?
+                new ObjectParameter("fControl_UpperLimit", fControl_UpperLimit) :
+                new ObjectParameter("fControl_UpperLimit", typeof(double));
+    
+            var fControl_LowerLimitParameter = fControl_LowerLimit.HasValue ?
+                new ObjectParameter("fControl_LowerLimit", fControl_LowerLimit) :
+                new ObjectParameter("fControl_LowerLimit", typeof(double));
+    
+            var fAccept_UpperLimitParameter = fAccept_UpperLimit.HasValue ?
+                new ObjectParameter("fAccept_UpperLimit", fAccept_UpperLimit) :
+                new ObjectParameter("fAccept_UpperLimit", typeof(double));
+    
+            var fAccept_LowerLimitParameter = fAccept_LowerLimit.HasValue ?
+                new ObjectParameter("fAccept_LowerLimit", fAccept_LowerLimit) :
+                new ObjectParameter("fAccept_LowerLimit", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sAreaDescParameter = sAreaDesc != null ?
+                new ObjectParameter("sAreaDesc", sAreaDesc) :
+                new ObjectParameter("sAreaDesc", typeof(string));
+    
+            var sEquipIDParameter = sEquipID != null ?
+                new ObjectParameter("sEquipID", sEquipID) :
+                new ObjectParameter("sEquipID", typeof(string));
+    
+            var sEquipDescParameter = sEquipDesc != null ?
+                new ObjectParameter("sEquipDesc", sEquipDesc) :
+                new ObjectParameter("sEquipDesc", typeof(string));
+    
+            var sCreated_byParameter = sCreated_by != null ?
+                new ObjectParameter("sCreated_by", sCreated_by) :
+                new ObjectParameter("sCreated_by", typeof(string));
+    
+            var iID_ImportParameter = iID_Import.HasValue ?
+                new ObjectParameter("iID_Import", iID_Import) :
+                new ObjectParameter("iID_Import", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_ImportDate_202001149", sskuParameter, sDescriptionParameter, sSKUAreaParameter, iTestidParameter, sTestDescriptionParameter, fSpec_UpperLimitParameter, fSpec_LowerLimitParameter, fControl_UpperLimitParameter, fControl_LowerLimitParameter, fAccept_UpperLimitParameter, fAccept_LowerLimitParameter, fTargetParameter, sAreaIDParameter, sAreaDescParameter, sEquipIDParameter, sEquipDescParameter, sCreated_byParameter, iID_ImportParameter);
+        }
+    
+        public virtual int SP_I_ImportDate_All9(string iProcessID)
+        {
+            var iProcessIDParameter = iProcessID != null ?
+                new ObjectParameter("iProcessID", iProcessID) :
+                new ObjectParameter("iProcessID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_ImportDate_All9", iProcessIDParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_QMSpec9(Nullable<int> testID, Nullable<double> fSpecUpper, Nullable<double> fSpecLower, Nullable<double> fControlUpper, Nullable<double> fControlLower, Nullable<double> fAcceptUpper, Nullable<double> fAcceptLower, Nullable<double> fTarget, string sCreatedBy)
+        {
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var fSpecUpperParameter = fSpecUpper.HasValue ?
+                new ObjectParameter("fSpecUpper", fSpecUpper) :
+                new ObjectParameter("fSpecUpper", typeof(double));
+    
+            var fSpecLowerParameter = fSpecLower.HasValue ?
+                new ObjectParameter("fSpecLower", fSpecLower) :
+                new ObjectParameter("fSpecLower", typeof(double));
+    
+            var fControlUpperParameter = fControlUpper.HasValue ?
+                new ObjectParameter("fControlUpper", fControlUpper) :
+                new ObjectParameter("fControlUpper", typeof(double));
+    
+            var fControlLowerParameter = fControlLower.HasValue ?
+                new ObjectParameter("fControlLower", fControlLower) :
+                new ObjectParameter("fControlLower", typeof(double));
+    
+            var fAcceptUpperParameter = fAcceptUpper.HasValue ?
+                new ObjectParameter("fAcceptUpper", fAcceptUpper) :
+                new ObjectParameter("fAcceptUpper", typeof(double));
+    
+            var fAcceptLowerParameter = fAcceptLower.HasValue ?
+                new ObjectParameter("fAcceptLower", fAcceptLower) :
+                new ObjectParameter("fAcceptLower", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_QMSpec9", testIDParameter, fSpecUpperParameter, fSpecLowerParameter, fControlUpperParameter, fControlLowerParameter, fAcceptUpperParameter, fAcceptLowerParameter, fTargetParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_Sample9(Nullable<int> iSample, string sDescription, string iEquipmentName, Nullable<int> iBatch, string sCreatedBy)
+        {
+            var iSampleParameter = iSample.HasValue ?
+                new ObjectParameter("iSample", iSample) :
+                new ObjectParameter("iSample", typeof(int));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var iEquipmentNameParameter = iEquipmentName != null ?
+                new ObjectParameter("iEquipmentName", iEquipmentName) :
+                new ObjectParameter("iEquipmentName", typeof(string));
+    
+            var iBatchParameter = iBatch.HasValue ?
+                new ObjectParameter("iBatch", iBatch) :
+                new ObjectParameter("iBatch", typeof(int));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Sample9", iSampleParameter, sDescriptionParameter, iEquipmentNameParameter, iBatchParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_Sample_Log9(string test, Nullable<int> sKU, Nullable<double> results, string @operator, string comment, string created_By, string sBatch, Nullable<System.DateTime> dtSample, string sArea, string sEquipament)
+        {
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            var resultsParameter = results.HasValue ?
+                new ObjectParameter("Results", results) :
+                new ObjectParameter("Results", typeof(double));
+    
+            var operatorParameter = @operator != null ?
+                new ObjectParameter("Operator", @operator) :
+                new ObjectParameter("Operator", typeof(string));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("Comment", comment) :
+                new ObjectParameter("Comment", typeof(string));
+    
+            var created_ByParameter = created_By != null ?
+                new ObjectParameter("Created_By", created_By) :
+                new ObjectParameter("Created_By", typeof(string));
+    
+            var sBatchParameter = sBatch != null ?
+                new ObjectParameter("sBatch", sBatch) :
+                new ObjectParameter("sBatch", typeof(string));
+    
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sEquipamentParameter = sEquipament != null ?
+                new ObjectParameter("sEquipament", sEquipament) :
+                new ObjectParameter("sEquipament", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Sample_Log9", testParameter, sKUParameter, resultsParameter, operatorParameter, commentParameter, created_ByParameter, sBatchParameter, dtSampleParameter, sAreaParameter, sEquipamentParameter);
+        }
+    
+        public virtual int SP_I_Sample_Log_SKUDesc9(string test, string sKU, Nullable<double> results, string @operator, string comment, string created_By, string sBatch, Nullable<System.DateTime> dtSample, string sArea, string sEquipament)
+        {
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var resultsParameter = results.HasValue ?
+                new ObjectParameter("Results", results) :
+                new ObjectParameter("Results", typeof(double));
+    
+            var operatorParameter = @operator != null ?
+                new ObjectParameter("Operator", @operator) :
+                new ObjectParameter("Operator", typeof(string));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("Comment", comment) :
+                new ObjectParameter("Comment", typeof(string));
+    
+            var created_ByParameter = created_By != null ?
+                new ObjectParameter("Created_By", created_By) :
+                new ObjectParameter("Created_By", typeof(string));
+    
+            var sBatchParameter = sBatch != null ?
+                new ObjectParameter("sBatch", sBatch) :
+                new ObjectParameter("sBatch", typeof(string));
+    
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sEquipamentParameter = sEquipament != null ?
+                new ObjectParameter("sEquipament", sEquipament) :
+                new ObjectParameter("sEquipament", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Sample_Log_SKUDesc9", testParameter, sKUParameter, resultsParameter, operatorParameter, commentParameter, created_ByParameter, sBatchParameter, dtSampleParameter, sAreaParameter, sEquipamentParameter);
+        }
+    
+        public virtual int SP_I_SKU9(string sKU, string sDescription, string sArea, string sCreatedBy)
+        {
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_SKU9", sKUParameter, sDescriptionParameter, sAreaParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_Test9(string testDesc, Nullable<int> sKU, string sCreatedBy)
+        {
+            var testDescParameter = testDesc != null ?
+                new ObjectParameter("TestDesc", testDesc) :
+                new ObjectParameter("TestDesc", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Test9", testDescParameter, sKUParameter, sCreatedByParameter);
+        }
+    
+        public virtual int sp_renamediagram9(string diagramname, Nullable<int> owner_id, string new_diagramname)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var new_diagramnameParameter = new_diagramname != null ?
+                new ObjectParameter("new_diagramname", new_diagramname) :
+                new ObjectParameter("new_diagramname", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_renamediagram9", diagramnameParameter, owner_idParameter, new_diagramnameParameter);
+        }
+    
+        public virtual int SP_S_AllData9()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_AllData9");
+        }
+    
+        public virtual int SP_S_ReportFilterArea9(string sKU)
+        {
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReportFilterArea9", sKUParameter);
+        }
+    
+        public virtual int SP_S_ReportFilterEquip9(string area)
+        {
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReportFilterEquip9", areaParameter);
+        }
+    
+        public virtual int SP_S_ReportFilterTest9(string ssku)
+        {
+            var sskuParameter = ssku != null ?
+                new ObjectParameter("ssku", ssku) :
+                new ObjectParameter("ssku", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReportFilterTest9", sskuParameter);
+        }
+    
+        public virtual int SP_S_ReturnCPKValues9(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReturnCPKValues9", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual int SP_S_ReturnCPKValues_Equipment9(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReturnCPKValues_Equipment9", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual int SP_S_ReturnCPKValues_Equipment_202005119(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReturnCPKValues_Equipment_202005119", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual int SP_S_ReturnCPKValues_Equipment_202005279(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReturnCPKValues_Equipment_202005279", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual int SP_S_ReturnCPKValues_SKU9(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReturnCPKValues_SKU9", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual int SP_S_ReturnCPKValues_SKU_202005079(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReturnCPKValues_SKU_202005079", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual int SP_S_ReturnCPKValues_SKU_202005089(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReturnCPKValues_SKU_202005089", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual int SP_S_ReturnCPKValues_SKU_202005119(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReturnCPKValues_SKU_202005119", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual int SP_S_ReturnCPKValues_SKU_20200511_029(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReturnCPKValues_SKU_20200511_029", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual int SP_S_ReturnCPKValues_SKU_202005159(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReturnCPKValues_SKU_202005159", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual int SP_S_ReturnCPKValues_SKU_202005279(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReturnCPKValues_SKU_202005279", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual int SP_S_ReturnLossValues9(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReturnLossValues9", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual int SP_S_ReturnValues9(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area, string equipment, string batch)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            var equipmentParameter = equipment != null ?
+                new ObjectParameter("Equipment", equipment) :
+                new ObjectParameter("Equipment", typeof(string));
+    
+            var batchParameter = batch != null ?
+                new ObjectParameter("Batch", batch) :
+                new ObjectParameter("Batch", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReturnValues9", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter, equipmentParameter, batchParameter);
+        }
+    
+        public virtual int SP_S_SampleValues9(Nullable<System.DateTime> dtSample)
+        {
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_SampleValues9", dtSampleParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_Specs9_Result> SP_S_Specs9()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_Specs9_Result>("SP_S_Specs9");
+        }
+    
+        public virtual int SP_S_TestSpec9(string test, Nullable<int> sKU)
+        {
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_TestSpec9", testParameter, sKUParameter);
+        }
+    
+        public virtual int SP_U_Area9(Nullable<int> iD, string area, string sDescription, string sCreatedBy)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_U_Area9", iDParameter, areaParameter, sDescriptionParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_U_Equipment9(Nullable<int> iID, string sEquipment, string sDescription, string sAreaID, string sCreatedBy)
+        {
+            var iIDParameter = iID.HasValue ?
+                new ObjectParameter("iID", iID) :
+                new ObjectParameter("iID", typeof(int));
+    
+            var sEquipmentParameter = sEquipment != null ?
+                new ObjectParameter("sEquipment", sEquipment) :
+                new ObjectParameter("sEquipment", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_U_Equipment9", iIDParameter, sEquipmentParameter, sDescriptionParameter, sAreaIDParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_QMSpec9(Nullable<int> testID, Nullable<double> fSpecUpper, Nullable<double> fSpecLower, Nullable<double> fControlUpper, Nullable<double> fControlLower, Nullable<double> fAcceptUpper, Nullable<double> fAcceptLower, Nullable<double> fTarget, string sCreatedBy)
+        {
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var fSpecUpperParameter = fSpecUpper.HasValue ?
+                new ObjectParameter("fSpecUpper", fSpecUpper) :
+                new ObjectParameter("fSpecUpper", typeof(double));
+    
+            var fSpecLowerParameter = fSpecLower.HasValue ?
+                new ObjectParameter("fSpecLower", fSpecLower) :
+                new ObjectParameter("fSpecLower", typeof(double));
+    
+            var fControlUpperParameter = fControlUpper.HasValue ?
+                new ObjectParameter("fControlUpper", fControlUpper) :
+                new ObjectParameter("fControlUpper", typeof(double));
+    
+            var fControlLowerParameter = fControlLower.HasValue ?
+                new ObjectParameter("fControlLower", fControlLower) :
+                new ObjectParameter("fControlLower", typeof(double));
+    
+            var fAcceptUpperParameter = fAcceptUpper.HasValue ?
+                new ObjectParameter("fAcceptUpper", fAcceptUpper) :
+                new ObjectParameter("fAcceptUpper", typeof(double));
+    
+            var fAcceptLowerParameter = fAcceptLower.HasValue ?
+                new ObjectParameter("fAcceptLower", fAcceptLower) :
+                new ObjectParameter("fAcceptLower", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_QMSpec9", testIDParameter, fSpecUpperParameter, fSpecLowerParameter, fControlUpperParameter, fControlLowerParameter, fAcceptUpperParameter, fAcceptLowerParameter, fTargetParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_U_Sample9(Nullable<int> iSampleID, Nullable<int> iBatch, string iEquipmentName, string sDescription, string sCreatedBy)
+        {
+            var iSampleIDParameter = iSampleID.HasValue ?
+                new ObjectParameter("iSampleID", iSampleID) :
+                new ObjectParameter("iSampleID", typeof(int));
+    
+            var iBatchParameter = iBatch.HasValue ?
+                new ObjectParameter("iBatch", iBatch) :
+                new ObjectParameter("iBatch", typeof(int));
+    
+            var iEquipmentNameParameter = iEquipmentName != null ?
+                new ObjectParameter("iEquipmentName", iEquipmentName) :
+                new ObjectParameter("iEquipmentName", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_U_Sample9", iSampleIDParameter, iBatchParameter, iEquipmentNameParameter, sDescriptionParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Sample_Log9(Nullable<int> sampleID, Nullable<int> testID, Nullable<double> fResult, string sArea, string sEquipment, Nullable<System.DateTime> dtSample, string sComments, string sBatchLote, string created_By)
+        {
+            var sampleIDParameter = sampleID.HasValue ?
+                new ObjectParameter("sampleID", sampleID) :
+                new ObjectParameter("sampleID", typeof(int));
+    
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var fResultParameter = fResult.HasValue ?
+                new ObjectParameter("fResult", fResult) :
+                new ObjectParameter("fResult", typeof(double));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sEquipmentParameter = sEquipment != null ?
+                new ObjectParameter("sEquipment", sEquipment) :
+                new ObjectParameter("sEquipment", typeof(string));
+    
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            var sCommentsParameter = sComments != null ?
+                new ObjectParameter("sComments", sComments) :
+                new ObjectParameter("sComments", typeof(string));
+    
+            var sBatchLoteParameter = sBatchLote != null ?
+                new ObjectParameter("sBatchLote", sBatchLote) :
+                new ObjectParameter("sBatchLote", typeof(string));
+    
+            var created_ByParameter = created_By != null ?
+                new ObjectParameter("Created_By", created_By) :
+                new ObjectParameter("Created_By", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Sample_Log9", sampleIDParameter, testIDParameter, fResultParameter, sAreaParameter, sEquipmentParameter, dtSampleParameter, sCommentsParameter, sBatchLoteParameter, created_ByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Sample_Log_AvoidSample9(Nullable<int> sampleID)
+        {
+            var sampleIDParameter = sampleID.HasValue ?
+                new ObjectParameter("sampleID", sampleID) :
+                new ObjectParameter("sampleID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Sample_Log_AvoidSample9", sampleIDParameter);
+        }
+    
+        public virtual int SP_U_SKU9(Nullable<int> iD, string sKU, string sDescription, string sArea, string sCreatedBy)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_U_SKU9", iDParameter, sKUParameter, sDescriptionParameter, sAreaParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_U_Test9(Nullable<int> testID, string testDesc, Nullable<int> sKU, string sCreatedBy)
+        {
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var testDescParameter = testDesc != null ?
+                new ObjectParameter("TestDesc", testDesc) :
+                new ObjectParameter("TestDesc", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_U_Test9", testIDParameter, testDescParameter, sKUParameter, sCreatedByParameter);
+        }
+    
+        public virtual int sp_upgraddiagrams9()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams9");
+        }
+    
+        [DbFunction("ColgateSkeltaEntities", "ngsfr_fn_S_Split_List10")]
+        public virtual IQueryable<string> ngsfr_fn_S_Split_List10(string @string)
+        {
+            var stringParameter = @string != null ?
+                new ObjectParameter("string", @string) :
+                new ObjectParameter("string", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<string>("[ColgateSkeltaEntities].[ngsfr_fn_S_Split_List10](@string)", stringParameter);
+        }
+    
+        public virtual int sp_alterdiagram10(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_alterdiagram10", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int sp_creatediagram10(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_creatediagram10", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int SP_D_QMSpec10(string iQM)
+        {
+            var iQMParameter = iQM != null ?
+                new ObjectParameter("iQM", iQM) :
+                new ObjectParameter("iQM", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_D_QMSpec10", iQMParameter);
+        }
+    
+        public virtual int SP_D_Sample10(Nullable<int> iSample)
+        {
+            var iSampleParameter = iSample.HasValue ?
+                new ObjectParameter("iSample", iSample) :
+                new ObjectParameter("iSample", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_D_Sample10", iSampleParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_D_SKU10(string sKU, string sDescription)
+        {
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_D_SKU10", sKUParameter, sDescriptionParameter);
+        }
+    
+        public virtual int sp_dropdiagram10(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_dropdiagram10", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual int sp_helpdiagramdefinition10(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_helpdiagramdefinition10", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual int sp_helpdiagrams10(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_helpdiagrams10", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_Area10(string sArea, string sDescription, string sCreatedBy)
+        {
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_Area10", sAreaParameter, sDescriptionParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_Checklist10(Nullable<int> iID, string sDescription, string iSampleName, string sCreatedBy)
+        {
+            var iIDParameter = iID.HasValue ?
+                new ObjectParameter("iID", iID) :
+                new ObjectParameter("iID", typeof(int));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var iSampleNameParameter = iSampleName != null ?
+                new ObjectParameter("iSampleName", iSampleName) :
+                new ObjectParameter("iSampleName", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Checklist10", iIDParameter, sDescriptionParameter, iSampleNameParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_CommandImport10()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_CommandImport10");
+        }
+    
+        public virtual ObjectResult<string> SP_I_Equipment10(string sEquipment, string sDescription, string sAreaID, string sCreatedBy)
+        {
+            var sEquipmentParameter = sEquipment != null ?
+                new ObjectParameter("sEquipment", sEquipment) :
+                new ObjectParameter("sEquipment", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_Equipment10", sEquipmentParameter, sDescriptionParameter, sAreaIDParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_ImportDate10(string ssku, string sDescription, string sSKUArea, Nullable<int> iTestid, string sTestDescription, Nullable<double> fSpec_UpperLimit, Nullable<double> fSpec_LowerLimit, Nullable<double> fControl_UpperLimit, Nullable<double> fControl_LowerLimit, Nullable<double> fAccept_UpperLimit, Nullable<double> fAccept_LowerLimit, Nullable<double> fTarget, string sAreaID, string sAreaDesc, string sEquipID, string sEquipDesc, string sCreated_by, Nullable<int> iID_Import)
+        {
+            var sskuParameter = ssku != null ?
+                new ObjectParameter("ssku", ssku) :
+                new ObjectParameter("ssku", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sSKUAreaParameter = sSKUArea != null ?
+                new ObjectParameter("sSKUArea", sSKUArea) :
+                new ObjectParameter("sSKUArea", typeof(string));
+    
+            var iTestidParameter = iTestid.HasValue ?
+                new ObjectParameter("iTestid", iTestid) :
+                new ObjectParameter("iTestid", typeof(int));
+    
+            var sTestDescriptionParameter = sTestDescription != null ?
+                new ObjectParameter("sTestDescription", sTestDescription) :
+                new ObjectParameter("sTestDescription", typeof(string));
+    
+            var fSpec_UpperLimitParameter = fSpec_UpperLimit.HasValue ?
+                new ObjectParameter("fSpec_UpperLimit", fSpec_UpperLimit) :
+                new ObjectParameter("fSpec_UpperLimit", typeof(double));
+    
+            var fSpec_LowerLimitParameter = fSpec_LowerLimit.HasValue ?
+                new ObjectParameter("fSpec_LowerLimit", fSpec_LowerLimit) :
+                new ObjectParameter("fSpec_LowerLimit", typeof(double));
+    
+            var fControl_UpperLimitParameter = fControl_UpperLimit.HasValue ?
+                new ObjectParameter("fControl_UpperLimit", fControl_UpperLimit) :
+                new ObjectParameter("fControl_UpperLimit", typeof(double));
+    
+            var fControl_LowerLimitParameter = fControl_LowerLimit.HasValue ?
+                new ObjectParameter("fControl_LowerLimit", fControl_LowerLimit) :
+                new ObjectParameter("fControl_LowerLimit", typeof(double));
+    
+            var fAccept_UpperLimitParameter = fAccept_UpperLimit.HasValue ?
+                new ObjectParameter("fAccept_UpperLimit", fAccept_UpperLimit) :
+                new ObjectParameter("fAccept_UpperLimit", typeof(double));
+    
+            var fAccept_LowerLimitParameter = fAccept_LowerLimit.HasValue ?
+                new ObjectParameter("fAccept_LowerLimit", fAccept_LowerLimit) :
+                new ObjectParameter("fAccept_LowerLimit", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sAreaDescParameter = sAreaDesc != null ?
+                new ObjectParameter("sAreaDesc", sAreaDesc) :
+                new ObjectParameter("sAreaDesc", typeof(string));
+    
+            var sEquipIDParameter = sEquipID != null ?
+                new ObjectParameter("sEquipID", sEquipID) :
+                new ObjectParameter("sEquipID", typeof(string));
+    
+            var sEquipDescParameter = sEquipDesc != null ?
+                new ObjectParameter("sEquipDesc", sEquipDesc) :
+                new ObjectParameter("sEquipDesc", typeof(string));
+    
+            var sCreated_byParameter = sCreated_by != null ?
+                new ObjectParameter("sCreated_by", sCreated_by) :
+                new ObjectParameter("sCreated_by", typeof(string));
+    
+            var iID_ImportParameter = iID_Import.HasValue ?
+                new ObjectParameter("iID_Import", iID_Import) :
+                new ObjectParameter("iID_Import", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_ImportDate10", sskuParameter, sDescriptionParameter, sSKUAreaParameter, iTestidParameter, sTestDescriptionParameter, fSpec_UpperLimitParameter, fSpec_LowerLimitParameter, fControl_UpperLimitParameter, fControl_LowerLimitParameter, fAccept_UpperLimitParameter, fAccept_LowerLimitParameter, fTargetParameter, sAreaIDParameter, sAreaDescParameter, sEquipIDParameter, sEquipDescParameter, sCreated_byParameter, iID_ImportParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_ImportDate_2020011410(string ssku, string sDescription, string sSKUArea, Nullable<int> iTestid, string sTestDescription, Nullable<double> fSpec_UpperLimit, Nullable<double> fSpec_LowerLimit, Nullable<double> fControl_UpperLimit, Nullable<double> fControl_LowerLimit, Nullable<double> fAccept_UpperLimit, Nullable<double> fAccept_LowerLimit, Nullable<double> fTarget, string sAreaID, string sAreaDesc, string sEquipID, string sEquipDesc, string sCreated_by, Nullable<int> iID_Import)
+        {
+            var sskuParameter = ssku != null ?
+                new ObjectParameter("ssku", ssku) :
+                new ObjectParameter("ssku", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sSKUAreaParameter = sSKUArea != null ?
+                new ObjectParameter("sSKUArea", sSKUArea) :
+                new ObjectParameter("sSKUArea", typeof(string));
+    
+            var iTestidParameter = iTestid.HasValue ?
+                new ObjectParameter("iTestid", iTestid) :
+                new ObjectParameter("iTestid", typeof(int));
+    
+            var sTestDescriptionParameter = sTestDescription != null ?
+                new ObjectParameter("sTestDescription", sTestDescription) :
+                new ObjectParameter("sTestDescription", typeof(string));
+    
+            var fSpec_UpperLimitParameter = fSpec_UpperLimit.HasValue ?
+                new ObjectParameter("fSpec_UpperLimit", fSpec_UpperLimit) :
+                new ObjectParameter("fSpec_UpperLimit", typeof(double));
+    
+            var fSpec_LowerLimitParameter = fSpec_LowerLimit.HasValue ?
+                new ObjectParameter("fSpec_LowerLimit", fSpec_LowerLimit) :
+                new ObjectParameter("fSpec_LowerLimit", typeof(double));
+    
+            var fControl_UpperLimitParameter = fControl_UpperLimit.HasValue ?
+                new ObjectParameter("fControl_UpperLimit", fControl_UpperLimit) :
+                new ObjectParameter("fControl_UpperLimit", typeof(double));
+    
+            var fControl_LowerLimitParameter = fControl_LowerLimit.HasValue ?
+                new ObjectParameter("fControl_LowerLimit", fControl_LowerLimit) :
+                new ObjectParameter("fControl_LowerLimit", typeof(double));
+    
+            var fAccept_UpperLimitParameter = fAccept_UpperLimit.HasValue ?
+                new ObjectParameter("fAccept_UpperLimit", fAccept_UpperLimit) :
+                new ObjectParameter("fAccept_UpperLimit", typeof(double));
+    
+            var fAccept_LowerLimitParameter = fAccept_LowerLimit.HasValue ?
+                new ObjectParameter("fAccept_LowerLimit", fAccept_LowerLimit) :
+                new ObjectParameter("fAccept_LowerLimit", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sAreaDescParameter = sAreaDesc != null ?
+                new ObjectParameter("sAreaDesc", sAreaDesc) :
+                new ObjectParameter("sAreaDesc", typeof(string));
+    
+            var sEquipIDParameter = sEquipID != null ?
+                new ObjectParameter("sEquipID", sEquipID) :
+                new ObjectParameter("sEquipID", typeof(string));
+    
+            var sEquipDescParameter = sEquipDesc != null ?
+                new ObjectParameter("sEquipDesc", sEquipDesc) :
+                new ObjectParameter("sEquipDesc", typeof(string));
+    
+            var sCreated_byParameter = sCreated_by != null ?
+                new ObjectParameter("sCreated_by", sCreated_by) :
+                new ObjectParameter("sCreated_by", typeof(string));
+    
+            var iID_ImportParameter = iID_Import.HasValue ?
+                new ObjectParameter("iID_Import", iID_Import) :
+                new ObjectParameter("iID_Import", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_ImportDate_2020011410", sskuParameter, sDescriptionParameter, sSKUAreaParameter, iTestidParameter, sTestDescriptionParameter, fSpec_UpperLimitParameter, fSpec_LowerLimitParameter, fControl_UpperLimitParameter, fControl_LowerLimitParameter, fAccept_UpperLimitParameter, fAccept_LowerLimitParameter, fTargetParameter, sAreaIDParameter, sAreaDescParameter, sEquipIDParameter, sEquipDescParameter, sCreated_byParameter, iID_ImportParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_ImportDate_All10(string iProcessID)
+        {
+            var iProcessIDParameter = iProcessID != null ?
+                new ObjectParameter("iProcessID", iProcessID) :
+                new ObjectParameter("iProcessID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_ImportDate_All10", iProcessIDParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_QMSpec10(Nullable<int> testID, Nullable<double> fSpecUpper, Nullable<double> fSpecLower, Nullable<double> fControlUpper, Nullable<double> fControlLower, Nullable<double> fAcceptUpper, Nullable<double> fAcceptLower, Nullable<double> fTarget, string sCreatedBy)
+        {
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var fSpecUpperParameter = fSpecUpper.HasValue ?
+                new ObjectParameter("fSpecUpper", fSpecUpper) :
+                new ObjectParameter("fSpecUpper", typeof(double));
+    
+            var fSpecLowerParameter = fSpecLower.HasValue ?
+                new ObjectParameter("fSpecLower", fSpecLower) :
+                new ObjectParameter("fSpecLower", typeof(double));
+    
+            var fControlUpperParameter = fControlUpper.HasValue ?
+                new ObjectParameter("fControlUpper", fControlUpper) :
+                new ObjectParameter("fControlUpper", typeof(double));
+    
+            var fControlLowerParameter = fControlLower.HasValue ?
+                new ObjectParameter("fControlLower", fControlLower) :
+                new ObjectParameter("fControlLower", typeof(double));
+    
+            var fAcceptUpperParameter = fAcceptUpper.HasValue ?
+                new ObjectParameter("fAcceptUpper", fAcceptUpper) :
+                new ObjectParameter("fAcceptUpper", typeof(double));
+    
+            var fAcceptLowerParameter = fAcceptLower.HasValue ?
+                new ObjectParameter("fAcceptLower", fAcceptLower) :
+                new ObjectParameter("fAcceptLower", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_QMSpec10", testIDParameter, fSpecUpperParameter, fSpecLowerParameter, fControlUpperParameter, fControlLowerParameter, fAcceptUpperParameter, fAcceptLowerParameter, fTargetParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_Sample10(Nullable<int> iSample, string sDescription, string iEquipmentName, Nullable<int> iBatch, string sCreatedBy)
+        {
+            var iSampleParameter = iSample.HasValue ?
+                new ObjectParameter("iSample", iSample) :
+                new ObjectParameter("iSample", typeof(int));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var iEquipmentNameParameter = iEquipmentName != null ?
+                new ObjectParameter("iEquipmentName", iEquipmentName) :
+                new ObjectParameter("iEquipmentName", typeof(string));
+    
+            var iBatchParameter = iBatch.HasValue ?
+                new ObjectParameter("iBatch", iBatch) :
+                new ObjectParameter("iBatch", typeof(int));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Sample10", iSampleParameter, sDescriptionParameter, iEquipmentNameParameter, iBatchParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_Sample_Log10(string test, Nullable<int> sKU, Nullable<double> results, string @operator, string comment, string created_By, string sBatch, Nullable<System.DateTime> dtSample, string sArea, string sEquipament)
+        {
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            var resultsParameter = results.HasValue ?
+                new ObjectParameter("Results", results) :
+                new ObjectParameter("Results", typeof(double));
+    
+            var operatorParameter = @operator != null ?
+                new ObjectParameter("Operator", @operator) :
+                new ObjectParameter("Operator", typeof(string));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("Comment", comment) :
+                new ObjectParameter("Comment", typeof(string));
+    
+            var created_ByParameter = created_By != null ?
+                new ObjectParameter("Created_By", created_By) :
+                new ObjectParameter("Created_By", typeof(string));
+    
+            var sBatchParameter = sBatch != null ?
+                new ObjectParameter("sBatch", sBatch) :
+                new ObjectParameter("sBatch", typeof(string));
+    
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sEquipamentParameter = sEquipament != null ?
+                new ObjectParameter("sEquipament", sEquipament) :
+                new ObjectParameter("sEquipament", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Sample_Log10", testParameter, sKUParameter, resultsParameter, operatorParameter, commentParameter, created_ByParameter, sBatchParameter, dtSampleParameter, sAreaParameter, sEquipamentParameter);
+        }
+    
+        public virtual int SP_I_Sample_Log_SKUDesc10(string test, string sKU, Nullable<double> results, string @operator, string comment, string created_By, string sBatch, Nullable<System.DateTime> dtSample, string sArea, string sEquipament)
+        {
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var resultsParameter = results.HasValue ?
+                new ObjectParameter("Results", results) :
+                new ObjectParameter("Results", typeof(double));
+    
+            var operatorParameter = @operator != null ?
+                new ObjectParameter("Operator", @operator) :
+                new ObjectParameter("Operator", typeof(string));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("Comment", comment) :
+                new ObjectParameter("Comment", typeof(string));
+    
+            var created_ByParameter = created_By != null ?
+                new ObjectParameter("Created_By", created_By) :
+                new ObjectParameter("Created_By", typeof(string));
+    
+            var sBatchParameter = sBatch != null ?
+                new ObjectParameter("sBatch", sBatch) :
+                new ObjectParameter("sBatch", typeof(string));
+    
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sEquipamentParameter = sEquipament != null ?
+                new ObjectParameter("sEquipament", sEquipament) :
+                new ObjectParameter("sEquipament", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Sample_Log_SKUDesc10", testParameter, sKUParameter, resultsParameter, operatorParameter, commentParameter, created_ByParameter, sBatchParameter, dtSampleParameter, sAreaParameter, sEquipamentParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_SKU10(string sKU, string sDescription, string sArea, string sCreatedBy)
+        {
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_SKU10", sKUParameter, sDescriptionParameter, sAreaParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_Test10(string testDesc, Nullable<int> sKU, string sCreatedBy)
+        {
+            var testDescParameter = testDesc != null ?
+                new ObjectParameter("TestDesc", testDesc) :
+                new ObjectParameter("TestDesc", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_Test10", testDescParameter, sKUParameter, sCreatedByParameter);
+        }
+    
+        public virtual int sp_renamediagram10(string diagramname, Nullable<int> owner_id, string new_diagramname)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var new_diagramnameParameter = new_diagramname != null ?
+                new ObjectParameter("new_diagramname", new_diagramname) :
+                new ObjectParameter("new_diagramname", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_renamediagram10", diagramnameParameter, owner_idParameter, new_diagramnameParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_AllData10_Result> SP_S_AllData10()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_AllData10_Result>("SP_S_AllData10");
+        }
+    
+        public virtual ObjectResult<string> SP_S_ReportFilterArea10(string sKU)
+        {
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_S_ReportFilterArea10", sKUParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_S_ReportFilterEquip10(string area)
+        {
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_S_ReportFilterEquip10", areaParameter);
+        }
+    
+        public virtual int SP_S_ReportFilterTest10(string ssku)
+        {
+            var sskuParameter = ssku != null ?
+                new ObjectParameter("ssku", ssku) :
+                new ObjectParameter("ssku", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReportFilterTest10", sskuParameter);
+        }
+    
+        public virtual int SP_S_ReturnCPKValues10(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReturnCPKValues10", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_Equipment10_Result> SP_S_ReturnCPKValues_Equipment10(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_Equipment10_Result>("SP_S_ReturnCPKValues_Equipment10", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_Equipment_2020051110_Result> SP_S_ReturnCPKValues_Equipment_2020051110(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_Equipment_2020051110_Result>("SP_S_ReturnCPKValues_Equipment_2020051110", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_Equipment_2020052710_Result> SP_S_ReturnCPKValues_Equipment_2020052710(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_Equipment_2020052710_Result>("SP_S_ReturnCPKValues_Equipment_2020052710", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU10_Result> SP_S_ReturnCPKValues_SKU10(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU10_Result>("SP_S_ReturnCPKValues_SKU10", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_2020050710_Result> SP_S_ReturnCPKValues_SKU_2020050710(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_2020050710_Result>("SP_S_ReturnCPKValues_SKU_2020050710", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_2020050810_Result> SP_S_ReturnCPKValues_SKU_2020050810(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_2020050810_Result>("SP_S_ReturnCPKValues_SKU_2020050810", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_2020051110_Result> SP_S_ReturnCPKValues_SKU_2020051110(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_2020051110_Result>("SP_S_ReturnCPKValues_SKU_2020051110", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_20200511_0210_Result> SP_S_ReturnCPKValues_SKU_20200511_0210(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_20200511_0210_Result>("SP_S_ReturnCPKValues_SKU_20200511_0210", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_2020051510_Result> SP_S_ReturnCPKValues_SKU_2020051510(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_2020051510_Result>("SP_S_ReturnCPKValues_SKU_2020051510", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_2020052710_Result> SP_S_ReturnCPKValues_SKU_2020052710(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_2020052710_Result>("SP_S_ReturnCPKValues_SKU_2020052710", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual int SP_S_ReturnLossValues10(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReturnLossValues10", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnValues10_Result> SP_S_ReturnValues10(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area, string equipment, string batch)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            var equipmentParameter = equipment != null ?
+                new ObjectParameter("Equipment", equipment) :
+                new ObjectParameter("Equipment", typeof(string));
+    
+            var batchParameter = batch != null ?
+                new ObjectParameter("Batch", batch) :
+                new ObjectParameter("Batch", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnValues10_Result>("SP_S_ReturnValues10", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter, equipmentParameter, batchParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_SampleValues10_Result> SP_S_SampleValues10(Nullable<System.DateTime> dtSample)
+        {
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_SampleValues10_Result>("SP_S_SampleValues10", dtSampleParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_Specs10_Result> SP_S_Specs10()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_Specs10_Result>("SP_S_Specs10");
+        }
+    
+        public virtual ObjectResult<SP_S_TestSpec10_Result> SP_S_TestSpec10(string test, Nullable<int> sKU)
+        {
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_TestSpec10_Result>("SP_S_TestSpec10", testParameter, sKUParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Area10(Nullable<int> iD, string area, string sDescription, string sCreatedBy)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Area10", iDParameter, areaParameter, sDescriptionParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Equipment10(Nullable<int> iID, string sEquipment, string sDescription, string sAreaID, string sCreatedBy)
+        {
+            var iIDParameter = iID.HasValue ?
+                new ObjectParameter("iID", iID) :
+                new ObjectParameter("iID", typeof(int));
+    
+            var sEquipmentParameter = sEquipment != null ?
+                new ObjectParameter("sEquipment", sEquipment) :
+                new ObjectParameter("sEquipment", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Equipment10", iIDParameter, sEquipmentParameter, sDescriptionParameter, sAreaIDParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_QMSpec10(Nullable<int> testID, Nullable<double> fSpecUpper, Nullable<double> fSpecLower, Nullable<double> fControlUpper, Nullable<double> fControlLower, Nullable<double> fAcceptUpper, Nullable<double> fAcceptLower, Nullable<double> fTarget, string sCreatedBy)
+        {
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var fSpecUpperParameter = fSpecUpper.HasValue ?
+                new ObjectParameter("fSpecUpper", fSpecUpper) :
+                new ObjectParameter("fSpecUpper", typeof(double));
+    
+            var fSpecLowerParameter = fSpecLower.HasValue ?
+                new ObjectParameter("fSpecLower", fSpecLower) :
+                new ObjectParameter("fSpecLower", typeof(double));
+    
+            var fControlUpperParameter = fControlUpper.HasValue ?
+                new ObjectParameter("fControlUpper", fControlUpper) :
+                new ObjectParameter("fControlUpper", typeof(double));
+    
+            var fControlLowerParameter = fControlLower.HasValue ?
+                new ObjectParameter("fControlLower", fControlLower) :
+                new ObjectParameter("fControlLower", typeof(double));
+    
+            var fAcceptUpperParameter = fAcceptUpper.HasValue ?
+                new ObjectParameter("fAcceptUpper", fAcceptUpper) :
+                new ObjectParameter("fAcceptUpper", typeof(double));
+    
+            var fAcceptLowerParameter = fAcceptLower.HasValue ?
+                new ObjectParameter("fAcceptLower", fAcceptLower) :
+                new ObjectParameter("fAcceptLower", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_QMSpec10", testIDParameter, fSpecUpperParameter, fSpecLowerParameter, fControlUpperParameter, fControlLowerParameter, fAcceptUpperParameter, fAcceptLowerParameter, fTargetParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_U_Sample10(Nullable<int> iSampleID, Nullable<int> iBatch, string iEquipmentName, string sDescription, string sCreatedBy)
+        {
+            var iSampleIDParameter = iSampleID.HasValue ?
+                new ObjectParameter("iSampleID", iSampleID) :
+                new ObjectParameter("iSampleID", typeof(int));
+    
+            var iBatchParameter = iBatch.HasValue ?
+                new ObjectParameter("iBatch", iBatch) :
+                new ObjectParameter("iBatch", typeof(int));
+    
+            var iEquipmentNameParameter = iEquipmentName != null ?
+                new ObjectParameter("iEquipmentName", iEquipmentName) :
+                new ObjectParameter("iEquipmentName", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_U_Sample10", iSampleIDParameter, iBatchParameter, iEquipmentNameParameter, sDescriptionParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Sample_Log10(Nullable<int> sampleID, Nullable<int> testID, Nullable<double> fResult, string sArea, string sEquipment, Nullable<System.DateTime> dtSample, string sComments, string sBatchLote, string created_By)
+        {
+            var sampleIDParameter = sampleID.HasValue ?
+                new ObjectParameter("sampleID", sampleID) :
+                new ObjectParameter("sampleID", typeof(int));
+    
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var fResultParameter = fResult.HasValue ?
+                new ObjectParameter("fResult", fResult) :
+                new ObjectParameter("fResult", typeof(double));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sEquipmentParameter = sEquipment != null ?
+                new ObjectParameter("sEquipment", sEquipment) :
+                new ObjectParameter("sEquipment", typeof(string));
+    
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            var sCommentsParameter = sComments != null ?
+                new ObjectParameter("sComments", sComments) :
+                new ObjectParameter("sComments", typeof(string));
+    
+            var sBatchLoteParameter = sBatchLote != null ?
+                new ObjectParameter("sBatchLote", sBatchLote) :
+                new ObjectParameter("sBatchLote", typeof(string));
+    
+            var created_ByParameter = created_By != null ?
+                new ObjectParameter("Created_By", created_By) :
+                new ObjectParameter("Created_By", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Sample_Log10", sampleIDParameter, testIDParameter, fResultParameter, sAreaParameter, sEquipmentParameter, dtSampleParameter, sCommentsParameter, sBatchLoteParameter, created_ByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Sample_Log_AvoidSample10(Nullable<int> sampleID)
+        {
+            var sampleIDParameter = sampleID.HasValue ?
+                new ObjectParameter("sampleID", sampleID) :
+                new ObjectParameter("sampleID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Sample_Log_AvoidSample10", sampleIDParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_SKU10(Nullable<int> iD, string sKU, string sDescription, string sArea, string sCreatedBy)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_SKU10", iDParameter, sKUParameter, sDescriptionParameter, sAreaParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Test10(Nullable<int> testID, string testDesc, Nullable<int> sKU, string sCreatedBy)
+        {
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var testDescParameter = testDesc != null ?
+                new ObjectParameter("TestDesc", testDesc) :
+                new ObjectParameter("TestDesc", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Test10", testIDParameter, testDescParameter, sKUParameter, sCreatedByParameter);
+        }
+    
+        public virtual int sp_upgraddiagrams10()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams10");
+        }
+    
+        [DbFunction("ColgateSkeltaEntities", "ngsfr_fn_S_Split_List11")]
+        public virtual IQueryable<string> ngsfr_fn_S_Split_List11(string @string)
+        {
+            var stringParameter = @string != null ?
+                new ObjectParameter("string", @string) :
+                new ObjectParameter("string", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<string>("[ColgateSkeltaEntities].[ngsfr_fn_S_Split_List11](@string)", stringParameter);
+        }
+    
+        public virtual int sp_alterdiagram11(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_alterdiagram11", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int sp_creatediagram11(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_creatediagram11", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int SP_D_QMSpec11(string iQM)
+        {
+            var iQMParameter = iQM != null ?
+                new ObjectParameter("iQM", iQM) :
+                new ObjectParameter("iQM", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_D_QMSpec11", iQMParameter);
+        }
+    
+        public virtual int SP_D_Sample11(Nullable<int> iSample)
+        {
+            var iSampleParameter = iSample.HasValue ?
+                new ObjectParameter("iSample", iSample) :
+                new ObjectParameter("iSample", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_D_Sample11", iSampleParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_D_SKU11(string sKU, string sDescription)
+        {
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_D_SKU11", sKUParameter, sDescriptionParameter);
+        }
+    
+        public virtual int sp_dropdiagram11(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_dropdiagram11", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual int sp_helpdiagramdefinition11(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_helpdiagramdefinition11", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual int sp_helpdiagrams11(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_helpdiagrams11", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_Area11(string sArea, string sDescription, string sCreatedBy)
+        {
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_Area11", sAreaParameter, sDescriptionParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_Checklist11(Nullable<int> iID, string sDescription, string iSampleName, string sCreatedBy)
+        {
+            var iIDParameter = iID.HasValue ?
+                new ObjectParameter("iID", iID) :
+                new ObjectParameter("iID", typeof(int));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var iSampleNameParameter = iSampleName != null ?
+                new ObjectParameter("iSampleName", iSampleName) :
+                new ObjectParameter("iSampleName", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Checklist11", iIDParameter, sDescriptionParameter, iSampleNameParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_CommandImport11()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_CommandImport11");
+        }
+    
+        public virtual ObjectResult<string> SP_I_Equipment11(string sEquipment, string sDescription, string sAreaID, string sCreatedBy)
+        {
+            var sEquipmentParameter = sEquipment != null ?
+                new ObjectParameter("sEquipment", sEquipment) :
+                new ObjectParameter("sEquipment", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_Equipment11", sEquipmentParameter, sDescriptionParameter, sAreaIDParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_ImportDate11(string ssku, string sDescription, string sSKUArea, Nullable<int> iTestid, string sTestDescription, Nullable<double> fSpec_UpperLimit, Nullable<double> fSpec_LowerLimit, Nullable<double> fControl_UpperLimit, Nullable<double> fControl_LowerLimit, Nullable<double> fAccept_UpperLimit, Nullable<double> fAccept_LowerLimit, Nullable<double> fTarget, string sAreaID, string sAreaDesc, string sEquipID, string sEquipDesc, string sCreated_by, Nullable<int> iID_Import)
+        {
+            var sskuParameter = ssku != null ?
+                new ObjectParameter("ssku", ssku) :
+                new ObjectParameter("ssku", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sSKUAreaParameter = sSKUArea != null ?
+                new ObjectParameter("sSKUArea", sSKUArea) :
+                new ObjectParameter("sSKUArea", typeof(string));
+    
+            var iTestidParameter = iTestid.HasValue ?
+                new ObjectParameter("iTestid", iTestid) :
+                new ObjectParameter("iTestid", typeof(int));
+    
+            var sTestDescriptionParameter = sTestDescription != null ?
+                new ObjectParameter("sTestDescription", sTestDescription) :
+                new ObjectParameter("sTestDescription", typeof(string));
+    
+            var fSpec_UpperLimitParameter = fSpec_UpperLimit.HasValue ?
+                new ObjectParameter("fSpec_UpperLimit", fSpec_UpperLimit) :
+                new ObjectParameter("fSpec_UpperLimit", typeof(double));
+    
+            var fSpec_LowerLimitParameter = fSpec_LowerLimit.HasValue ?
+                new ObjectParameter("fSpec_LowerLimit", fSpec_LowerLimit) :
+                new ObjectParameter("fSpec_LowerLimit", typeof(double));
+    
+            var fControl_UpperLimitParameter = fControl_UpperLimit.HasValue ?
+                new ObjectParameter("fControl_UpperLimit", fControl_UpperLimit) :
+                new ObjectParameter("fControl_UpperLimit", typeof(double));
+    
+            var fControl_LowerLimitParameter = fControl_LowerLimit.HasValue ?
+                new ObjectParameter("fControl_LowerLimit", fControl_LowerLimit) :
+                new ObjectParameter("fControl_LowerLimit", typeof(double));
+    
+            var fAccept_UpperLimitParameter = fAccept_UpperLimit.HasValue ?
+                new ObjectParameter("fAccept_UpperLimit", fAccept_UpperLimit) :
+                new ObjectParameter("fAccept_UpperLimit", typeof(double));
+    
+            var fAccept_LowerLimitParameter = fAccept_LowerLimit.HasValue ?
+                new ObjectParameter("fAccept_LowerLimit", fAccept_LowerLimit) :
+                new ObjectParameter("fAccept_LowerLimit", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sAreaDescParameter = sAreaDesc != null ?
+                new ObjectParameter("sAreaDesc", sAreaDesc) :
+                new ObjectParameter("sAreaDesc", typeof(string));
+    
+            var sEquipIDParameter = sEquipID != null ?
+                new ObjectParameter("sEquipID", sEquipID) :
+                new ObjectParameter("sEquipID", typeof(string));
+    
+            var sEquipDescParameter = sEquipDesc != null ?
+                new ObjectParameter("sEquipDesc", sEquipDesc) :
+                new ObjectParameter("sEquipDesc", typeof(string));
+    
+            var sCreated_byParameter = sCreated_by != null ?
+                new ObjectParameter("sCreated_by", sCreated_by) :
+                new ObjectParameter("sCreated_by", typeof(string));
+    
+            var iID_ImportParameter = iID_Import.HasValue ?
+                new ObjectParameter("iID_Import", iID_Import) :
+                new ObjectParameter("iID_Import", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_ImportDate11", sskuParameter, sDescriptionParameter, sSKUAreaParameter, iTestidParameter, sTestDescriptionParameter, fSpec_UpperLimitParameter, fSpec_LowerLimitParameter, fControl_UpperLimitParameter, fControl_LowerLimitParameter, fAccept_UpperLimitParameter, fAccept_LowerLimitParameter, fTargetParameter, sAreaIDParameter, sAreaDescParameter, sEquipIDParameter, sEquipDescParameter, sCreated_byParameter, iID_ImportParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_ImportDate_2020011411(string ssku, string sDescription, string sSKUArea, Nullable<int> iTestid, string sTestDescription, Nullable<double> fSpec_UpperLimit, Nullable<double> fSpec_LowerLimit, Nullable<double> fControl_UpperLimit, Nullable<double> fControl_LowerLimit, Nullable<double> fAccept_UpperLimit, Nullable<double> fAccept_LowerLimit, Nullable<double> fTarget, string sAreaID, string sAreaDesc, string sEquipID, string sEquipDesc, string sCreated_by, Nullable<int> iID_Import)
+        {
+            var sskuParameter = ssku != null ?
+                new ObjectParameter("ssku", ssku) :
+                new ObjectParameter("ssku", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sSKUAreaParameter = sSKUArea != null ?
+                new ObjectParameter("sSKUArea", sSKUArea) :
+                new ObjectParameter("sSKUArea", typeof(string));
+    
+            var iTestidParameter = iTestid.HasValue ?
+                new ObjectParameter("iTestid", iTestid) :
+                new ObjectParameter("iTestid", typeof(int));
+    
+            var sTestDescriptionParameter = sTestDescription != null ?
+                new ObjectParameter("sTestDescription", sTestDescription) :
+                new ObjectParameter("sTestDescription", typeof(string));
+    
+            var fSpec_UpperLimitParameter = fSpec_UpperLimit.HasValue ?
+                new ObjectParameter("fSpec_UpperLimit", fSpec_UpperLimit) :
+                new ObjectParameter("fSpec_UpperLimit", typeof(double));
+    
+            var fSpec_LowerLimitParameter = fSpec_LowerLimit.HasValue ?
+                new ObjectParameter("fSpec_LowerLimit", fSpec_LowerLimit) :
+                new ObjectParameter("fSpec_LowerLimit", typeof(double));
+    
+            var fControl_UpperLimitParameter = fControl_UpperLimit.HasValue ?
+                new ObjectParameter("fControl_UpperLimit", fControl_UpperLimit) :
+                new ObjectParameter("fControl_UpperLimit", typeof(double));
+    
+            var fControl_LowerLimitParameter = fControl_LowerLimit.HasValue ?
+                new ObjectParameter("fControl_LowerLimit", fControl_LowerLimit) :
+                new ObjectParameter("fControl_LowerLimit", typeof(double));
+    
+            var fAccept_UpperLimitParameter = fAccept_UpperLimit.HasValue ?
+                new ObjectParameter("fAccept_UpperLimit", fAccept_UpperLimit) :
+                new ObjectParameter("fAccept_UpperLimit", typeof(double));
+    
+            var fAccept_LowerLimitParameter = fAccept_LowerLimit.HasValue ?
+                new ObjectParameter("fAccept_LowerLimit", fAccept_LowerLimit) :
+                new ObjectParameter("fAccept_LowerLimit", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sAreaDescParameter = sAreaDesc != null ?
+                new ObjectParameter("sAreaDesc", sAreaDesc) :
+                new ObjectParameter("sAreaDesc", typeof(string));
+    
+            var sEquipIDParameter = sEquipID != null ?
+                new ObjectParameter("sEquipID", sEquipID) :
+                new ObjectParameter("sEquipID", typeof(string));
+    
+            var sEquipDescParameter = sEquipDesc != null ?
+                new ObjectParameter("sEquipDesc", sEquipDesc) :
+                new ObjectParameter("sEquipDesc", typeof(string));
+    
+            var sCreated_byParameter = sCreated_by != null ?
+                new ObjectParameter("sCreated_by", sCreated_by) :
+                new ObjectParameter("sCreated_by", typeof(string));
+    
+            var iID_ImportParameter = iID_Import.HasValue ?
+                new ObjectParameter("iID_Import", iID_Import) :
+                new ObjectParameter("iID_Import", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_ImportDate_2020011411", sskuParameter, sDescriptionParameter, sSKUAreaParameter, iTestidParameter, sTestDescriptionParameter, fSpec_UpperLimitParameter, fSpec_LowerLimitParameter, fControl_UpperLimitParameter, fControl_LowerLimitParameter, fAccept_UpperLimitParameter, fAccept_LowerLimitParameter, fTargetParameter, sAreaIDParameter, sAreaDescParameter, sEquipIDParameter, sEquipDescParameter, sCreated_byParameter, iID_ImportParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_ImportDate_All11(string iProcessID)
+        {
+            var iProcessIDParameter = iProcessID != null ?
+                new ObjectParameter("iProcessID", iProcessID) :
+                new ObjectParameter("iProcessID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_ImportDate_All11", iProcessIDParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_QMSpec11(Nullable<int> testID, Nullable<double> fSpecUpper, Nullable<double> fSpecLower, Nullable<double> fControlUpper, Nullable<double> fControlLower, Nullable<double> fAcceptUpper, Nullable<double> fAcceptLower, Nullable<double> fTarget, string sCreatedBy)
+        {
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var fSpecUpperParameter = fSpecUpper.HasValue ?
+                new ObjectParameter("fSpecUpper", fSpecUpper) :
+                new ObjectParameter("fSpecUpper", typeof(double));
+    
+            var fSpecLowerParameter = fSpecLower.HasValue ?
+                new ObjectParameter("fSpecLower", fSpecLower) :
+                new ObjectParameter("fSpecLower", typeof(double));
+    
+            var fControlUpperParameter = fControlUpper.HasValue ?
+                new ObjectParameter("fControlUpper", fControlUpper) :
+                new ObjectParameter("fControlUpper", typeof(double));
+    
+            var fControlLowerParameter = fControlLower.HasValue ?
+                new ObjectParameter("fControlLower", fControlLower) :
+                new ObjectParameter("fControlLower", typeof(double));
+    
+            var fAcceptUpperParameter = fAcceptUpper.HasValue ?
+                new ObjectParameter("fAcceptUpper", fAcceptUpper) :
+                new ObjectParameter("fAcceptUpper", typeof(double));
+    
+            var fAcceptLowerParameter = fAcceptLower.HasValue ?
+                new ObjectParameter("fAcceptLower", fAcceptLower) :
+                new ObjectParameter("fAcceptLower", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_QMSpec11", testIDParameter, fSpecUpperParameter, fSpecLowerParameter, fControlUpperParameter, fControlLowerParameter, fAcceptUpperParameter, fAcceptLowerParameter, fTargetParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_Sample11(Nullable<int> iSample, string sDescription, string iEquipmentName, Nullable<int> iBatch, string sCreatedBy)
+        {
+            var iSampleParameter = iSample.HasValue ?
+                new ObjectParameter("iSample", iSample) :
+                new ObjectParameter("iSample", typeof(int));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var iEquipmentNameParameter = iEquipmentName != null ?
+                new ObjectParameter("iEquipmentName", iEquipmentName) :
+                new ObjectParameter("iEquipmentName", typeof(string));
+    
+            var iBatchParameter = iBatch.HasValue ?
+                new ObjectParameter("iBatch", iBatch) :
+                new ObjectParameter("iBatch", typeof(int));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Sample11", iSampleParameter, sDescriptionParameter, iEquipmentNameParameter, iBatchParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_I_Sample_Log11(string test, Nullable<int> sKU, Nullable<double> results, string @operator, string comment, string created_By, string sBatch, Nullable<System.DateTime> dtSample, string sArea, string sEquipament)
+        {
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            var resultsParameter = results.HasValue ?
+                new ObjectParameter("Results", results) :
+                new ObjectParameter("Results", typeof(double));
+    
+            var operatorParameter = @operator != null ?
+                new ObjectParameter("Operator", @operator) :
+                new ObjectParameter("Operator", typeof(string));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("Comment", comment) :
+                new ObjectParameter("Comment", typeof(string));
+    
+            var created_ByParameter = created_By != null ?
+                new ObjectParameter("Created_By", created_By) :
+                new ObjectParameter("Created_By", typeof(string));
+    
+            var sBatchParameter = sBatch != null ?
+                new ObjectParameter("sBatch", sBatch) :
+                new ObjectParameter("sBatch", typeof(string));
+    
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sEquipamentParameter = sEquipament != null ?
+                new ObjectParameter("sEquipament", sEquipament) :
+                new ObjectParameter("sEquipament", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Sample_Log11", testParameter, sKUParameter, resultsParameter, operatorParameter, commentParameter, created_ByParameter, sBatchParameter, dtSampleParameter, sAreaParameter, sEquipamentParameter);
+        }
+    
+        public virtual int SP_I_Sample_Log_SKUDesc11(string test, string sKU, Nullable<double> results, string @operator, string comment, string created_By, string sBatch, Nullable<System.DateTime> dtSample, string sArea, string sEquipament)
+        {
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var resultsParameter = results.HasValue ?
+                new ObjectParameter("Results", results) :
+                new ObjectParameter("Results", typeof(double));
+    
+            var operatorParameter = @operator != null ?
+                new ObjectParameter("Operator", @operator) :
+                new ObjectParameter("Operator", typeof(string));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("Comment", comment) :
+                new ObjectParameter("Comment", typeof(string));
+    
+            var created_ByParameter = created_By != null ?
+                new ObjectParameter("Created_By", created_By) :
+                new ObjectParameter("Created_By", typeof(string));
+    
+            var sBatchParameter = sBatch != null ?
+                new ObjectParameter("sBatch", sBatch) :
+                new ObjectParameter("sBatch", typeof(string));
+    
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sEquipamentParameter = sEquipament != null ?
+                new ObjectParameter("sEquipament", sEquipament) :
+                new ObjectParameter("sEquipament", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_Sample_Log_SKUDesc11", testParameter, sKUParameter, resultsParameter, operatorParameter, commentParameter, created_ByParameter, sBatchParameter, dtSampleParameter, sAreaParameter, sEquipamentParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_SKU11(string sKU, string sDescription, string sArea, string sCreatedBy)
+        {
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_SKU11", sKUParameter, sDescriptionParameter, sAreaParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_I_Test11(string testDesc, Nullable<int> sKU, string sCreatedBy)
+        {
+            var testDescParameter = testDesc != null ?
+                new ObjectParameter("TestDesc", testDesc) :
+                new ObjectParameter("TestDesc", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_I_Test11", testDescParameter, sKUParameter, sCreatedByParameter);
+        }
+    
+        public virtual int sp_renamediagram11(string diagramname, Nullable<int> owner_id, string new_diagramname)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var new_diagramnameParameter = new_diagramname != null ?
+                new ObjectParameter("new_diagramname", new_diagramname) :
+                new ObjectParameter("new_diagramname", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_renamediagram11", diagramnameParameter, owner_idParameter, new_diagramnameParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_AllData11_Result> SP_S_AllData11()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_AllData11_Result>("SP_S_AllData11");
+        }
+    
+        public virtual ObjectResult<string> SP_S_ReportFilterArea11(string sKU)
+        {
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_S_ReportFilterArea11", sKUParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_S_ReportFilterEquip11(string area)
+        {
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_S_ReportFilterEquip11", areaParameter);
+        }
+    
+        public virtual int SP_S_ReportFilterTest11(string ssku)
+        {
+            var sskuParameter = ssku != null ?
+                new ObjectParameter("ssku", ssku) :
+                new ObjectParameter("ssku", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReportFilterTest11", sskuParameter);
+        }
+    
+        public virtual int SP_S_ReturnCPKValues11(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReturnCPKValues11", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_Equipment11_Result> SP_S_ReturnCPKValues_Equipment11(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_Equipment11_Result>("SP_S_ReturnCPKValues_Equipment11", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_Equipment_2020051111_Result> SP_S_ReturnCPKValues_Equipment_2020051111(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_Equipment_2020051111_Result>("SP_S_ReturnCPKValues_Equipment_2020051111", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_Equipment_2020052711_Result> SP_S_ReturnCPKValues_Equipment_2020052711(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_Equipment_2020052711_Result>("SP_S_ReturnCPKValues_Equipment_2020052711", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU11_Result> SP_S_ReturnCPKValues_SKU11(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU11_Result>("SP_S_ReturnCPKValues_SKU11", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_2020050711_Result> SP_S_ReturnCPKValues_SKU_2020050711(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_2020050711_Result>("SP_S_ReturnCPKValues_SKU_2020050711", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_2020050811_Result> SP_S_ReturnCPKValues_SKU_2020050811(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_2020050811_Result>("SP_S_ReturnCPKValues_SKU_2020050811", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_2020051111_Result> SP_S_ReturnCPKValues_SKU_2020051111(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_2020051111_Result>("SP_S_ReturnCPKValues_SKU_2020051111", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_20200511_0211_Result> SP_S_ReturnCPKValues_SKU_20200511_0211(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_20200511_0211_Result>("SP_S_ReturnCPKValues_SKU_20200511_0211", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_2020051511_Result> SP_S_ReturnCPKValues_SKU_2020051511(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_2020051511_Result>("SP_S_ReturnCPKValues_SKU_2020051511", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnCPKValues_SKU_2020052711_Result> SP_S_ReturnCPKValues_SKU_2020052711(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnCPKValues_SKU_2020052711_Result>("SP_S_ReturnCPKValues_SKU_2020052711", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual int SP_S_ReturnLossValues11(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_ReturnLossValues11", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_ReturnValues11_Result> SP_S_ReturnValues11(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string sKU, string shiftId, string test, string area, string equipment, string batch)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var shiftIdParameter = shiftId != null ?
+                new ObjectParameter("ShiftId", shiftId) :
+                new ObjectParameter("ShiftId", typeof(string));
+    
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            var equipmentParameter = equipment != null ?
+                new ObjectParameter("Equipment", equipment) :
+                new ObjectParameter("Equipment", typeof(string));
+    
+            var batchParameter = batch != null ?
+                new ObjectParameter("Batch", batch) :
+                new ObjectParameter("Batch", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_ReturnValues11_Result>("SP_S_ReturnValues11", startDateParameter, endDateParameter, sKUParameter, shiftIdParameter, testParameter, areaParameter, equipmentParameter, batchParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_SampleValues11_Result> SP_S_SampleValues11(Nullable<System.DateTime> dtSample)
+        {
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_SampleValues11_Result>("SP_S_SampleValues11", dtSampleParameter);
+        }
+    
+        public virtual ObjectResult<SP_S_Specs11_Result> SP_S_Specs11()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_Specs11_Result>("SP_S_Specs11");
+        }
+    
+        public virtual ObjectResult<SP_S_TestSpec11_Result> SP_S_TestSpec11(string test, Nullable<int> sKU)
+        {
+            var testParameter = test != null ?
+                new ObjectParameter("Test", test) :
+                new ObjectParameter("Test", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_S_TestSpec11_Result>("SP_S_TestSpec11", testParameter, sKUParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Area11(Nullable<int> iD, string area, string sDescription, string sCreatedBy)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var areaParameter = area != null ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Area11", iDParameter, areaParameter, sDescriptionParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Equipment11(Nullable<int> iID, string sEquipment, string sDescription, string sAreaID, string sCreatedBy)
+        {
+            var iIDParameter = iID.HasValue ?
+                new ObjectParameter("iID", iID) :
+                new ObjectParameter("iID", typeof(int));
+    
+            var sEquipmentParameter = sEquipment != null ?
+                new ObjectParameter("sEquipment", sEquipment) :
+                new ObjectParameter("sEquipment", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaIDParameter = sAreaID != null ?
+                new ObjectParameter("sAreaID", sAreaID) :
+                new ObjectParameter("sAreaID", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Equipment11", iIDParameter, sEquipmentParameter, sDescriptionParameter, sAreaIDParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_QMSpec11(Nullable<int> testID, Nullable<double> fSpecUpper, Nullable<double> fSpecLower, Nullable<double> fControlUpper, Nullable<double> fControlLower, Nullable<double> fAcceptUpper, Nullable<double> fAcceptLower, Nullable<double> fTarget, string sCreatedBy)
+        {
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var fSpecUpperParameter = fSpecUpper.HasValue ?
+                new ObjectParameter("fSpecUpper", fSpecUpper) :
+                new ObjectParameter("fSpecUpper", typeof(double));
+    
+            var fSpecLowerParameter = fSpecLower.HasValue ?
+                new ObjectParameter("fSpecLower", fSpecLower) :
+                new ObjectParameter("fSpecLower", typeof(double));
+    
+            var fControlUpperParameter = fControlUpper.HasValue ?
+                new ObjectParameter("fControlUpper", fControlUpper) :
+                new ObjectParameter("fControlUpper", typeof(double));
+    
+            var fControlLowerParameter = fControlLower.HasValue ?
+                new ObjectParameter("fControlLower", fControlLower) :
+                new ObjectParameter("fControlLower", typeof(double));
+    
+            var fAcceptUpperParameter = fAcceptUpper.HasValue ?
+                new ObjectParameter("fAcceptUpper", fAcceptUpper) :
+                new ObjectParameter("fAcceptUpper", typeof(double));
+    
+            var fAcceptLowerParameter = fAcceptLower.HasValue ?
+                new ObjectParameter("fAcceptLower", fAcceptLower) :
+                new ObjectParameter("fAcceptLower", typeof(double));
+    
+            var fTargetParameter = fTarget.HasValue ?
+                new ObjectParameter("fTarget", fTarget) :
+                new ObjectParameter("fTarget", typeof(double));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_QMSpec11", testIDParameter, fSpecUpperParameter, fSpecLowerParameter, fControlUpperParameter, fControlLowerParameter, fAcceptUpperParameter, fAcceptLowerParameter, fTargetParameter, sCreatedByParameter);
+        }
+    
+        public virtual int SP_U_Sample11(Nullable<int> iSampleID, Nullable<int> iBatch, string iEquipmentName, string sDescription, string sCreatedBy)
+        {
+            var iSampleIDParameter = iSampleID.HasValue ?
+                new ObjectParameter("iSampleID", iSampleID) :
+                new ObjectParameter("iSampleID", typeof(int));
+    
+            var iBatchParameter = iBatch.HasValue ?
+                new ObjectParameter("iBatch", iBatch) :
+                new ObjectParameter("iBatch", typeof(int));
+    
+            var iEquipmentNameParameter = iEquipmentName != null ?
+                new ObjectParameter("iEquipmentName", iEquipmentName) :
+                new ObjectParameter("iEquipmentName", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_U_Sample11", iSampleIDParameter, iBatchParameter, iEquipmentNameParameter, sDescriptionParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Sample_Log11(Nullable<int> sampleID, Nullable<int> testID, Nullable<double> fResult, string sArea, string sEquipment, Nullable<System.DateTime> dtSample, string sComments, string sBatchLote, string created_By)
+        {
+            var sampleIDParameter = sampleID.HasValue ?
+                new ObjectParameter("sampleID", sampleID) :
+                new ObjectParameter("sampleID", typeof(int));
+    
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var fResultParameter = fResult.HasValue ?
+                new ObjectParameter("fResult", fResult) :
+                new ObjectParameter("fResult", typeof(double));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sEquipmentParameter = sEquipment != null ?
+                new ObjectParameter("sEquipment", sEquipment) :
+                new ObjectParameter("sEquipment", typeof(string));
+    
+            var dtSampleParameter = dtSample.HasValue ?
+                new ObjectParameter("dtSample", dtSample) :
+                new ObjectParameter("dtSample", typeof(System.DateTime));
+    
+            var sCommentsParameter = sComments != null ?
+                new ObjectParameter("sComments", sComments) :
+                new ObjectParameter("sComments", typeof(string));
+    
+            var sBatchLoteParameter = sBatchLote != null ?
+                new ObjectParameter("sBatchLote", sBatchLote) :
+                new ObjectParameter("sBatchLote", typeof(string));
+    
+            var created_ByParameter = created_By != null ?
+                new ObjectParameter("Created_By", created_By) :
+                new ObjectParameter("Created_By", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Sample_Log11", sampleIDParameter, testIDParameter, fResultParameter, sAreaParameter, sEquipmentParameter, dtSampleParameter, sCommentsParameter, sBatchLoteParameter, created_ByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Sample_Log_AvoidSample11(Nullable<int> sampleID)
+        {
+            var sampleIDParameter = sampleID.HasValue ?
+                new ObjectParameter("sampleID", sampleID) :
+                new ObjectParameter("sampleID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Sample_Log_AvoidSample11", sampleIDParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_SKU11(Nullable<int> iD, string sKU, string sDescription, string sArea, string sCreatedBy)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var sDescriptionParameter = sDescription != null ?
+                new ObjectParameter("sDescription", sDescription) :
+                new ObjectParameter("sDescription", typeof(string));
+    
+            var sAreaParameter = sArea != null ?
+                new ObjectParameter("sArea", sArea) :
+                new ObjectParameter("sArea", typeof(string));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_SKU11", iDParameter, sKUParameter, sDescriptionParameter, sAreaParameter, sCreatedByParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_U_Test11(Nullable<int> testID, string testDesc, Nullable<int> sKU, string sCreatedBy)
+        {
+            var testIDParameter = testID.HasValue ?
+                new ObjectParameter("TestID", testID) :
+                new ObjectParameter("TestID", typeof(int));
+    
+            var testDescParameter = testDesc != null ?
+                new ObjectParameter("TestDesc", testDesc) :
+                new ObjectParameter("TestDesc", typeof(string));
+    
+            var sKUParameter = sKU.HasValue ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(int));
+    
+            var sCreatedByParameter = sCreatedBy != null ?
+                new ObjectParameter("sCreatedBy", sCreatedBy) :
+                new ObjectParameter("sCreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_U_Test11", testIDParameter, testDescParameter, sKUParameter, sCreatedByParameter);
+        }
+    
+        public virtual int sp_upgraddiagrams11()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams11");
+        }
     }
 }

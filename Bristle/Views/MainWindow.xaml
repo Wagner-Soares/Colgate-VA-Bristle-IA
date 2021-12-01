@@ -60,7 +60,8 @@
             <Image Name="frameHolder" Visibility="Visible" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="640" Height="480" Grid.RowSpan="2" />
         </Grid>
         <Grid Background="#FFCCCCCC"  Margin="255,0,5,5" Height="28" VerticalAlignment="Bottom">
-            <TextBlock Text="Position the  Brush" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
+            <TextBlock Text="Position the  Brush" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" Margin="24,0,476,0"/>
+            <TextBlock x:Name="lblUserName" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" Margin="305,0,0,0" Width="359">Logged User</TextBlock>
         </Grid>
         <Grid x:Name="GridMenu" Width="250" HorizontalAlignment="Left" Background="#FFCCCCCC" Margin="0,0,0,10">
             <Grid Height="50" Width="250" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,-140,0" RenderTransformOrigin="0.741,0.493" >
@@ -77,7 +78,7 @@
             </Grid>
 
             <StackPanel x:Name="MainPainel" Margin="0,50,0,180">
-                <Grid Height="60" Background="#FFE7E7E7">                   
+                <Grid Height="60" Background="#FFE7E7E7">
                 </Grid>
 
                 <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" Foreground="Black">

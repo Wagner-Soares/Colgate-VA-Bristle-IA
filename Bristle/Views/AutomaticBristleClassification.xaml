@@ -39,13 +39,6 @@
     </Window.Resources>
 
     <Window.Triggers>
-        <EventTrigger RoutedEvent="Grid.MouseEnter" SourceName="GridMenu">
-            <BeginStoryboard Storyboard="{StaticResource MenuOpen}"/>
-        </EventTrigger>
-        <EventTrigger RoutedEvent="Grid.MouseLeave" SourceName="GridMenu">
-            <BeginStoryboard Storyboard="{StaticResource MenuClose}"/>
-        </EventTrigger>
-
         <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonOpenMenuRight">
             <BeginStoryboard Storyboard="{StaticResource MenuOpenRight}"/>
         </EventTrigger>
@@ -1300,7 +1293,7 @@
             </Grid>
 
             <!--Toolbox-->
-            <Grid Margin="270,65,0,0" Height="81" VerticalAlignment="Top" HorizontalAlignment="Left" Width="944">
+            <Grid Margin="270,65,0,0" Height="81" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1150">
                 <Grid>
                     <Border Background="White" Canvas.Left="0" Canvas.Top="0" BorderBrush="Black" BorderThickness="1,1,1,1" CornerRadius="10,10,10,10" Margin="0,0,0,0">
                         <Grid x:Name="gridToolBox" Visibility="Visible">
@@ -1311,11 +1304,11 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="70"/>
                                 <ColumnDefinition Width="0.4"/>
-                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition Width="140"/>
                                 <ColumnDefinition Width="0.4"/>
-                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition Width="140"/>
                                 <ColumnDefinition Width="0.4"/>
-                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition Width="140"/>
                                 <ColumnDefinition Width="0.4"/>
                                 <ColumnDefinition Width="80"/>
                                 <ColumnDefinition Width="0.4"/>
@@ -1353,8 +1346,6 @@
                                     <RowDefinition Height="1*"/>
                                 </Grid.RowDefinitions>
 
-                                <Button x:Name="btnClassifyOk" ToolTip="Classify as Ok" Height="Auto" Margin="0,0,0,2" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Click="BtnTeste_Click"/>
-
                                 <Grid Grid.Row="0">
                                     <Viewbox Stretch="Uniform"  Margin="0,5,0,0">
                                         <materialDesign:PackIcon Foreground="Green" Kind="CheckboxMarkedCircleOutline"/>
@@ -1365,71 +1356,95 @@
                                         <TextBlock Foreground="Black" FontWeight="Bold" Margin="2,2,2,2">Ok</TextBlock>
                                     </Viewbox>
                                 </Grid>
+
+                                <Button x:Name="btnClassifyOk" ToolTip="Classify as Ok" Height="Auto" Margin="0,0,0,2" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Click="BtnTeste_Click"/>
+
                             </Grid>
                             <Grid Grid.Row="0" Grid.Column="2">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="2*"/>
-                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="1.5*"/>
+                                    <RowDefinition Height="1.5*"/>
+                                    <RowDefinition Height="1.5*"/>
                                 </Grid.RowDefinitions>
+
+                                <Grid Grid.Row="0">
+                                    <Viewbox HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <TextBlock Foreground="Black" FontWeight="Bold">Error 1</TextBlock>
+                                    </Viewbox>
+                                </Grid>
+                                
+                                <Grid Grid.Row="1">
+                                    <Viewbox Stretch="Uniform">
+                                        <materialDesign:PackIcon Foreground="#F52100" Kind="ErrorOutline"/>
+                                    </Viewbox>
+                                </Grid>
+                                <Grid Grid.Row="2">
+                                    <Viewbox HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <TextBlock Foreground="Black" FontWeight="Bold" Margin="0,0,0,2">Ponta Afiada</TextBlock>
+                                    </Viewbox>
+                                </Grid>
 
                                 <Button x:Name="btnClassifyError1" ToolTip="Classify as Error1" Height="Auto" Margin="0,0,0,2" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Click="BtnClassifyError1_Click_1"/>
 
-                                <Grid Grid.Row="0">
-                                    <Viewbox Stretch="Uniform"  Margin="0,5,0,0">
-                                        <materialDesign:PackIcon Foreground="#F52100" Kind="ErrorOutline" Margin="1,1,1,1"/>
-                                    </Viewbox>
-                                </Grid>
-                                <Grid Grid.Row="1">
-                                    <Viewbox HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        <TextBlock Foreground="Black" FontWeight="Bold" Margin="2,2,2,2">Error 1</TextBlock>
-                                    </Viewbox>
-                                </Grid>
                             </Grid>
                             <Grid Grid.Row="0" Grid.Column="4">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="2*"/>
-                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="1.5*"/>
+                                    <RowDefinition Height="1.5*"/>
+                                    <RowDefinition Height="1.5*"/>
                                 </Grid.RowDefinitions>
+
+                                <Grid Grid.Row="0">
+                                    <Viewbox HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <TextBlock Foreground="Black" FontWeight="Bold">Error 2</TextBlock>
+                                    </Viewbox>
+                                </Grid>
+                                <Grid Grid.Row="1">
+                                    <Viewbox Stretch="Uniform">
+                                        <materialDesign:PackIcon Foreground="#DC143C" Kind="ErrorOutline"/>
+                                    </Viewbox>
+                                </Grid>
+                                <Grid Grid.Row="2">
+                                    <Viewbox HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <TextBlock Foreground="Black" FontWeight="Bold" Margin="0,0,0,3">Bordas Irregulares</TextBlock>
+                                    </Viewbox>
+                                </Grid>
 
                                 <Button x:Name="btnClassifyError2" ToolTip="Classify as Error2" Height="Auto" Margin="0,0,0,2" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Click="BtnClassifyError2_Click"/>
 
-                                <Grid Grid.Row="0">
-                                    <Viewbox Stretch="Uniform"  Margin="0,5,0,0">
-                                        <materialDesign:PackIcon Foreground="#DC143C" Kind="ErrorOutline" Margin="1,1,1,1"/>
-                                    </Viewbox>
-                                </Grid>
-                                <Grid Grid.Row="1">
-                                    <Viewbox HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        <TextBlock Foreground="Black" FontWeight="Bold" Margin="2,2,2,2">Error 2</TextBlock>
-                                    </Viewbox>
-                                </Grid>
                             </Grid>
                             <Grid Grid.Row="0" Grid.Column="6">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="2*"/>
-                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="1.5*"/>
+                                    <RowDefinition Height="1.5*"/>
+                                    <RowDefinition Height="1.5*"/>
                                 </Grid.RowDefinitions>
+
+                                <Grid Grid.Row="0">
+                                    <Viewbox HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <TextBlock Foreground="Black" FontWeight="Bold" >Error 3</TextBlock>
+                                    </Viewbox>
+                                </Grid>
+                                
+                                <Grid Grid.Row="1">
+                                    <Viewbox Stretch="Uniform">
+                                        <materialDesign:PackIcon Foreground="#8B0000" Kind="ErrorOutline" />
+                                    </Viewbox>
+                                </Grid>
+                                <Grid Grid.Row="2">
+                                    <Viewbox HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <TextBlock Foreground="Black" FontWeight="Bold" Margin="0,0,0,4">Sem Arredondamento</TextBlock>
+                                    </Viewbox>
+                                </Grid>
 
                                 <Button x:Name="btnClassifyError3" ToolTip="Classify as Error3" Height="Auto" Margin="0,0,0,2" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Click="BtnClassifyError3_Click"/>
 
-                                <Grid Grid.Row="0">
-                                    <Viewbox Stretch="Uniform"  Margin="0,5,0,0">
-                                        <materialDesign:PackIcon Foreground="#8B0000" Kind="ErrorOutline" Margin="1,1,1,1"/>
-                                    </Viewbox>
-                                </Grid>
-                                <Grid Grid.Row="1">
-                                    <Viewbox HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        <TextBlock Foreground="Black" FontWeight="Bold" Margin="2,2,2,2">Error 3</TextBlock>
-                                    </Viewbox>
-                                </Grid>
                             </Grid>
                             <Grid Grid.Row="0" Grid.Column="8">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="2*"/>
                                     <RowDefinition Height="1*"/>
                                 </Grid.RowDefinitions>
-
-                                <Button x:Name="btnSetBristleSize1" Height="Auto" Margin="0,0,0,2" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Click="BtnSetBristleSize1_Click"/>
 
                                 <Grid Grid.Row="0">
                                     <Viewbox Stretch="Uniform">
@@ -1441,14 +1456,15 @@
                                         <TextBlock Foreground="Black" FontWeight="Bold" Margin="2,2,2,2">Small size</TextBlock>
                                     </Viewbox>
                                 </Grid>
+
+                                <Button x:Name="btnSetBristleSize1" Height="Auto" Margin="0,0,0,2" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Click="BtnSetBristleSize1_Click"/>
+
                             </Grid>
                             <Grid Grid.Row="0" Grid.Column="10">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="2*"/>
                                     <RowDefinition Height="1*"/>
                                 </Grid.RowDefinitions>
-
-                                <Button x:Name="btnSetBristleSize2" Height="Auto" Margin="0,0,0,2" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Click="BtnSetBristleSize2_Click"/>
 
                                 <Grid Grid.Row="0">
                                     <Viewbox Stretch="Uniform">
@@ -1460,6 +1476,9 @@
                                         <TextBlock Foreground="Black" FontWeight="Bold" Margin="2,2,2,2">Medium size</TextBlock>
                                     </Viewbox>
                                 </Grid>
+
+                                <Button x:Name="btnSetBristleSize2" Height="Auto" Margin="0,0,0,2" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Click="BtnSetBristleSize2_Click"/>
+
                             </Grid>
                             <Grid Grid.Row="0" Grid.Column="12">
                                 <Grid.RowDefinitions>
@@ -1472,21 +1491,20 @@
                                     </Viewbox>
                                 </Grid>
 
-                                <Button x:Name="btnSetBristleSize3" Height="Auto" Margin="0,0,0,2" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Click="BtnSetBristleSize3_Click"/>
-
                                 <Grid Grid.Row="1">
                                     <Viewbox HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <TextBlock Foreground="Black" FontWeight="Bold" Margin="2,2,2,2">Large size</TextBlock>
                                     </Viewbox>
                                 </Grid>
+
+                                <Button x:Name="btnSetBristleSize3" Height="Auto" Margin="0,0,0,2" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Click="BtnSetBristleSize3_Click"/>
+
                             </Grid>
                             <Grid Grid.Row="0" Grid.Column="14">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="2*"/>
                                     <RowDefinition Height="1*"/>
                                 </Grid.RowDefinitions>
-
-                                <Button x:Name="btnMove" ToolTip="Move Boxes" Height="Auto" Margin="0,0,0,2" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Click="BtnMove_Click"/>
 
                                 <Grid Grid.Row="0">
                                     <Viewbox Stretch="Uniform">
@@ -1498,14 +1516,15 @@
                                         <TextBlock Foreground="Black" FontWeight="Bold" Margin="2,2,2,2">Move Boxes</TextBlock>
                                     </Viewbox>
                                 </Grid>
+
+                                <Button x:Name="btnMove" ToolTip="Move Boxes" Height="Auto" Margin="0,0,0,2" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Click="BtnMove_Click"/>
+
                             </Grid>
                             <Grid Grid.Row="0" Grid.Column="16" >
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="2*"/>
                                     <RowDefinition Height="1*"/>
                                 </Grid.RowDefinitions>
-
-                                <Button x:Name="btnSelectMultiple" ToolTip="Multiple Decision" Height="Auto" Margin="0,0,0,2" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Click="BtnSelectMultiple_Click"/>
 
                                 <Grid Grid.Row="0">
                                     <Viewbox Stretch="Uniform">
@@ -1517,14 +1536,15 @@
                                         <TextBlock Foreground="Black" FontWeight="Bold" Margin="2,2,2,2">Select Multiple</TextBlock>
                                     </Viewbox>
                                 </Grid>
+
+                                <Button x:Name="btnSelectMultiple" ToolTip="Multiple Decision" Height="Auto" Margin="0,0,0,2" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Click="BtnSelectMultiple_Click"/>
+
                             </Grid>
                             <Grid Grid.Row="0" Grid.Column="18">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="2*"/>
                                     <RowDefinition Height="1*"/>
                                 </Grid.RowDefinitions>
-
-                                <Button x:Name="btnDeleteBoxes" ToolTip="Delete" Height="Auto" Margin="0,0,0,2" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Click="BtnDeleteBoxes_Click"/>
 
                                 <Grid Grid.Row="0">
                                     <Viewbox Stretch="Uniform">
@@ -1537,14 +1557,15 @@
                                         <TextBlock Foreground="Black" FontWeight="Bold" Margin="2,2,2,2">Delete Boxes</TextBlock>
                                     </Viewbox>
                                 </Grid>
+
+                                <Button x:Name="btnDeleteBoxes" ToolTip="Delete" Height="Auto" Margin="0,0,0,2" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Click="BtnDeleteBoxes_Click"/>
+
                             </Grid>
                             <Grid Grid.Row="0" Grid.Column="20" >
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="2*"/>
                                     <RowDefinition Height="1*"/>
                                 </Grid.RowDefinitions>
-
-                                <Button x:Name="btnReloadBoxes" ToolTip="Reload Bounding Boxes" Height="Auto" Margin="0,0,0,2" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Click="BtnReloadBoxes_Click"/>
 
                                 <Grid Grid.Row="0">
                                     <Viewbox Stretch="Uniform">
@@ -1557,6 +1578,9 @@
                                         <TextBlock Foreground="Black" FontWeight="Bold" Margin="2,2,2,2">Reload Boxes</TextBlock>
                                     </Viewbox>
                                 </Grid>
+
+                                <Button x:Name="btnReloadBoxes" ToolTip="Reload Bounding Boxes" Height="Auto" Margin="0,0,0,2" Grid.RowSpan="2" Background="Transparent" BorderBrush="Transparent" Click="BtnReloadBoxes_Click"/>
+
                             </Grid>
 
                             <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="8" >
@@ -1614,7 +1638,7 @@
                 </Grid>
 
                 <Grid Grid.Column="1">
-                    <Button x:Name ="PythonConnectionStatus" Content="{materialDesign:PackIcon LanguagePython, Size=25}" ToolTip="Python Connection Status" Background="Green" BorderBrush="{x:Null}"/>
+                    <Button x:Name ="PythonConnectionStatus" Content="{materialDesign:PackIcon LanguagePython, Size=25}" ToolTip="Python Connection Status" Background="Green" BorderBrush="{x:Null}" Click="PythonConnectionStatus_Click"/>
                 </Grid>
             </Grid>
 
@@ -3679,6 +3703,7 @@
             <Grid Background="#FFCCCCCC"  Margin="255,0,5,5" Height="28" VerticalAlignment="Bottom" RenderTransformOrigin="0.347,0.607">
                 <TextBlock Text="Focus Value:" FontStyle="Normal" Margin="10,0,0,0" Foreground="#FF515151" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20"/>
                 <TextBlock x:Name="focusValue" FontStyle="Normal" Text="0" FontSize="20" Padding="0,0,0,0" Foreground="#FF515151"  HorizontalAlignment="Left" VerticalAlignment="Top" Height="28" Margin="123,0,0,0" Width="62" />
+                <TextBlock x:Name="lblUserName" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" Margin="840,0,1,0" Width="359">Logged User</TextBlock>
             </Grid>
             <Grid x:Name="GridMenu" Width="60" HorizontalAlignment="Left" Background="#FFCCCCCC" Margin="0,0,0,5">
                 <Grid Height="50" Width="338" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,-278,0" RenderTransformOrigin="0.741,0.493" >

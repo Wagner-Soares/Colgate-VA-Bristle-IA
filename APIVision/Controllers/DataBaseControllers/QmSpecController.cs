@@ -40,12 +40,15 @@ namespace APIVision.Controllers.DataBaseControllers
                 testSpecificationModel.TestSpecUpperLimit = testSpecification.FAccept_UpperLimit;
                 testSpecificationModel.TestSpecLowerLimit = testSpecification.FAccept_LowerLimit;
 
-                return testSpecificationModel;
+                if (testSpecificationModel != null)
+                    return testSpecificationModel;
+                else
+                    return testSpecificationModel;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                return new TestSpecificationModel();
+                return null;
             }
         }
     }
