@@ -2121,10 +2121,10 @@ namespace Bristle.Views
 
                             break;
                     }
-                }
-                automaticBristleClassificationPredictionLayer.photo.Visibility = Visibility.Collapsed;
-                automaticBristleClassificationPredictionLayer.canvasMask.Children.Clear();
-                automaticBristleClassificationPredictionLayer.MultipleSelectionDecision.Visibility = Visibility.Collapsed;
+                    automaticBristleClassificationPredictionLayer.photo.Visibility = Visibility.Collapsed;
+                    automaticBristleClassificationPredictionLayer.canvasMask.Children.Clear();
+                    automaticBristleClassificationPredictionLayer.MultipleSelectionDecision.Visibility = Visibility.Collapsed;
+                }                
             }
             else
             {
