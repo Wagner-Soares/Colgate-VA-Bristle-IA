@@ -63,7 +63,7 @@
             <TextBlock Text="Position the  Brush" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" Margin="24,0,476,0"/>
             <TextBlock x:Name="lblUserName" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" Margin="305,0,0,0" Width="359">Logged User</TextBlock>
         </Grid>
-        <Grid x:Name="GridMenu" Width="250" HorizontalAlignment="Left" Background="#FFCCCCCC" Margin="0,0,0,10">
+        <Grid x:Name="GridMenu" Width="250" HorizontalAlignment="Left" Background="#FFCCCCCD" Margin="0,0,0,10">
             <Grid Height="50" Width="250" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,-140,0" RenderTransformOrigin="0.741,0.493" >
                 <Grid.Background >
                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
