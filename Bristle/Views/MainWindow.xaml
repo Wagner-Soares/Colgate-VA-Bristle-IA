@@ -62,6 +62,9 @@
         <Grid Background="#FFCCCCCC"  Margin="255,0,5,5" Height="28" VerticalAlignment="Bottom">
             <TextBlock Text="Position the  Brush" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" Margin="24,0,476,0"/>
             <TextBlock x:Name="lblUserName" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" Margin="305,0,0,0" Width="359">Logged User</TextBlock>
+            <Button Width="46" Height="45" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Right" Click="Button_Click_1">
+                <materialDesign:PackIcon Foreground="Black" Kind="Home"  Width="25" Height="25" Margin="-5" />
+            </Button>
         </Grid>
         <Grid x:Name="GridMenu" Width="250" HorizontalAlignment="Left" Background="#FFCCCCCD" Margin="0,0,0,10">
             <Grid Height="50" Width="250" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,-140,0" RenderTransformOrigin="0.741,0.493" >

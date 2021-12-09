@@ -309,6 +309,7 @@
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
     <Compile Include="UseCases\AutomaticBristleClassificationUseCases.cs" />
+    <Compile Include="UseCases\CameraUseCases.cs" />
     <Compile Include="UseCases\DataHandlerUseCases.cs" />
     <Compile Include="UseCases\FirstTimeConfigurationUseCases.cs" />
     <Compile Include="UseCases\NetworkTestUseCases.cs" />

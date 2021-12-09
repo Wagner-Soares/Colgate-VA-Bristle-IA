@@ -503,5 +503,10 @@ namespace Bristle.Views
             Views.Help help = new Views.Help();
             help.Show();       
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            var teste = CameraUseCases.SaveEDOFBitmap();
+        }
     }
 }

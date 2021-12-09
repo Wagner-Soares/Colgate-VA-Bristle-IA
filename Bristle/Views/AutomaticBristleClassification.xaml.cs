@@ -932,7 +932,7 @@ namespace Bristle.Views
                     bi.EndInit();
 
                     StartAnalyzing = true;
-                    businessSystem.SendCommand("S100", (Bitmap)CameraObject.DinoLiteSDK.GrabFrame().Clone(), GeneralSettings.IpPrediction, GeneralSettings.PortPrediction);
+                    businessSystem.SendCommand("S100", new Bitmap(@"C:\Dino-LiteEDOF\EdofImage.bmp"), GeneralSettings.IpPrediction, GeneralSettings.PortPrediction);
                     CameraObject.DinoLiteSDK.GrabFrame().Dispose();
                     businessSystem.Data = "";
 
@@ -1051,7 +1051,7 @@ namespace Bristle.Views
         {
             automaticBristleClassificationPredictionLayer.photo.Visibility = Visibility.Visible;
 
-            Bitmap frame = (Bitmap)CameraObject.DinoLiteSDK.GrabFrame().Clone();
+            Bitmap frame = CameraUseCases.SaveEDOFBitmap();
             CameraObject.DinoLiteSDK.GrabFrame().Dispose();
             if (frame != null)
             {
