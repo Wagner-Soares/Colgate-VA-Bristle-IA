@@ -384,7 +384,7 @@ namespace Bristle.Views
                 }
                 catch(Exception e)
                 {
-                    Log.CustomLog.LogMessage("An error occured while stopping autoFocus: " + e.Message);
+                    //Prevent Crash
                 }
             }
 
@@ -437,7 +437,6 @@ namespace Bristle.Views
             {
                 businessSystem.CameraSettingsModel.Focus = CameraObject.DinoLiteSDK.GetAMR(CameraObject.VideoDeviceIndex);
                 ManualFocusChanged = true;
-                Log.CustomLog.LogMessage("An error occured while manually updating focus: " + e.Message);
             }
         }
 
@@ -2122,10 +2121,10 @@ namespace Bristle.Views
 
                             break;
                     }
-                }
-                automaticBristleClassificationPredictionLayer.photo.Visibility = Visibility.Collapsed;
-                automaticBristleClassificationPredictionLayer.canvasMask.Children.Clear();
-                automaticBristleClassificationPredictionLayer.MultipleSelectionDecision.Visibility = Visibility.Collapsed;
+                    automaticBristleClassificationPredictionLayer.photo.Visibility = Visibility.Collapsed;
+                    automaticBristleClassificationPredictionLayer.canvasMask.Children.Clear();
+                    automaticBristleClassificationPredictionLayer.MultipleSelectionDecision.Visibility = Visibility.Collapsed;
+                }                
             }
             else
             {

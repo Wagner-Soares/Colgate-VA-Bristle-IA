@@ -27,6 +27,7 @@ namespace Bristle.Views
         private Point startPoint;
         private Rectangle maskToMultipleSelection;
         protected bool isDragging;
+        protected bool isDrawing;
         private Point clickPosition;
         readonly AutomaticBristleClassification _automaticBristleClassification;
 
@@ -42,6 +43,21 @@ namespace Bristle.Views
             InitializeComponent();
 
             _automaticBristleClassification = automaticBristleClassification;
+
+            this.MouseLeave += MouseLeaveScreen;
+        }
+
+        private void MouseLeaveScreen(object sender, MouseEventArgs e)
+        {
+            if (EnableSelectMultiple && isDrawing)
+            {
+                isDrawing = false;
+
+                MultipleSelectionDecision.Visibility = Visibility.Visible;
+
+                FocusSelectedRectangles();
+                maskToMultipleSelection = null;
+            }
         }
 
         /// <summary>
@@ -685,6 +701,8 @@ namespace Bristle.Views
         {
             if (EnableSelectMultiple)
             {
+                isDrawing = true;
+
                 BtnCancelMultiple_Click(null, null);
 
                 startPoint = e.GetPosition(canvasMask);
@@ -725,8 +743,10 @@ namespace Bristle.Views
 
         private void CanvasMask_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            if (EnableSelectMultiple)
+            if (EnableSelectMultiple && isDrawing)
             {
+                isDrawing = false;
+
                 MultipleSelectionDecision.Visibility = Visibility.Visible;
 
                 FocusSelectedRectangles();
@@ -786,7 +806,6 @@ namespace Bristle.Views
             canvasMask.Children.Clear();
             canvas.Children.Clear();
             _automaticBristleClassification.DrawBoundingBox();
-            _automaticBristleClassification.TurnToolboxButtonsBackgoundDefault();
         }
 
         private void BtnOkMultiple_Click(object sender, RoutedEventArgs e)
@@ -799,7 +818,6 @@ namespace Bristle.Views
             _automaticBristleClassification.DrawBoundingBox();
             MultipleSelectionDecision.Visibility = Visibility.Collapsed;
             canvasMask.Children.Clear();
-            _automaticBristleClassification.TurnToolboxButtonsBackgoundDefault();
         }
 
         private void BtnError1Multiple_Click(object sender, RoutedEventArgs e)
@@ -824,7 +842,6 @@ namespace Bristle.Views
             _automaticBristleClassification.DrawBoundingBox();
             MultipleSelectionDecision.Visibility = Visibility.Collapsed;
             canvasMask.Children.Clear();
-            _automaticBristleClassification.TurnToolboxButtonsBackgoundDefault();
         }
 
         private void BtnError3Multiple_Click(object sender, RoutedEventArgs e)
@@ -837,7 +854,6 @@ namespace Bristle.Views
             _automaticBristleClassification.DrawBoundingBox();
             MultipleSelectionDecision.Visibility = Visibility.Collapsed;
             canvasMask.Children.Clear();
-            _automaticBristleClassification.TurnToolboxButtonsBackgoundDefault();
         }
 
         private void BtnDeleteAllMultiple_Click(object sender, RoutedEventArgs e)
@@ -850,7 +866,6 @@ namespace Bristle.Views
             _automaticBristleClassification.DrawBoundingBox();
             MultipleSelectionDecision.Visibility = Visibility.Collapsed;
             canvasMask.Children.Clear();
-            _automaticBristleClassification.TurnToolboxButtonsBackgoundDefault();
         }
 
         #endregion
