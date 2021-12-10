@@ -7,11 +7,11 @@
         public const string AdOperatorsGroup = "BRAV_OperatorU";
 
         public const string EndroundTestName = "Arredondamento";
-        public const string TuftTBristleCountTestName = "NPontasSpecT";
-        public const string TuftM1BristleCountTestName = "NPontasSpecM1";
-        public const string TuftM2BristleCountTestName = "NPontasSpecM2";
-        public const string TuftM3BristleCountTestName = "NPontasSpecM3";
-        public const string TuftNBristleCountTestName = "NPontasSpecN";
+        public const string TuftTBristleCountTestName = "AI_NFiosSpec_T";
+        public const string TuftM1BristleCountTestName = "AI_NFiosSpec_M1";
+        public const string TuftM2BristleCountTestName = "AI_NFiosSpec_M2";
+        public const string TuftM3BristleCountTestName = "AI_NFiosSpec_M3";
+        public const string TuftNBristleCountTestName = "AI_NFiosSpec_N";
 
         public const string DefaultCameraConfigurationName = "Default";
         public const string DefaultUserNameMsg = "Logged as: ";

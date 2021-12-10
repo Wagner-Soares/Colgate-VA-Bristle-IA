@@ -148,22 +148,22 @@ namespace Bristle.Views
             nBristlesM1SpecTestResult.ITest_id = _generalSettings.TuftM1BristleCountSpecTest.TestId;
             nBristlesM2SpecTestResult.ITest_id = _generalSettings.TuftM2BristleCountSpecTest.TestId;
             nBristlesM3SpecTestResult.ITest_id = _generalSettings.TuftM3BristleCountSpecTest.TestId;
-            nBristlesTSpecTestResult.ITest_id = _generalSettings.TuftTBristleCountSpecTest.TestId;
+            nBristlesNSpecTestResult.ITest_id = _generalSettings.TuftNBristleCountSpecTest.TestId;
         }
 
         private int ShiftComparison(DateTime dateTime)
         {
             businessSystem.ShiftsModel = _shiftController.ListShiftsModel();
 
-            if(dateTime >= DateTime.Parse(businessSystem.ShiftsModel[0].Shift_start).AddHours(-3) && dateTime <= DateTime.Parse(businessSystem.ShiftsModel[0].Shift_end).AddHours(-3))
+            if(dateTime.AddHours(-3) >= DateTime.Parse(businessSystem.ShiftsModel[0].Shift_start) && dateTime.AddHours(-3) <= DateTime.Parse(businessSystem.ShiftsModel[0].Shift_end))
             {
                 return 1;
             }
-            else if (dateTime >= DateTime.Parse(businessSystem.ShiftsModel[1].Shift_start).AddHours(-3) && dateTime <= DateTime.Parse(businessSystem.ShiftsModel[1].Shift_end).AddHours(-3))
+            else if (dateTime.AddHours(-3) >= DateTime.Parse(businessSystem.ShiftsModel[1].Shift_start) && dateTime.AddHours(-3) <= DateTime.Parse(businessSystem.ShiftsModel[1].Shift_end))
             {
                 return 2;
             }
-            else if (dateTime >= DateTime.Parse(businessSystem.ShiftsModel[2].Shift_start).AddHours(-3) && dateTime <= DateTime.Parse(businessSystem.ShiftsModel[2].Shift_end).AddHours(-3))
+            else if (dateTime.AddHours(-3) >= DateTime.Parse(businessSystem.ShiftsModel[2].Shift_start) && dateTime.AddHours(-3) <= DateTime.Parse(businessSystem.ShiftsModel[2].Shift_end))
             {
                 return 3;
             }
@@ -247,7 +247,7 @@ namespace Bristle.Views
             }
 
             //saving final result in skelta's sample log table
-            if (!(endroundTestResult.Id > 0))
+            if (endroundTestResult.ITest_id > 0)
             {
                 _aI_Sample_LogController.UpdateAI_Sample_log(endroundTestResult);
                 _Sample_LogController.UpdateSample_log(DataHandlerUseCases.ConvertAI_SampleLogToSampleLog(endroundTestResult));
@@ -256,7 +256,7 @@ namespace Bristle.Views
             nBristlesTSpecTestResult.FResult = int.Parse(totalBristleT.Text);
             nBristlesTSpecTestResult.IStatus_id = ReportUseCase.EvaluateTestAndReturnStatus(nBristlesTSpecTestResult.FResult, _generalSettings.TuftTBristleCountSpecTest.TestSpecLowerLimit, _generalSettings.TuftTBristleCountSpecTest.TestSpecUpperLimit);
 
-            if (!(nBristlesTSpecTestResult.Id > 0))
+            if (nBristlesTSpecTestResult.ITest_id > 0)
             {
                 _aI_Sample_LogController.UpdateAI_Sample_log(nBristlesTSpecTestResult);
                 _Sample_LogController.UpdateSample_log(DataHandlerUseCases.ConvertAI_SampleLogToSampleLog(nBristlesTSpecTestResult));
@@ -264,7 +264,7 @@ namespace Bristle.Views
             nBristlesM1SpecTestResult.FResult = int.Parse(totalBristleM1.Text);
             nBristlesM1SpecTestResult.IStatus_id = ReportUseCase.EvaluateTestAndReturnStatus(nBristlesM1SpecTestResult.FResult, _generalSettings.TuftM1BristleCountSpecTest.TestSpecLowerLimit, _generalSettings.TuftM1BristleCountSpecTest.TestSpecUpperLimit);
 
-            if (!(nBristlesM1SpecTestResult.Id > 0))
+            if (nBristlesM1SpecTestResult.ITest_id > 0)
             {
                 _aI_Sample_LogController.UpdateAI_Sample_log(nBristlesM1SpecTestResult);
                 _Sample_LogController.UpdateSample_log(DataHandlerUseCases.ConvertAI_SampleLogToSampleLog(nBristlesM1SpecTestResult));
@@ -273,7 +273,7 @@ namespace Bristle.Views
             nBristlesM2SpecTestResult.FResult = int.Parse(totalBristleM2.Text);
             nBristlesM2SpecTestResult.IStatus_id = ReportUseCase.EvaluateTestAndReturnStatus(nBristlesM2SpecTestResult.FResult, _generalSettings.TuftM2BristleCountSpecTest.TestSpecLowerLimit, _generalSettings.TuftM2BristleCountSpecTest.TestSpecUpperLimit);
 
-            if (!(nBristlesM2SpecTestResult.Id > 0))
+            if (nBristlesM2SpecTestResult.ITest_id > 0)
             {
                 _aI_Sample_LogController.UpdateAI_Sample_log(nBristlesM2SpecTestResult);
                 _Sample_LogController.UpdateSample_log(DataHandlerUseCases.ConvertAI_SampleLogToSampleLog(nBristlesM2SpecTestResult));
@@ -282,7 +282,7 @@ namespace Bristle.Views
             nBristlesM3SpecTestResult.FResult = int.Parse(totalBristleM3.Text);
             nBristlesM3SpecTestResult.IStatus_id = ReportUseCase.EvaluateTestAndReturnStatus(nBristlesM3SpecTestResult.FResult, _generalSettings.TuftM3BristleCountSpecTest.TestSpecLowerLimit, _generalSettings.TuftM3BristleCountSpecTest.TestSpecUpperLimit);
 
-            if (!(nBristlesM3SpecTestResult.Id > 0))
+            if (nBristlesM3SpecTestResult.ITest_id > 0)
             {
                 _aI_Sample_LogController.UpdateAI_Sample_log(nBristlesM3SpecTestResult);
                 _Sample_LogController.UpdateSample_log(DataHandlerUseCases.ConvertAI_SampleLogToSampleLog(nBristlesM3SpecTestResult));
@@ -291,7 +291,7 @@ namespace Bristle.Views
             nBristlesNSpecTestResult.FResult = int.Parse(totalBristleN.Text);
             nBristlesNSpecTestResult.IStatus_id = ReportUseCase.EvaluateTestAndReturnStatus(nBristlesNSpecTestResult.FResult, _generalSettings.TuftNBristleCountSpecTest.TestSpecLowerLimit, _generalSettings.TuftNBristleCountSpecTest.TestSpecUpperLimit);
 
-            if (!(nBristlesNSpecTestResult.Id > 0))
+            if (nBristlesNSpecTestResult.ITest_id > 0)
             {
                 _aI_Sample_LogController.UpdateAI_Sample_log(nBristlesNSpecTestResult);
                 _Sample_LogController.UpdateSample_log(DataHandlerUseCases.ConvertAI_SampleLogToSampleLog(nBristlesNSpecTestResult));
@@ -653,6 +653,7 @@ namespace Bristle.Views
             Thread.Sleep(280);
             Views.UserControl userControl = new UserControl();
             userControl.Show();
+            automaticBristleClassification.Close();
             this.Close();
         }
 
@@ -677,6 +678,7 @@ namespace Bristle.Views
         {
             if (ScreenNavigationUseCases.OpenGeneralReportScreen(businessSystem.UserSystemCurrent, businessSystem.NetworkUserModel, _generalSettings, businessSystem, _colgateSkeltaEntities, maximized))
             {
+                automaticBristleClassification.Close();
                 this.Close();
             }
             else
@@ -688,18 +690,19 @@ namespace Bristle.Views
         private void ButtonHome_Click(object sender, RoutedEventArgs e)
         {
             if (ScreenNavigationUseCases.OpenMainScreen(_generalSettings, businessSystem, _colgateSkeltaEntities, maximized))
+            {
+                automaticBristleClassification.Close();
                 this.Close();
+            }
         }
 
         private void ButtonAutomaticBristleClassification_Click(object sender, RoutedEventArgs e)
         {
-            if (automaticBristleClassification == null)
-            {
-                automaticBristleClassification = new Views.AutomaticBristleClassification(maximized, businessSystem, _colgateSkeltaEntities);
-            }
+            automaticBristleClassification.Close();
 
-            automaticBristleClassification.Live = true;
-            automaticBristleClassification.Show();
+            var automaticBristleClassificationNew = new Views.AutomaticBristleClassification(maximized, businessSystem, _colgateSkeltaEntities);
+
+            automaticBristleClassificationNew.Show();
             this.Close();
         }
 
@@ -726,6 +729,7 @@ namespace Bristle.Views
         {
             if (ScreenNavigationUseCases.OpenNeuralNetworkRetrainingScreen(businessSystem.UserSystemCurrent, businessSystem.NetworkUserModel, _generalSettings, businessSystem, _colgateSkeltaEntities, maximized))
             {
+                automaticBristleClassification.Close();
                 this.Close();
             }
             else
@@ -738,6 +742,7 @@ namespace Bristle.Views
         {
             if (ScreenNavigationUseCases.OpenGeneralSettingsScreen(businessSystem.UserSystemCurrent, businessSystem.NetworkUserModel, _generalSettings, businessSystem, _colgateSkeltaEntities, maximized))
             {
+                automaticBristleClassification.Close();
                 this.Close();
             }
             else
@@ -750,6 +755,7 @@ namespace Bristle.Views
         {
             if (ScreenNavigationUseCases.OpenPasswordScreen(businessSystem.UserSystemCurrent, businessSystem.NetworkUserModel, _generalSettings, businessSystem, _colgateSkeltaEntities, maximized))
             {
+                automaticBristleClassification.Close();
                 this.Close();
             }
             else
@@ -762,6 +768,7 @@ namespace Bristle.Views
         {
             if (ScreenNavigationUseCases.OpenUserScreen(businessSystem.UserSystemCurrent, businessSystem.NetworkUserModel, _generalSettings, businessSystem, _colgateSkeltaEntities, maximized))
             {
+                automaticBristleClassification.Close();
                 this.Close();
             }
             else
