@@ -474,5 +474,26 @@ namespace Bristle.UseCases
 
             return name_;
         }
+
+        public static SampleLogModel ConvertAI_SampleLogToSampleLog(AiSampleLogModel aiSampleLogModel)
+        {
+            return new SampleLogModel
+            {
+                IStatus_id = aiSampleLogModel.IStatus_id,
+                BActive = aiSampleLogModel.BActive,
+                IShift = aiSampleLogModel.IShift,
+                ITest_id = aiSampleLogModel.ITest_id,
+                SEquipament = aiSampleLogModel.SEquipament,
+                SArea = aiSampleLogModel.SArea,
+                SBatchLote = aiSampleLogModel.SBatchLote,
+                DtSample = aiSampleLogModel.DtSample,
+                FResult = aiSampleLogModel.FResult,
+                SOperator = aiSampleLogModel.SOperator,
+                DtPublished_at = aiSampleLogModel.DtPublished_at,
+                SComments = aiSampleLogModel.SComments,
+                SCreated_by = aiSampleLogModel.SCreated_by,
+                DtCreated_at = aiSampleLogModel.DtCreated_at
+            };
+        }
     }
 }

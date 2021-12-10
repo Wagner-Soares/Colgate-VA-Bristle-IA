@@ -24,7 +24,7 @@ namespace APIVision.DAO
 
         public IList<VtuftSet> GetAllVtuftSets()
         {
-            return _colgateSkeltaEntities.VtuftSet.ToList();
+            return _colgateSkeltaEntities.VtuftSets.ToList();
         }
     }
 }

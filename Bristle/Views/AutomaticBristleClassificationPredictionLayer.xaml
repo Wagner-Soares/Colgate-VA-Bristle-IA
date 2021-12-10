@@ -13,7 +13,7 @@
     <Grid x:Name="viewSDKImage" Visibility="Visible" Background="Transparent" Width="auto" MouseMove="FrameHolder_MouseMove"  MouseLeftButtonUp="PerformBristleOperationAccordingToolbox_MouseLeftButtonUp" MouseRightButtonUp="ViewSDKImage_MouseRightButtonUp">
         <Image Name="photo" Visibility="Collapsed"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0,0,0,0" Canvas.Left="0" Canvas.Top="0" Stretch="Fill" StretchDirection="Both" Height="auto" Width="auto"/>
         <Canvas Name="canvas" Visibility="Visible" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="auto"/>
-        <Canvas Name="canvasMask" Visibility="Visible" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  Background="Transparent" MouseDown="CanvasMask_MouseDown" MouseMove="CanvasMask_MouseMove" MouseUp="CanvasMask_MouseUp" />
+        <Canvas Name="canvasMask" Visibility="Visible" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  Background="Transparent" MouseDown="CanvasMask_MouseDown" MouseMove="CanvasMask_MouseMove" MouseUp="CanvasMask_MouseUp"/>
         <!--
                 Para teste Width="0"
                 Original deve ser Width="0"

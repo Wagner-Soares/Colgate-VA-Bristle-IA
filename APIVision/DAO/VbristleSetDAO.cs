@@ -24,7 +24,7 @@ namespace APIVision.DAO
 
         public IList<VbristleSet> GetAllVbristleSets()
         {
-            return _colgateSkeltaEntities.VbristleSet.ToList();
+            return _colgateSkeltaEntities.VbristleSets.ToList();
         }
     }
 }

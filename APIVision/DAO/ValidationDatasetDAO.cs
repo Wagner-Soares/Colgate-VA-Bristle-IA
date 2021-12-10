@@ -24,7 +24,7 @@ namespace APIVision.DAO
 
         public IList<ValidationDataset> GetAllValidationDatasets()
         {
-            return _colgateSkeltaEntities.ValidationDataset.ToList();
+            return _colgateSkeltaEntities.ValidationDatasetSet.ToList();
         }
     }
 }

@@ -24,7 +24,7 @@ namespace APIVision.DAO
 
         public IList<Equipment> GetAllEquipments()
         {
-            return _colgateSkeltaEntities.Equipment.ToList();
+            return _colgateSkeltaEntities.Equipments.ToList();
         }
     }
 }

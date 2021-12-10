@@ -24,7 +24,7 @@ namespace APIVision.DAO
 
         public IList<Shift> GetAllShifts()
         {
-            return _colgateSkeltaEntities.Shift.ToList();
+            return _colgateSkeltaEntities.Shifts.ToList();
         }
     }
 }

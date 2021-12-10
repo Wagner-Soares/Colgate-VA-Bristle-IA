@@ -30,7 +30,7 @@ namespace APIVision.DAO
 
         public IList<UserSystem> GetAllUserSystems()
         {
-            return _colgateSkeltaEntities.UserSystem.ToList();
+            return _colgateSkeltaEntities.UserSystems.ToList();
         }
     }
 }

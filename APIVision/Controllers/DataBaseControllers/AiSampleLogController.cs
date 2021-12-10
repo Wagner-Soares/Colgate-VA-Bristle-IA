@@ -32,13 +32,15 @@ namespace APIVision.Controllers.DataBaseControllers
                         sEquipament = tempInsertSample_log.SEquipament,
                         sArea = tempInsertSample_log.SArea,
                         sBatchLote = tempInsertSample_log.SBatchLote,
-                        dtSample = tempInsertSample_log.DtSample,
+                        dtSample = tempInsertSample_log.DtSample.HasValue
+                                 ? tempInsertSample_log.DtSample.Value.AddHours(-3)
+                                 : (DateTime?)null,
                         fResult = tempInsertSample_log.FResult,
                         sOperator = tempInsertSample_log.SOperator,
-                        dtPublished_at = tempInsertSample_log.DtPublished_at,
-                        sComments = tempInsertSample_log.SComments,
+                        dtPublished_at = tempInsertSample_log.DtPublished_at.AddHours(-3),
+                        sComments = "Teste salvo automaticamente",
                         sCreated_by = tempInsertSample_log.SCreated_by,
-                        dtCreated_at = tempInsertSample_log.DtCreated_at
+                        dtCreated_at = tempInsertSample_log.DtCreated_at.AddHours(-3)
                     };
                     _aiSampleLogRepo.Create(insertDB);
                 }

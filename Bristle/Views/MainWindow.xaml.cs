@@ -121,6 +121,8 @@ namespace Bristle.Views
                 this.WindowState = WindowState.Normal;
                 maximized = false;
             }
+
+            lblUserName.Text = ConfigurationConstants.DefaultUserNameMsg + businessSystem.UserSystemCurrent.Name;
         }
 
         private void ReleaseMenu(Object myObject, EventArgs myEventArgs)
@@ -433,7 +435,7 @@ namespace Bristle.Views
 
         private void ButtonNeuralNetworkRetraining_Click(object sender, RoutedEventArgs e)
         {
-            if (ScreenNavigationUseCases.OpenGeneralSettingsScreen(businessSystem.UserSystemCurrent, businessSystem.NetworkUserModel, _generalSettings, businessSystem, _colgateSkeltaEntities, maximized))
+            if (ScreenNavigationUseCases.OpenNeuralNetworkRetrainingScreen(businessSystem.UserSystemCurrent, businessSystem.NetworkUserModel, _generalSettings, businessSystem, _colgateSkeltaEntities, maximized))
             {
                 this.Close();
             }

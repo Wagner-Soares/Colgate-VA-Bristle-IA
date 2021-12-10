@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Threading;
 using System.Windows.Media;
+using Microsoft.Win32;
 
 namespace Bristle.Views
 {
@@ -32,7 +33,7 @@ namespace Bristle.Views
 
         private readonly UserSystemController _userSystemController;
 
-        private ColgateSkeltaEntities _colgateSkeltaEntities = new ColgateSkeltaEntities();
+        private readonly ColgateSkeltaEntities _colgateSkeltaEntities = new ColgateSkeltaEntities();
 
         public UserControl()
         {            
@@ -88,6 +89,15 @@ namespace Bristle.Views
             txtDomain.Text = UserControlUseCases.GetDomainName();
 
             timerToLogIn.Tick += new EventHandler(LogInUser);
+
+            SystemEvents.SessionEnding += new SessionEndingEventHandler(SystemEvents_SessionEnding);
+            SystemEvents.SessionSwitch += new SessionSwitchEventHandler(SystemEvents_SessionEnding);
+            SystemEvents.PowerModeChanged += new PowerModeChangedEventHandler(SystemEvents_SessionEnding);
+        }
+
+        void SystemEvents_SessionEnding(object myObject, EventArgs eventArgs)
+        {
+            ShutdownSystem();
         }
 
         private void ButtonValidateUser_Click(object sender, RoutedEventArgs e)
@@ -100,44 +110,50 @@ namespace Bristle.Views
         }
 
         private void ValidateUser()
-        {            
-
-            if (!DomainValidateUser())
+        {
+            try
             {
-                bool ValidatePassword = false;
-
-                foreach (var v in businessSystem.UserSystemModels)
+                if (!DomainValidateUser())
                 {
-                    if (user.Text == v.Name)
+                    bool ValidatePassword = false;
+
+                    foreach (var v in businessSystem.UserSystemModels)
                     {
-                        businessSystem.UserSystemCurrent.Name = v.Name;
-                        businessSystem.UserSystemCurrent.Type = v.Type;
-                        ValidatePassword = UserControlUseCases.ValidatePassword(password.Password, v.Salt, v.Key);
+                        if (user.Text == v.Name)
+                        {
+                            businessSystem.UserSystemCurrent.Name = v.Name;
+                            businessSystem.UserSystemCurrent.Type = v.Type;
+                            ValidatePassword = UserControlUseCases.ValidatePassword(password.Password, v.Salt, v.Key);
+                        }
                     }
-                }
 
-                if (ValidatePassword)
-                {
-                    this.Hide();
-                    Views.MainWindow mainWindow = new Views.MainWindow(true, businessSystem, _colgateSkeltaEntities);
-                    mainWindow.ShowDialog();
+                    if (ValidatePassword)
+                    {
+                        this.Hide();
+                        Views.MainWindow mainWindow = new Views.MainWindow(true, businessSystem, _colgateSkeltaEntities);
+                        mainWindow.ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Access Denied!");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Access Denied!");
+                    Log.CustomLog.LogMessage("Successfully logged using domain user: " + user.Text.Substring(user.Text.IndexOf(@"\") + 1) + " Domain: " + (user.Text
+                                                                                                                                                .Contains(@"\") ? user.Text
+                                                                                                                                                                .Substring(0, user.Text
+                                                                                                                                                                             .IndexOf(@"\")) : "mf"));
+
+                    Views.MainWindow mainWindow = new Views.MainWindow(true, businessSystem, _colgateSkeltaEntities);
+                    mainWindow.ShowDialog();
+                    this.Hide();
+
                 }
             }
-            else
+            catch
             {
-                Log.CustomLog.LogMessage("Successfully logged using domain user: " + user.Text.Substring(user.Text.IndexOf(@"\")+1) + " Domain: " + (user.Text
-                                                                                                                                            .Contains(@"\") ? user.Text
-                                                                                                                                                            .Substring(0,user.Text
-                                                                                                                                                                         .IndexOf(@"\")) : "mf" ));
-
-                Views.MainWindow mainWindow = new Views.MainWindow(true, businessSystem, _colgateSkeltaEntities);
-                mainWindow.ShowDialog();
-                this.Hide();
-                
+                //Error while loging
             }
         }
 
@@ -186,7 +202,7 @@ namespace Bristle.Views
                 {
                     //use case nl1 domain
 
-                    if (user.Text.Substring(0, user.Text.IndexOf(@"\")) == "nl1")
+                    if (user.Text.ToLower().Substring(0, user.Text.IndexOf(@"\")) == "nl1")
                     {
                         domain = domain
                             .Replace(domain.Substring(0, domain.IndexOf('.')),
@@ -239,7 +255,7 @@ namespace Bristle.Views
             {
                 string domain = UserControlUseCases.GetDomainName();
 
-                if (user.Text.Substring(0, user.Text.IndexOf(@"\")) == "nl1")
+                if (user.Text.ToLower().Substring(0, user.Text.IndexOf(@"\")) == "nl1")
                 {
                     domain = domain
                         .Replace(domain.Substring(0, domain.IndexOf('.')),
@@ -265,7 +281,7 @@ namespace Bristle.Views
         {
             if(e.Key == Key.Enter)
             {
-                ValidateUser();
+                ButtonValidateUser_Click(null, null);
             }
             else if(e.Key == Key.Tab)
             {
@@ -288,11 +304,10 @@ namespace Bristle.Views
         }
 
         private void ShutdownSystem()
-        {
-            DataHandlerUseCases.CMD("./StopSocketAI.vbs");
-
+        {   
             try
             {
+                DataHandlerUseCases.CMD("./StopSocketAI.vbs");
                 DataHandlerUseCases.CMD("./DelSocketAI.vbs");
             }
             catch (Exception e)
@@ -307,20 +322,21 @@ namespace Bristle.Views
                 CameraObject.DinoLiteSDK.Preview = false;
                 CameraObject.DinoLiteSDK.Connected = false;
                 CameraObject.DinoLiteSDK.PreviewScale = false;
+
+                Process prC = Process.GetCurrentProcess();
+                foreach (Process pr2 in Process.GetProcessesByName("Bristle"))
+                {
+                    if (!pr2.HasExited && (pr2.Id != prC.Id))
+                    {
+                        pr2.Kill();
+                    }
+                }
             }
             catch(Exception e)
             {
                 Log.CustomLog.LogMessage("Error while stopping camera services: " + e.Message);
             }
-
-            Process prC = Process.GetCurrentProcess();
-            foreach (Process pr2 in Process.GetProcessesByName("Bristle"))
-            {
-                if (!pr2.HasExited && (pr2.Id != prC.Id))
-                {
-                    pr2.Kill();
-                }
-            }
+                        
             Application.Current.Shutdown();
             System.Environment.Exit(1);
         }           
@@ -329,20 +345,27 @@ namespace Bristle.Views
         {
             timerToLogIn.Stop();
 
+            ValidateUser();
+
             user.Text = string.Empty;
             password.Clear();
 
             ButtonValidateUser.Background = Brushes.Red;
             ButtonValidateUser.IsEnabled = true;
+        }
 
-            businessSystem.NetworkUserModel.NetworkUserGroup = new string[] { "BRVA_TB_ WonderwareAdminsU" };
-            businessSystem.UserSystemCurrent.Name = "Iago";
-
-            _colgateSkeltaEntities = new ColgateSkeltaEntities();
+        private void ButtonValidateUser_Copy_Click(object sender, RoutedEventArgs e)
+        {
+            this.Hide();
             Views.MainWindow mainWindow = new Views.MainWindow(true, businessSystem, _colgateSkeltaEntities);
             mainWindow.ShowDialog();
+        }
 
+        private void ButtonValidateUser_Copy_Click_1(object sender, RoutedEventArgs e)
+        {
             this.Hide();
+            Views.MainWindow mainWindow = new Views.MainWindow(true, businessSystem, _colgateSkeltaEntities);
+            mainWindow.ShowDialog();
         }
     }
 }

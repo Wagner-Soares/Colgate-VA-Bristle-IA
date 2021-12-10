@@ -162,6 +162,504 @@
     <Compile Include="SKU.cs">
       <DependentUpon>ColgateSkelta4.tt</DependentUpon>
     </Compile>
+    <Compile Include="SP_S_AllData10_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_AllData11_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_AllData1_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_AllData2_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_AllData3_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_AllData4_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_AllData5_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_AllData6_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_AllData7_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_AllData8_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_AllData_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_Equipment10_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_Equipment11_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_Equipment1_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_Equipment2_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_Equipment3_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_Equipment4_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_Equipment5_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_Equipment6_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_Equipment7_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_Equipment8_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_Equipment_2020051110_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_Equipment_2020051111_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_Equipment_202005111_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_Equipment_202005112_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_Equipment_202005113_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_Equipment_202005114_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_Equipment_202005115_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_Equipment_202005116_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_Equipment_202005117_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_Equipment_202005118_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_Equipment_20200511_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_Equipment_2020052710_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_Equipment_2020052711_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_Equipment_202005271_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_Equipment_202005272_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_Equipment_202005273_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_Equipment_202005274_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_Equipment_202005275_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_Equipment_202005276_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_Equipment_202005277_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_Equipment_202005278_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_Equipment_20200527_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_Equipment_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU10_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU11_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU1_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU2_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU3_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU4_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU5_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU6_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU7_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU8_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_2020050710_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_2020050711_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_202005071_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_202005072_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_202005073_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_202005074_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_202005075_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_202005076_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_202005077_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_202005078_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_20200507_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_2020050810_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_2020050811_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_202005081_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_202005082_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_202005083_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_202005084_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_202005085_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_202005086_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_202005087_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_202005088_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_20200508_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_2020051110_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_2020051111_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_202005111_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_202005112_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_202005113_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_202005114_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_202005115_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_202005116_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_202005117_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_202005118_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_20200511_0210_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_20200511_0211_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_20200511_021_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_20200511_022_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_20200511_023_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_20200511_024_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_20200511_025_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_20200511_026_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_20200511_027_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_20200511_028_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_20200511_02_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_20200511_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_2020051510_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_2020051511_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_202005151_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_202005152_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_202005153_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_202005154_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_202005155_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_202005156_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_202005157_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_202005158_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_20200515_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_2020052710_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_2020052711_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_202005271_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_202005272_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_202005273_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_202005274_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_202005275_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_202005276_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_202005277_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_202005278_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_20200527_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnCPKValues_SKU_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnValues10_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnValues11_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnValues1_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnValues2_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnValues3_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnValues4_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnValues5_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnValues6_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnValues7_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnValues8_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_ReturnValues_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_SampleValues10_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_SampleValues11_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_SampleValues1_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_SampleValues2_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_SampleValues3_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_SampleValues4_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_SampleValues5_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_SampleValues6_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_SampleValues7_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_SampleValues8_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_SampleValues_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_Specs10_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_Specs11_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_Specs1_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_Specs2_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_Specs3_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_Specs4_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_Specs5_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_Specs6_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_Specs7_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_Specs8_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_Specs9_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_Specs_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_TestSpec10_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_TestSpec11_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_TestSpec1_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_TestSpec2_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_TestSpec3_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_TestSpec4_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_TestSpec5_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_TestSpec6_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_TestSpec7_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_TestSpec8_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_S_TestSpec_Result.cs">
+      <DependentUpon>ColgateSkelta4.tt</DependentUpon>
+    </Compile>
     <Compile Include="sysdiagram.cs">
       <DependentUpon>ColgateSkelta4.tt</DependentUpon>
     </Compile>

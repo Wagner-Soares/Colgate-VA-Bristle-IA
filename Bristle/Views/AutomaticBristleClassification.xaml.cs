@@ -223,6 +223,8 @@ namespace Bristle.Views
                 this.WindowState = WindowState.Normal;
                 Maximized = false;
             }
+
+            lblUserName.Text = ConfigurationConstants.DefaultUserNameMsg + businessSystem.UserSystemCurrent.Name;
         }
 
         private void TimerStatusLayout_Tick(object sender, EventArgs e)
@@ -382,7 +384,7 @@ namespace Bristle.Views
                 }
                 catch(Exception e)
                 {
-                    Log.CustomLog.LogMessage("An error occured while stopping autoFocus: " + e.Message);
+                    //Prevent Crash
                 }
             }
 
@@ -435,7 +437,6 @@ namespace Bristle.Views
             {
                 businessSystem.CameraSettingsModel.Focus = CameraObject.DinoLiteSDK.GetAMR(CameraObject.VideoDeviceIndex);
                 ManualFocusChanged = true;
-                Log.CustomLog.LogMessage("An error occured while manually updating focus: " + e.Message);
             }
         }
 
@@ -2120,8 +2121,10 @@ namespace Bristle.Views
 
                             break;
                     }
-                }
-                automaticBristleClassificationPredictionLayer.photo.Visibility = Visibility.Collapsed;
+                    automaticBristleClassificationPredictionLayer.photo.Visibility = Visibility.Collapsed;
+                    automaticBristleClassificationPredictionLayer.canvasMask.Children.Clear();
+                    automaticBristleClassificationPredictionLayer.MultipleSelectionDecision.Visibility = Visibility.Collapsed;
+                }                
             }
             else
             {
@@ -2229,6 +2232,24 @@ namespace Bristle.Views
                                                                                 .GetQM_SpecByTestId(item.Id);
                 }
             }
+
+            if (GeneralSettings.EndroundSpecTest == null)
+                GeneralSettings.EndroundSpecTest = new TestSpecificationModel();
+
+            if (GeneralSettings.TuftTBristleCountSpecTest == null)
+                GeneralSettings.TuftTBristleCountSpecTest = new TestSpecificationModel();
+
+            if (GeneralSettings.TuftM1BristleCountSpecTest == null)
+                GeneralSettings.TuftM1BristleCountSpecTest = new TestSpecificationModel();
+
+            if (GeneralSettings.TuftM2BristleCountSpecTest == null)
+                GeneralSettings.TuftM2BristleCountSpecTest = new TestSpecificationModel();
+
+            if (GeneralSettings.TuftM3BristleCountSpecTest == null)
+                GeneralSettings.TuftM3BristleCountSpecTest = new TestSpecificationModel();
+
+            if (GeneralSettings.TuftNBristleCountSpecTest == null)
+                GeneralSettings.TuftNBristleCountSpecTest = new TestSpecificationModel();
 
             testSelect.SelectedIndex = 0;
 
@@ -3608,6 +3629,8 @@ namespace Bristle.Views
 
         private void MoveBrislte_Click(object sender, MouseButtonEventArgs e)
         {
+            automaticBristleClassificationPredictionLayer.EnableBoundignBoxMove = true;
+            automaticBristleClassificationPredictionLayer.EnableSelectMultiple = false;
             ToolboxOperation = 80;
             automaticBristleClassificationPredictionLayer.canvasMask.Visibility = Visibility.Collapsed;
             automaticBristleClassificationPredictionLayer.EnableSelectMultiple = false;
@@ -3828,6 +3851,8 @@ namespace Bristle.Views
         private void BtnSelectMultiple_Click(object sender, RoutedEventArgs e)
         {
             SelectMultiple_MouseUp(null, null);
+
+            ToolboxOperation = -1;
 
             TurnToolboxButtonsBackgoundDefault();
 
