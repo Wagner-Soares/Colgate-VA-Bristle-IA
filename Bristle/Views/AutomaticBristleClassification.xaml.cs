@@ -932,7 +932,16 @@ namespace Bristle.Views
                     bi.EndInit();
 
                     StartAnalyzing = true;
-                    businessSystem.SendCommand("S100", new Bitmap(@"C:\Dino-LiteEDOF\EdofImage.bmp"), GeneralSettings.IpPrediction, GeneralSettings.PortPrediction);
+
+                    System.Drawing.Bitmap img;
+
+                    using (Bitmap bm = new Bitmap(@"C:\Dino-LiteEDOF\EdofImage.bmp"))
+                    {
+                        img = new Bitmap(bm);
+                    }
+
+                    var rect = new Rectangle(0, 0, 2592, 1944);
+                    businessSystem.SendCommand("S100", (Bitmap)img, GeneralSettings.IpPrediction, GeneralSettings.PortPrediction);
                     CameraObject.DinoLiteSDK.GrabFrame().Dispose();
                     businessSystem.Data = "";
 

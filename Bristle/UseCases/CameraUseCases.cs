@@ -16,13 +16,9 @@ namespace Bristle.UseCases
         {
             string filePath = @"C:\Dino-LiteEDOF\EdofImage.bmp";
 
-            bool fileExist = File.Exists(filePath);
-
             CameraObject.DinoLiteSDK.SaveEDOF(1, 5, filePath);
 
-            fileExist = false;
-
-            while(!File.Exists(filePath))
+            while (!File.Exists(filePath))
             {
                 Thread.Sleep(1000);
             }
@@ -41,7 +37,15 @@ namespace Bristle.UseCases
                 Thread.Sleep(1000);
             } while (length == 0);
 
-            return new Bitmap(filePath);
+
+            System.Drawing.Bitmap img;
+
+            using (Bitmap bm = new Bitmap(filePath))
+            {
+                img = new Bitmap(bm);
+            }
+
+            return img;
         }
     }
 }
